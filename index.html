@@ -6,7 +6,7 @@
     <title>Narendhiran Vijayakumar · Robotics Researcher</title>
     <meta
       name="description"
-      content="Minimal profile site for Narendhiran Vijayakumar highlighting robotics and AI experience, publications, and leadership."
+      content="Profile site for Narendhiran Vijayakumar highlighting robotics & AI experience, publications, projects, leadership, and contact details."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,18 +16,47 @@
     />
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
-  <body>
+  <body data-theme="light">
     <header class="site-header" aria-label="Primary navigation">
-      <div class="container header-inner">
+      <div class="container header__inner">
         <a class="brand" href="#top">Narendhiran Vijayakumar</a>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">
-          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
-            <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
-          </svg>
-          <span>Menu</span>
-          <span class="sr-only">Toggle navigation</span>
-        </button>
-        <nav id="site-navigation" class="site-nav" aria-label="Main">
+        <div class="header__actions">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode">
+            <span class="sr-only">Toggle theme</span>
+            <svg class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true" viewBox="0 0 24 24">
+              <path
+                d="M12 4.5V2m0 20v-2.5m7.78-12.28L21.5 6.5m-19 11 1.72-1.72M4.5 12H2m20 0h-2.5m-3.9 5.9 1.77 1.77M5.4 5.4 7.17 7.17M12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <svg class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true" viewBox="0 0 24 24">
+              <path
+                d="M20.45 14.35A8.5 8.5 0 0 1 9.65 3.55 8.5 8.5 0 1 0 20.45 14.35Z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <button
+            class="nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="site-navigation"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+              <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+            <span>Menu</span>
+          </button>
+        </div>
+        <nav id="site-navigation" class="site-nav" aria-label="Main navigation" data-open="false">
           <a href="#about">About</a>
           <a href="#experience">Experience</a>
           <a href="#publications">Publications</a>
@@ -41,108 +70,172 @@
 
     <main id="top">
       <section id="about" class="section hero">
-        <div class="container hero__inner">
+        <div class="container hero__grid">
           <div class="hero__content">
             <p class="eyebrow">Robotics &amp; AI</p>
             <h1>Robotics researcher focused on dependable autonomy</h1>
-            <p>
+            <p class="hero__lead">
               I build perception, motion planning, and learning systems that can leave the lab. My work blends
-              mechanical engineering fundamentals with practical machine learning to deliver reliable, human-centered
-              robotics.
+              mechanical engineering fundamentals with practical machine learning to deliver reliable, human‑centered robotics.
             </p>
+            <div class="hero__interests" aria-label="Research interests">
+              <span class="interest-chip">Embodied AI</span>
+              <span class="interest-chip">Task &amp; Motion Planning</span>
+              <span class="interest-chip">Robotics</span>
+            </div>
+            <ul class="hero__bio" aria-label="Profile details">
+              <li><span class="hero__bio-label">Based in</span><span>Chennai, India</span></li>
+              <li>
+                <span class="hero__bio-label">Education</span
+                ><span>B.Tech Mechanical Engineering · Minor in CS · NIT Tiruchirappalli (2022–2026)</span>
+              </li>
+              <li>
+                <span class="hero__bio-label">Contact</span
+                ><span><a href="mailto:narendhiranv.nitt@gmail.com">narendhiranv.nitt@gmail.com</a></span>
+              </li>
+            </ul>
             <div class="button-row">
               <a
                 class="button primary"
                 href="https://drive.google.com/file/d/1SyGD0DjldZzbLfe_uZA7Cfn02GoxvzdS/view?usp=sharing"
                 target="_blank"
                 rel="noopener"
-                >View CV</a
               >
-              <a class="button" href="https://www.linkedin.com/in/narendhiranv04" target="_blank" rel="noopener"
-                >LinkedIn</a
-              >
-              <a class="button" href="https://github.com/Narendhiranv04" target="_blank" rel="noopener">GitHub</a>
+                <span class="button__icon" aria-hidden="true">
+                  <svg viewBox="0 0 20 20">
+                    <path
+                      d="M10 3v10m0 0 3.5-3.5M10 13l-3.5-3.5M5 15h10"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+                <span>View CV</span>
+              </a>
+              <a class="button" href="https://www.linkedin.com/in/narendhiranv04" target="_blank" rel="noopener">
+                <span class="button__icon" aria-hidden="true">
+                  <svg viewBox="0 0 20 20">
+                    <path
+                      d="M5.4 7.2H3.2v9.6h2.2V7.2Zm-.1-4A1.4 1.4 0 1 0 3.9 4.6 1.4 1.4 0 0 0 5.3 3.2ZM16.8 11a3.6 3.6 0 0 0-3.6-3.6 3.3 3.3 0 0 0-2.4 1h-.1V7.2H8.6v9.6h2.2v-5.1c0-1.3.6-2.2 1.8-2.2s1.7.9 1.7 2.2v5.1h2.5Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </span>
+                <span>LinkedIn</span>
+              </a>
+              <a class="button" href="https://github.com/Narendhiranv04" target="_blank" rel="noopener">
+                <span class="button__icon" aria-hidden="true">
+                  <svg viewBox="0 0 20 20">
+                    <path
+                      d="M10 1.8a8.2 8.2 0 0 0-2.6 16c.4.1.5-.2.5-.4v-1.5c-1.9.4-2.3-.9-2.3-.9a1.8 1.8 0 0 0-.8-1.1c-.7-.5.1-.5.1-.5a1.4 1.4 0 0 1 1 .7c.7 1.1 1.9.8 2.4.6a1.7 1.7 0 0 1 .5-1.1c-1.7-.2-3.5-.9-3.5-3.9a3 3 0 0 1 .8-2.1 2.8 2.8 0 0 1 .1-2s.7-.2 2.2.8a7.6 7.6 0 0 1 4 0c1.5-1 2.2-.8 2.2-.8a2.8 2.8 0 0 1 .1 2 3 3 0 0 1 .8 2.1c0 3-1.8 3.7-3.5 3.9a1.9 1.9 0 0 1 .5 1.5v2.2c0 .2.1.5.5.4A8.2 8.2 0 0 0 10 1.8Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </span>
+                <span>GitHub</span>
+              </a>
             </div>
           </div>
-          <ul class="fact-list" aria-label="Quick facts">
-            <li>
-              <span class="fact-label">Location</span>
-              <span>Chennai, India</span>
-            </li>
-            <li>
-              <span class="fact-label">Education</span>
-              <span>B.Tech Mechanical Engineering · Minor in Computer Science · NIT Tiruchirappalli (2022–2026)</span>
-            </li>
-            <li>
-              <span class="fact-label">Interests</span>
-              <span>Embodied AI, robotic perception, human-robot interaction</span>
-            </li>
-            <li>
-              <span class="fact-label">Contact</span>
-              <span>
-                <a href="mailto:narendhiranv.nitt@gmail.com">narendhiranv.nitt@gmail.com</a><br />
-                <a href="tel:+919444749184">+91 94447 49184</a>
-              </span>
-            </li>
-          </ul>
+          <div class="hero__spotlight">
+            <div class="hero__card">
+              <p class="hero__card-label">Currently</p>
+              <p class="hero__card-body">
+                Prototyping intention‑aware locomotion controllers and safety envelopes for assistive exoskeletons at
+                Monash University.
+              </p>
+            </div>
+            <div class="hero__card hero__card--stacked">
+              <p class="hero__card-label">Recent highlights</p>
+              <ul class="hero__timeline">
+                <li>Top‑15 finish at SAE AeroTHON 2024 with a custom autonomy stack for quadcopters.</li>
+                <li>Publishing a hybrid‑attention drivable‑area segmentation pipeline from IIT Bombay research.</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section id="experience" class="section">
+      <section id="experience" class="section experience">
         <div class="container">
           <div class="section-intro">
             <p class="eyebrow">Experience</p>
             <h2>Research and engineering roles</h2>
-            <p>I bring applied machine learning into real-time control loops for autonomous systems.</p>
+            <p>I bring applied machine learning into real‑time control loops for autonomous systems.</p>
           </div>
-          <div class="stack">
-            <article class="item-card">
-              <h3>Monash University · Research Intern</h3>
-              <p class="item-meta">January 2025 – May 2025</p>
-              <ul class="item-list">
-                <li>
-                  Built a lightweight GRU architecture that matched attention-LSTM accuracy for sit-to-walk torque
-                  prediction while reducing inference latency by 25%.
-                </li>
-                <li>
-                  Embedded a Mamdani fuzzy controller in an ONNX-powered C/C++ runtime to guarantee sub-2&nbsp;ms response
-                  for exoskeleton actuation.
-                </li>
-              </ul>
-            </article>
-            <article class="item-card">
-              <h3>IIT Bombay · Summer Research Intern</h3>
-              <p class="item-meta">June 2024 – September 2024</p>
-              <ul class="item-list">
-                <li>
-                  Authored APUD, ASPP-Lite, and RBRM modules to improve multi-scale context capture in drivable-area
-                  segmentation for resource-constrained robots.
-                </li>
-                <li>
-                  Delivered state-of-the-art mIoU and F1-scores on Gazebo and GMRPD datasets, outperforming YOLOP in dense
-                  scenes.
-                </li>
-              </ul>
-            </article>
-            <article class="item-card">
-              <h3>NIT Tiruchirappalli · Student Researcher</h3>
-              <p class="item-meta">2023 – 2024</p>
-              <ul class="item-list">
-                <li>
-                  Crafted real-time performance feedback for Bharatanatyam using temporal alignment and skeletal
-                  keypoints tailored to classical dance.
-                </li>
-                <li>
-                  Implemented YOLOv5-OBB on FAIR1M to capture rotated bounding boxes and benchmarked a novel fIoU metric
-                  against modern detectors.
-                </li>
-              </ul>
-            </article>
+          <div class="timeline" data-animate-line>
+            <ol class="timeline__list">
+              <li class="timeline__item" style="--index: 0">
+                <div class="timeline__node">
+                  <img src="assets/img/logos/monash.svg" alt="Monash University logo" />
+                </div>
+                <div class="timeline__body">
+                  <div class="timeline__header">
+                    <h3>Monash University</h3>
+                    <p class="timeline__meta">Research Intern · Jan 2025 – May 2025</p>
+                  </div>
+                  <ul class="timeline__points">
+                    <li>
+                      Built a lightweight GRU that matches attention‑LSTM accuracy for sit‑to‑walk torque prediction
+                      while reducing inference latency by 25%.
+                    </li>
+                    <li>
+                      Embedded a Mamdani fuzzy controller in an ONNX‑powered C/C++ runtime to guarantee sub‑2&nbsp;ms
+                      actuation for exoskeleton joints.
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="timeline__item" style="--index: 1">
+                <div class="timeline__node">
+                  <img src="assets/img/logos/iit-bombay.svg" alt="IIT Bombay logo" />
+                </div>
+                <div class="timeline__body">
+                  <div class="timeline__header">
+                    <h3>IIT Bombay</h3>
+                    <p class="timeline__meta">Summer Research Intern · Jun 2024 – Sep 2024</p>
+                  </div>
+                  <ul class="timeline__points">
+                    <li>
+                      Authored APUD, ASPP‑Lite, and RBRM modules to capture multi‑scale context in drivable‑area
+                      segmentation for resource‑constrained platforms.
+                    </li>
+                    <li>
+                      Delivered state‑of‑the‑art mIoU and F1 scores on Gazebo and GMRPD benchmarks, outperforming YOLOP
+                      in dense traffic scenes.
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="timeline__item" style="--index: 2">
+                <div class="timeline__node">
+                  <img src="assets/img/logos/nit-trichy.svg" alt="NIT Tiruchirappalli logo" />
+                </div>
+                <div class="timeline__body">
+                  <div class="timeline__header">
+                    <h3>NIT Tiruchirappalli</h3>
+                    <p class="timeline__meta">Student Researcher · 2023 – 2024</p>
+                  </div>
+                  <ul class="timeline__points">
+                    <li>
+                      Crafted real‑time performance feedback for Bharatanatyam using temporal alignment and skeletal
+                      keypoints tuned for classical dance sequences.
+                    </li>
+                    <li>
+                      Implemented YOLOv5‑OBB on FAIR1M to capture rotated bounding boxes and benchmarked a novel fIoU
+                      metric against modern detectors.
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ol>
           </div>
         </div>
       </section>
 
-      <section id="publications" class="section">
+      <section id="publications" class="section publications">
         <div class="container">
           <div class="section-intro">
             <p class="eyebrow">Publications</p>
@@ -150,62 +243,85 @@
           </div>
           <ol class="publication-list">
             <li>
-              <h3>Robotic Perception Through Drivable Area Segmentation Using a Hybrid Attention-Guided Approach</h3>
-              <p class="item-meta">IEEE Transactions on Artificial Intelligence · under review</p>
+              <article>
+                <h3>Robotic Perception Through Drivable Area Segmentation Using a Hybrid Attention‑Guided Approach</h3>
+                <p class="item-meta">IEEE Transactions on Artificial Intelligence · under review</p>
+              </article>
             </li>
             <li>
-              <h3>Fuzzy Logic–GRU Framework for Real-Time Sit-to-Walk Joint Torque Estimation in Robotic Exoskeletons</h3>
-              <p class="item-meta">IEEE Transactions on Neural Networks and Learning Systems · in draft</p>
+              <article>
+                <h3>Fuzzy Logic–GRU Framework for Real‑Time Sit‑to‑Walk Joint Torque Estimation in Robotic Exoskeletons</h3>
+                <p class="item-meta">IEEE Transactions on Neural Networks and Learning Systems · in draft</p>
+              </article>
             </li>
             <li>
-              <h3>
-                Design and Structural Validation of a Sub-2&nbsp;kg Autonomous Micro-UAV with On-Board Dynamic Route
-                Planning
-              </h3>
-              <p class="item-meta">Mechatronics and Robotics Engineering (MRAE) 2025 Conference · in draft</p>
+              <article>
+                <h3>Design and Structural Validation of a Sub‑2&nbsp;kg Autonomous Micro‑UAV with On‑Board Dynamic Route Planning</h3>
+                <p class="item-meta">Mechatronics and Robotics Engineering (MRAE) 2025 Conference · in draft</p>
+              </article>
             </li>
           </ol>
         </div>
       </section>
 
-      <section id="projects" class="section">
+      <section id="projects" class="section projects">
         <div class="container">
-          <div class="section-intro">
+          <div class="section-head">
             <p class="eyebrow">Projects</p>
-            <h2>Selected work from competitions and side labs</h2>
+            <h2>Selected builds</h2>
           </div>
-          <div class="stack stack--two">
-            <article class="item-card">
-              <h3>Autonomous UAS — SAE AeroTHON 2024</h3>
-              <p class="item-meta">April 2024 – November 2024</p>
-              <p>
-                Led avionics and autonomy for a top-15 quadcopter, fusing Pixhawk and Raspberry Pi controllers with ROS&nbsp;2
-                comms and NCNN-optimized SSDMobileNet-v2 detectors for 20&nbsp;ms tracking.
-              </p>
+          <div class="project-grid">
+            <article class="project-card" style="--index: 0">
+              <div class="project-card__media" aria-hidden="true">
+                <div class="project-card__placeholder">Image coming soon</div>
+              </div>
+              <div class="project-card__content">
+                <h3>Autonomous UAS — SAE AeroTHON 2024</h3>
+                <p class="project-card__meta">April 2024 – November 2024</p>
+                <p>
+                  Led avionics and autonomy for a top‑15 quadcopter, fusing Pixhawk and Raspberry Pi controllers with
+                  ROS&nbsp;2 comms and NCNN‑optimized SSDMobileNet‑v2 detectors for 20&nbsp;ms tracking.
+                </p>
+              </div>
             </article>
-            <article class="item-card">
-              <h3>PixelBot — Smart India Hackathon 2024</h3>
-              <p class="item-meta">August 2024 – September 2024</p>
-              <p>
-                Built a multimodal assistant that blends LLaVA, SAM2, and GLIGEN for segmentation, inpainting, and visual
-                reasoning with long-term context.
-              </p>
+            <article class="project-card" style="--index: 1">
+              <div class="project-card__media" aria-hidden="true">
+                <div class="project-card__placeholder">Image coming soon</div>
+              </div>
+              <div class="project-card__content">
+                <h3>PixelBot — Smart India Hackathon 2024</h3>
+                <p class="project-card__meta">August 2024 – September 2024</p>
+                <p>
+                  Built a multimodal assistant blending LLaVA, SAM2, and GLIGEN for segmentation, inpainting, and visual
+                  reasoning with persistent memory.
+                </p>
+              </div>
             </article>
-            <article class="item-card">
-              <h3>MathWorks Minidrone Challenge</h3>
-              <p class="item-meta">July 2024 – August 2024</p>
-              <p>
-                Created a computer-vision guidance stack for the Parrot Mambo using adaptive morphology, cascaded PID
-                control, and virtual target tracking.
-              </p>
+            <article class="project-card" style="--index: 2">
+              <div class="project-card__media" aria-hidden="true">
+                <div class="project-card__placeholder">Image coming soon</div>
+              </div>
+              <div class="project-card__content">
+                <h3>MathWorks Minidrone Challenge</h3>
+                <p class="project-card__meta">July 2024 – August 2024</p>
+                <p>
+                  Created a computer‑vision guidance stack for the Parrot Mambo using adaptive morphology, cascaded PID
+                  control, and virtual target tracking for agile indoor flight.
+                </p>
+              </div>
             </article>
-            <article class="item-card">
-              <h3>Occlusion-Aware Navigation Toolkit</h3>
-              <p class="item-meta">March 2024</p>
-              <p>
-                Authored a Python toolkit that computes tangent arcs, masks occlusions, and generates tunable circular
-                trajectories from right-angle start poses.
-              </p>
+            <article class="project-card" style="--index: 3">
+              <div class="project-card__media" aria-hidden="true">
+                <div class="project-card__placeholder">Image coming soon</div>
+              </div>
+              <div class="project-card__content">
+                <h3>Occlusion‑Aware Navigation Toolkit</h3>
+                <p class="project-card__meta">March 2024</p>
+                <p>
+                  Authored a Python toolkit to compute tangent arcs, mask occlusions, and generate tunable circular
+                  trajectories from right‑angle start poses.
+                </p>
+              </div>
             </article>
           </div>
         </div>
@@ -215,7 +331,7 @@
         <div class="container">
           <div class="section-intro">
             <p class="eyebrow">Skills</p>
-            <h2>A systems mindset backed by hands-on tooling</h2>
+            <h2>A systems mindset backed by hands‑on tooling</h2>
           </div>
           <div class="skill-grid">
             <div class="skill-card">
@@ -224,7 +340,7 @@
             </div>
             <div class="skill-card">
               <h3>Frameworks &amp; Libraries</h3>
-              <p>PyTorch, TensorFlow, Keras, OpenCV, scikit-learn, MediaPipe</p>
+              <p>PyTorch, TensorFlow, Keras, OpenCV, scikit‑learn, MediaPipe</p>
             </div>
             <div class="skill-card">
               <h3>Robotics &amp; Control</h3>
@@ -236,20 +352,20 @@
             </div>
             <div class="skill-card">
               <h3>Embedded Platforms</h3>
-              <p>Raspberry Pi, Arduino, Pixhawk, Micro XRCE-DDS, Linux</p>
+              <p>Raspberry Pi, Arduino, Pixhawk, Micro XRCE‑DDS, Linux</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="leadership" class="section">
+      <section id="leadership" class="section leadership">
         <div class="container">
-          <div class="section-intro">
+          <div class="section-head">
             <p class="eyebrow">Leadership</p>
-            <h2>Helping communities build with confidence</h2>
+            <h2>Communities I help grow</h2>
           </div>
-          <div class="stack stack--two">
-            <article class="item-card">
+          <div class="leadership-grid">
+            <article class="leadership-card">
               <h3>Technical Head · Third Dimension Aeromodelling Club</h3>
               <p class="item-meta">March 2024 – Present</p>
               <p>
@@ -257,28 +373,28 @@
                 Trichy in national competitions.
               </p>
             </article>
-            <article class="item-card">
+            <article class="leadership-card">
               <h3>Vice President · Maximus Math &amp; Physics Society</h3>
               <p class="item-meta">May 2025 – Present</p>
               <p>
-                Leads project-based learning across mathematical modelling and physics-informed ML while mentoring juniors
-                through research pipelines.
+                Leads project‑based learning across mathematical modelling and physics‑informed ML while mentoring junior
+                members through research pipelines.
               </p>
             </article>
-            <article class="item-card">
+            <article class="leadership-card">
               <h3>Workshops Manager · Synergy Symposium</h3>
               <p class="item-meta">November 2023 – Present</p>
               <p>
-                Orchestrates robotics workshops end-to-end, from speaker engagements to logistics for the flagship
+                Orchestrates robotics workshops end‑to‑end, from speaker engagements to logistics for the flagship
                 mechanical engineering symposium.
               </p>
             </article>
-            <article class="item-card">
+            <article class="leadership-card">
               <h3>STEM Outreach &amp; Public Relations</h3>
               <p class="item-meta">March 2023 – July 2024</p>
               <p>
                 Led IGNITTE physics mentoring, directed Pragyan public relations for 1,500+ attendees, and delivered
-                robotics demonstrations that inspired school students.
+                robotics demonstrations for school students.
               </p>
             </article>
           </div>

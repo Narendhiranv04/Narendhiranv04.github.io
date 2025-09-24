@@ -1,0 +1,18 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Monash University">
+  <defs>
+    <linearGradient id="monash-gradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#monash-gradient)" />
+  <path
+    d="M18 46V20l14 12 14-12v26h-6V31L32 38.2 24 31v15h-6Z"
+    fill="#f8fafc"
+    stroke="#f8fafc"
+    stroke-width="2"
+    stroke-linejoin="round"
+  />
+  <circle cx="20" cy="18" r="4" fill="#f8fafc" opacity="0.6" />
+  <circle cx="44" cy="18" r="4" fill="#f8fafc" opacity="0.6" />
+</svg>
