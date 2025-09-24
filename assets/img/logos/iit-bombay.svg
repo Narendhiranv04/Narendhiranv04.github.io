@@ -1,0 +1,22 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="IIT Bombay">
+  <defs>
+    <linearGradient id="iitb-gradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0ea5e9" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#iitb-gradient)" />
+  <g fill="#f8fafc">
+    <path
+      d="M32 15.5 28.5 13l-3 5-5-3L19 18.5l5 3-3 5 2.5 2.5 3-5 5 3 2.5-2.5-5-3 3-5Z"
+      opacity="0.85"
+    />
+    <path
+      d="M45 28a13 13 0 1 0-26 0 13 13 0 0 0 26 0Zm-21.5 0a8.5 8.5 0 1 1 17 0 8.5 8.5 0 0 1-17 0Z"
+      opacity="0.9"
+    />
+    <text x="32" y="44" text-anchor="middle" font-family="'Inter', sans-serif" font-weight="700" font-size="12">
+      IITB
+    </text>
+  </g>
+</svg>
