@@ -131,7 +131,7 @@
             <p class="hero__eyebrow" data-animate>Robotics &amp; dependable autonomy</p>
             <h1 data-animate style="--hero-delay: 0.05s">Hi, I'm Narendhiran Vijayakumar</h1>
             <p class="hero__lead" data-animate style="--hero-delay: 0.15s">
-              I'm an undergraduate student at NIT Tiruchirappalli. I love researching about robotics. lately I've been finding myself read more about embodied AI and world manipulation models.
+              I'm an undergraduate student at NIT Tiruchirappalli. I love researching about robotics. Lately I've been reading more about embodied AI and world manipulation models.
             </p>
             <div class="hero__interests" aria-label="Focus areas" data-animate style="--hero-delay: 0.45s">
               <span class="interest-chip">Human-centered robotics</span>
@@ -415,29 +415,6 @@
         <div class="container">
           <div class="section-intro">
             <p class="eyebrow">Skills</p>
-            <h2>A systems mindset backed by hands‑on tooling</h2>
-          </div>
-          <div class="skill-grid">
-            <div class="skill-card">
-              <h3>Languages</h3>
-              <p>Python, C, C++, MATLAB, Bash</p>
-            </div>
-            <div class="skill-card">
-              <h3>Frameworks &amp; Libraries</h3>
-              <p>PyTorch, TensorFlow, Keras, OpenCV, scikit‑learn, MediaPipe</p>
-            </div>
-            <div class="skill-card">
-              <h3>Robotics &amp; Control</h3>
-              <p>ROS&nbsp;2, PX4, MAVROS, Ardupilot, Gazebo, QGroundControl</p>
-            </div>
-            <div class="skill-card">
-              <h3>Tools</h3>
-              <p>Git, Docker, Jupyter, LabelImg, Roboflow, Librosa, SciPy</p>
-            </div>
-            <div class="skill-card">
-              <h3>Embedded Platforms</h3>
-              <p>Raspberry Pi, Arduino, Pixhawk, Micro XRCE‑DDS, Linux</p>
-            </div>
           </div>
         </div>
       </section>
@@ -545,10 +522,8 @@
         }
         function updateThemeUI() {
           const t = body.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-          const label = themeToggle && themeToggle.getAttribute('aria-label');
           if (themeToggle) {
             themeToggle.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
-            // show proper icon via CSS classes (icons handled in CSS)
           }
         }
         updateThemeUI();
