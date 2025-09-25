@@ -1,7 +1,7 @@
-/* Merged main.js (conflicts resolved) */
 (() => {
   'use strict';
 
+  const root = document.documentElement;
   const body = document.body;
   const navToggle = document.querySelector('.nav-toggle');
   const siteNav = document.querySelector('.site-nav');
@@ -27,7 +27,13 @@
   // Theme handling
   const applyTheme = (theme, persist = true) => {
     if (!body) return;
-    body.dataset.theme = theme;
+    if (root) {
+      root.setAttribute('data-theme', theme);
+      root.style.colorScheme = theme === 'dark' ? 'dark' : 'light';
+    }
+    if (body) {
+      body.dataset.theme = theme;
+    }
     if (themeToggle) {
       const label = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
       themeToggle.setAttribute('aria-label', label);
