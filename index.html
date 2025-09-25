@@ -72,6 +72,9 @@
             <span class="sr-only">Email</span>
           </a>
         </div>
+
+        <a class="brand" href="#top">Narendhiran · Portfolio</a>
+
         <div class="header__actions">
           <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode">
             <span class="sr-only">Toggle theme</span>
@@ -108,6 +111,7 @@
             <span>Menu</span>
           </button>
         </div>
+
         <nav id="site-navigation" class="site-nav" aria-label="Main navigation" data-open="false">
           <a href="#about">About</a>
           <a href="#experience">Experience</a>
@@ -124,72 +128,40 @@
       <section id="about" class="section hero">
         <div class="container hero__grid">
           <div class="hero__content">
-            <h1 data-animate style="--hero-delay: 0.05s">
-              <span class="no-wrap">Narendhiran Vijayakumar</span>
-            </h1>
-            <p class="hero__tagline" data-animate style="--hero-delay: 0.18s">
-              Undergraduate robotics researcher at NIT Tiruchirappalli designing autonomy that earns people’s trust.
+            <p class="hero__eyebrow" data-animate>Robotics &amp; dependable autonomy</p>
+            <h1 data-animate style="--hero-delay: 0.05s">Hi, I'm Narendhiran Vijayakumar</h1>
+            <p class="hero__lead" data-animate style="--hero-delay: 0.15s">
+              I'm an undergraduate student at NIT Tiruchirappalli. I love researching about robotics. lately I've been finding myself read more about embodied AI and world manipulation models.
             </p>
-            <p class="hero__summary" data-animate style="--hero-delay: 0.32s">
-              I prototype perception, control, and decision-making systems that ship on drones, exoskeletons, and vision-guided platforms—bridging research with dependable field deployments.
-            </p>
-            <ul class="hero__highlights" data-animate style="--hero-delay: 0.48s">
+            <div class="hero__interests" aria-label="Focus areas" data-animate style="--hero-delay: 0.45s">
+              <span class="interest-chip">Human-centered robotics</span>
+              <span class="interest-chip">Dependable autonomy</span>
+              <span class="interest-chip">Learning for control</span>
+            </div>
+            <ul class="hero__facts" data-animate style="--hero-delay: 0.6s" aria-label="Highlights">
               <li>
-                <span class="hero__highlight-icon" aria-hidden="true">
-                  <svg viewBox="0 0 20 20" focusable="false">
-                    <path
-                      d="m4.5 10.5 3.2 3.2 7.8-7.8"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.6"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </span>
+                <span class="hero__fact-icon" aria-hidden="true">🎓</span>
                 <div>
-                  <p class="hero__highlight-title">Human-centered robotics</p>
-                  <p class="hero__highlight-text">Fusing fuzzy logic and neural networks to keep exoskeleton assistance safe, fast, and comfortable.</p>
+                  <p class="hero__fact-title">Undergraduate Researcher · NIT Tiruchirappalli</p>
+                  <p class="hero__fact-text">B.Tech Mechanical Engineering with a CS minor · Class of 2026</p>
                 </div>
               </li>
               <li>
-                <span class="hero__highlight-icon" aria-hidden="true">
-                  <svg viewBox="0 0 20 20" focusable="false">
-                    <path
-                      d="m4.5 10.5 3.2 3.2 7.8-7.8"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.6"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </span>
+                <span class="hero__fact-icon" aria-hidden="true">🛠️</span>
                 <div>
-                  <p class="hero__highlight-title">Field-ready autonomy</p>
-                  <p class="hero__highlight-text">Deploying perception stacks on UAVs and ground robots that cope with cluttered, changing environments.</p>
+                  <p class="hero__fact-title">Engineering robots that leave the lab</p>
+                  <p class="hero__fact-text">From exoskeleton torque prediction to drivable-area perception, I craft systems that stay reliable under real-world pressure.</p>
                 </div>
               </li>
               <li>
-                <span class="hero__highlight-icon" aria-hidden="true">
-                  <svg viewBox="0 0 20 20" focusable="false">
-                    <path
-                      d="m4.5 10.5 3.2 3.2 7.8-7.8"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.6"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </span>
+                <span class="hero__fact-icon" aria-hidden="true">🌍</span>
                 <div>
-                  <p class="hero__highlight-title">Collaborative engineering</p>
-                  <p class="hero__highlight-text">Leading multidisciplinary teams from concept to competition-ready prototypes with real-world impact.</p>
+                  <p class="hero__fact-title">Based in Chennai, India</p>
+                  <p class="hero__fact-text">Collaborating with teams at Monash University and IIT Bombay to push dependable autonomy forward.</p>
                 </div>
               </li>
             </ul>
-            <div class="button-row" data-animate style="--hero-delay: 0.68s">
+            <div class="button-row" data-animate style="--hero-delay: 0.75s">
               <a
                 class="button primary"
                 href="https://drive.google.com/file/d/1SyGD0DjldZzbLfe_uZA7Cfn02GoxvzdS/view?usp=sharing"
@@ -555,6 +527,100 @@
         </div>
       </div>
     </footer>
+
+    <script>
+      // small inline helpers for nav, theme toggle and current year
+      document.addEventListener('DOMContentLoaded', function () {
+        // current year
+        const y = new Date().getFullYear();
+        const el = document.getElementById('current-year');
+        if (el) el.textContent = y;
+
+        // theme toggle: toggles data-theme on body and persists to localStorage
+        const themeToggle = document.querySelector('[data-theme-toggle]');
+        const body = document.body;
+        const stored = window.localStorage.getItem('td-theme');
+        if (stored === 'dark' || stored === 'light') {
+          body.setAttribute('data-theme', stored);
+        }
+        function updateThemeUI() {
+          const t = body.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+          const label = themeToggle && themeToggle.getAttribute('aria-label');
+          if (themeToggle) {
+            themeToggle.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+            // show proper icon via CSS classes (icons handled in CSS)
+          }
+        }
+        updateThemeUI();
+        if (themeToggle) {
+          themeToggle.addEventListener('click', function () {
+            const next = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', next);
+            window.localStorage.setItem('td-theme', next);
+            updateThemeUI();
+          });
+        }
+
+        // nav toggle
+        const nav = document.getElementById('site-navigation');
+        const navToggle = document.querySelector('.nav-toggle');
+        if (nav && navToggle) {
+          navToggle.addEventListener('click', function () {
+            const open = nav.getAttribute('data-open') === 'true';
+            nav.setAttribute('data-open', String(!open));
+            navToggle.setAttribute('aria-expanded', String(!open));
+            nav.classList.toggle('open');
+          });
+          // close on link click
+          nav.querySelectorAll('a').forEach(function (a) {
+            a.addEventListener('click', function () {
+              nav.setAttribute('data-open', 'false');
+              navToggle.setAttribute('aria-expanded', 'false');
+              nav.classList.remove('open');
+            });
+          });
+        }
+
+        // smooth anchors
+        document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+          anchor.addEventListener('click', function (e) {
+            const targetId = anchor.getAttribute('href');
+            if (!targetId || targetId === '#') return;
+            const target = document.querySelector(targetId);
+            if (!target) return;
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            try { history.replaceState(null, '', targetId); } catch (err) {}
+          });
+        });
+
+        // simple reveal for elements with data-animate
+        const observer = new IntersectionObserver(function (entries, obs) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.setAttribute('data-animated', 'true');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.18 });
+        document.querySelectorAll('[data-animate]').forEach(function (el) { observer.observe(el); });
+        // timeline reveal
+        const timeline = document.querySelector('.timeline');
+        if (timeline) {
+          const list = timeline.querySelectorAll('.timeline__item');
+          const tlObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                timeline.classList.add('is-visible');
+                entry.target.classList.add('is-visible');
+                tlObserver.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.12 });
+          list.forEach(function (li) { tlObserver.observe(li); });
+        }
+      });
+    </script>
 
     <script src="assets/js/main.js" defer></script>
   </body>
