@@ -69,6 +69,10 @@ body {
   transition: background-color var(--transition-base), color var(--transition-base);
 }
 
+.no-wrap {
+  white-space: nowrap;
+}
+
 a {
   color: var(--accent);
   text-decoration: none;
@@ -179,12 +183,51 @@ main section {
   padding: 1.1rem 0;
 }
 
-.brand {
-  font-weight: 600;
-  font-size: 1rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text);
+.header__socials {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.header__social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base),
+    box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.header__social-link svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.header__social-link:hover,
+.header__social-link:focus-visible {
+  background: var(--color-accent-soft);
+  border-color: color-mix(in srgb, var(--accent) 32%, var(--line));
+  color: var(--accent);
+  box-shadow: var(--shadow-xs);
+  transform: translateY(-1px);
+}
+
+body[data-theme='dark'] .header__social-link {
+  background: color-mix(in srgb, var(--surface) 85%, rgba(96, 165, 250, 0.22));
+  border-color: color-mix(in srgb, var(--line) 55%, transparent);
+  color: color-mix(in srgb, var(--muted) 75%, #fff 25%);
+}
+
+body[data-theme='dark'] .header__social-link:hover,
+body[data-theme='dark'] .header__social-link:focus-visible {
+  background: color-mix(in srgb, rgba(96, 165, 250, 0.32) 70%, transparent);
+  border-color: color-mix(in srgb, rgba(147, 197, 253, 0.7) 60%, transparent);
+  color: #fff;
 }
 
 .header__actions {
@@ -341,6 +384,10 @@ body[data-theme='dark'] .theme-toggle__icon--moon {
   color: color-mix(in srgb, var(--text) 86%, var(--muted));
   font-size: clamp(1.05rem, 2.6vw, 1.2rem);
   line-height: 1.7;
+}
+
+.hero__lead + .hero__lead {
+  color: var(--muted);
 }
 
 .hero__summary {
@@ -592,6 +639,74 @@ body[data-theme='dark'] .hero__portrait::before {
   justify-content: center;
   align-items: center;
   position: relative;
+}
+
+.hero__spotlight::before {
+  content: '';
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  width: clamp(22rem, 45vw, 30rem);
+  height: clamp(22rem, 45vw, 30rem);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.22), transparent 65%);
+  filter: blur(12px);
+  opacity: 0.75;
+  transform: translate(-50%, -20%);
+  z-index: 0;
+}
+
+.hero__portrait-frame {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero__portrait {
+  position: relative;
+  width: clamp(240px, 42vw, 420px);
+  aspect-ratio: 3 / 4;
+  border-radius: 28px;
+  padding: 6px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.75), rgba(14, 165, 233, 0.55));
+  box-shadow: 0 26px 60px rgba(15, 23, 42, 0.22);
+  overflow: hidden;
+  animation: hero-float 9s ease-in-out infinite;
+}
+
+.hero__portrait::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: 22px;
+  border: 1px dashed color-mix(in srgb, var(--line) 75%, transparent);
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--surface) 92%, transparent) 0%, color-mix(in srgb, var(--color-accent-soft) 70%, transparent) 100%),
+    repeating-linear-gradient(135deg, rgba(37, 99, 235, 0.08) 0 12px, transparent 12px 24px);
+}
+
+.hero__portrait::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.25), transparent 35%);
+  mix-blend-mode: screen;
+  opacity: 0.6;
+}
+
+.hero__portrait-caption {
+  margin: 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--muted) 75%, var(--text));
+
 }
 
 .hero__spotlight::before {
