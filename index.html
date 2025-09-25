@@ -19,7 +19,7 @@
   <body data-theme="light">
     <header class="site-header" aria-label="Primary navigation">
       <div class="container header__inner">
-        <a class="brand" href="#top">Narendhiran Vijayakumar</a>
+        <a class="brand" href="#top">Narendhiran · Portfolio</a>
         <div class="header__actions">
           <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode">
             <span class="sr-only">Toggle theme</span>
@@ -72,28 +72,40 @@
       <section id="about" class="section hero">
         <div class="container hero__grid">
           <div class="hero__content">
-            <h1>Narendhiran Vijayakumar</h1>
-            <p class="hero__lead">
-              I build perception, motion planning, and learning systems that can leave the lab. My work blends
-              mechanical engineering fundamentals with practical machine learning to deliver reliable, human‑centered robotics.
+            <p class="hero__eyebrow" data-animate>Robotics &amp; dependable autonomy</p>
+            <h1 data-animate style="--hero-delay: 0.05s">Hi, I'm Narendhiran Vijayakumar</h1>
+            <p class="hero__lead" data-animate style="--hero-delay: 0.15s">
+              I'm an undergraduate student at NIT Tiruchirappalli. I love researching about robotics. lately I've been finding myself read more about embodied AI and world manipulation models.
             </p>
-            <div class="hero__interests" aria-label="Research interests">
-              <span class="interest-chip">Embodied AI</span>
-              <span class="interest-chip">Task &amp; Motion Planning</span>
-              <span class="interest-chip">Robotics</span>
+            <div class="hero__interests" aria-label="Focus areas" data-animate style="--hero-delay: 0.45s">
+              <span class="interest-chip">Human-centered robotics</span>
+              <span class="interest-chip">Dependable autonomy</span>
+              <span class="interest-chip">Learning for control</span>
             </div>
-            <ul class="hero__bio" aria-label="Profile details">
-              <li><span class="hero__bio-label">Based in</span><span>Chennai, India</span></li>
+            <ul class="hero__facts" data-animate style="--hero-delay: 0.6s" aria-label="Highlights">
               <li>
-                <span class="hero__bio-label">Education</span
-                ><span>B.Tech Mechanical Engineering · Minor in CS · NIT Tiruchirappalli (2022–2026)</span>
+                <span class="hero__fact-icon" aria-hidden="true">🎓</span>
+                <div>
+                  <p class="hero__fact-title">Undergraduate Researcher · NIT Tiruchirappalli</p>
+                  <p class="hero__fact-text">B.Tech Mechanical Engineering with a CS minor · Class of 2026</p>
+                </div>
               </li>
               <li>
-                <span class="hero__bio-label">Contact</span
-                ><span><a href="mailto:narendhiranv.nitt@gmail.com">narendhiranv.nitt@gmail.com</a></span>
+                <span class="hero__fact-icon" aria-hidden="true">🛠️</span>
+                <div>
+                  <p class="hero__fact-title">Engineering robots that leave the lab</p>
+                  <p class="hero__fact-text">From exoskeleton torque prediction to drivable-area perception, I craft systems that stay reliable under real-world pressure.</p>
+                </div>
+              </li>
+              <li>
+                <span class="hero__fact-icon" aria-hidden="true">🌍</span>
+                <div>
+                  <p class="hero__fact-title">Based in Chennai, India</p>
+                  <p class="hero__fact-text">Collaborating with teams at Monash University and IIT Bombay to push dependable autonomy forward.</p>
+                </div>
               </li>
             </ul>
-            <div class="button-row">
+            <div class="button-row" data-animate style="--hero-delay: 0.75s">
               <a
                 class="button primary"
                 href="https://drive.google.com/file/d/1SyGD0DjldZzbLfe_uZA7Cfn02GoxvzdS/view?usp=sharing"
@@ -113,6 +125,29 @@
                   </svg>
                 </span>
                 <span>View CV</span>
+              </a>
+              <a class="button" href="mailto:narendhiranv.nitt@gmail.com">
+                <span class="button__icon" aria-hidden="true">
+                  <svg viewBox="0 0 20 20">
+                    <path
+                      d="M3.5 5.5h13a1 1 0 0 1 1 1v7.8a1 1 0 0 1-1 1h-13a1 1 0 0 1-1-1V6.5a1 1 0 0 1 1-1Z"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.4"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="m4 7 6 4 6-4"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.4"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+                <span>Email</span>
               </a>
               <a class="button" href="https://www.linkedin.com/in/narendhiranv04" target="_blank" rel="noopener">
                 <span class="button__icon" aria-hidden="true">
@@ -138,7 +173,7 @@
               </a>
             </div>
           </div>
-          <div class="hero__spotlight">
+          <div class="hero__spotlight" data-animate style="--hero-delay: 0.45s">
             <figure class="hero__portrait-frame">
               <div
                 class="hero__portrait"
