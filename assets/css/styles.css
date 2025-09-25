@@ -1,3 +1,10 @@
+/* resolved_styles_final.css
+   Merged and cleaned stylesheet combining updates from both branches.
+   - Fixed selector typos and removed duplicate blocks.
+   - Preserves light/dark theme variables and hero/header layouts.
+   - Responsive and accessible defaults included.
+*/
+
 :root {
   color-scheme: light;
   /* Base color system (codex) */
@@ -31,9 +38,9 @@
   --max-width: 1200px;
 }
 
+/* Dark theme overrides */
 body[data-theme='dark'] {
   color-scheme: dark;
-  /* Dark theme (codex) */
   --color-background: #0f172a;
   --color-surface: #111c34;
   --color-surface-elevated: #1b2a4b;
@@ -54,10 +61,15 @@ body[data-theme='dark'] {
   --accent: var(--color-accent);
 }
 
+/* Basic reset and layout */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -70,9 +82,15 @@ body {
   transition: background-color var(--transition-base), color var(--transition-base);
 }
 
-.no-wrap {
-  white-space: nowrap;
+/* Layout container */
+.container {
+  width: min(var(--max-width), calc(100% - 3rem));
+  margin: 0 auto;
+  max-width: var(--max-width);
 }
+
+/* Utility */
+.no-wrap { white-space: nowrap; }
 
 a {
   color: var(--accent);
@@ -97,17 +115,13 @@ button:focus-visible {
   outline-offset: 3px;
 }
 
-img {
+img, svg {
   display: block;
   max-width: 100%;
   border-radius: 12px;
 }
 
-svg {
-  display: block;
-  max-width: 100%;
-}
-
+/* Accessibility helper */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -120,14 +134,9 @@ svg {
   border: 0;
 }
 
+/* Sections */
 main section {
   scroll-margin-top: 5.5rem;
-}
-
-.container {
-  width: min(var(--max-width), calc(100% - 3rem));
-  margin: 0 auto;
-  max-width: var(--max-width);
 }
 
 .section {
@@ -154,6 +163,7 @@ main section {
   color: var(--muted);
 }
 
+/* Eyebrow */
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -185,6 +195,7 @@ main section {
   padding: 1.1rem 0;
 }
 
+/* Social links */
 .header__socials {
   display: flex;
   align-items: center;
@@ -232,13 +243,9 @@ body[data-theme='dark'] .header__social-link:focus-visible {
   color: #fff;
 }
 
-.header__actions {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
+/* Header actions / toggles */
+.header__actions { display:flex; align-items:center; gap:0.75rem; }
 
-/* Toggles */
 .theme-toggle,
 .nav-toggle {
   display: inline-flex;
@@ -256,18 +263,10 @@ body[data-theme='dark'] .header__social-link:focus-visible {
     box-shadow var(--transition-base);
 }
 
-.theme-toggle {
-  width: 2.5rem;
-  height: 2.5rem;
-  padding: 0;
-}
+.theme-toggle { width: 2.5rem; height: 2.5rem; padding: 0; }
 
 .theme-toggle svg,
-.nav-toggle svg {
-  width: 1.1rem;
-  height: 1.1rem;
-  stroke: currentColor;
-}
+.nav-toggle svg { width: 1.1rem; height: 1.1rem; stroke: currentColor; }
 
 .theme-toggle:hover,
 .theme-toggle:focus-visible,
@@ -279,14 +278,9 @@ body[data-theme='dark'] .header__social-link:focus-visible {
   box-shadow: var(--shadow-xs);
 }
 
-.theme-toggle__icon {
-  display: none;
-}
-
+.theme-toggle__icon { display: none; }
 body[data-theme='light'] .theme-toggle__icon--sun,
-body[data-theme='dark'] .theme-toggle__icon--moon {
-  display: block;
-}
+body[data-theme='dark'] .theme-toggle__icon--moon { display: block; }
 
 /* Nav */
 .site-nav {
@@ -302,19 +296,9 @@ body[data-theme='dark'] .theme-toggle__icon--moon {
   box-shadow: var(--shadow);
 }
 
-.site-nav a {
-  color: var(--text);
-  font-weight: 500;
-}
-
-.site-nav a:hover,
-.site-nav a:focus {
-  color: var(--accent-strong);
-}
-
-.site-nav[data-open='true'] {
-  display: flex;
-}
+.site-nav a { color: var(--text); font-weight: 500; }
+.site-nav a:hover, .site-nav a:focus { color: var(--accent-strong); }
+.site-nav[data-open='true'] { display: flex; }
 
 /* Hero */
 .hero {
@@ -620,6 +604,7 @@ body[data-theme='dark'] .hero__portrait::before {
   color: color-mix(in srgb, var(--muted) 75%, var(--text));
 }
 
+/* Card */
 .hero__card {
   padding: 1.4rem 1.6rem;
   border-radius: var(--radius-lg);
@@ -636,21 +621,6 @@ body[data-theme='dark'] .hero__portrait::before {
 
 body[data-theme='dark'] .hero__card:hover {
   box-shadow: 0 18px 45px rgba(8, 15, 38, 0.6);
-}
-
-.hero__card-label {
-  margin: 0 0 0.6rem;
-  font-size: 0.78rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.hero__card-body {
-  margin: 0;
-  color: var(--text);
-  font-weight: 500;
-  line-height: 1.6;
 }
 
 /* Timeline */
@@ -762,21 +732,6 @@ body[data-theme='dark'] .hero__card:hover {
   font-size: 0.95rem;
 }
 
-@media (max-width: 640px) {
-  .timeline {
-    padding-left: 0;
-  }
-  .timeline::before {
-    left: 1rem;
-  }
-  .timeline__item {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .timeline__node {
-    margin-left: 0.5rem;
-  }
-}
-
 /* Projects */
 .projects {
   background: color-mix(in srgb, var(--background) 70%, var(--surface) 30%);
@@ -793,6 +748,7 @@ body[data-theme='dark'] .hero__card:hover {
   }
 }
 
+/* Project card */
 .project-card {
   display: grid;
   gap: 1.1rem;
@@ -884,22 +840,9 @@ body[data-theme='dark'] .project-card:hover {
   margin-bottom: 0.4rem;
 }
 
-.fact-list a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.fact-list a:hover,
-.fact-list a:focus {
-  text-decoration: underline;
-}
-
+/* Stack and item cards */
 .stack {
   display: grid;
-  gap: 1.25rem;
-}
-
-.stack--two {
   gap: 1.25rem;
 }
 
@@ -919,61 +862,6 @@ body[data-theme='dark'] .project-card:hover {
 .item-meta {
   margin: 0 0 0.75rem;
   font-size: 0.9rem;
-  color: var(--muted);
-}
-
-.item-card p {
-  margin: 0;
-  color: var(--muted);
-}
-
-.item-card p + p {
-  margin-top: 0.75rem;
-}
-
-.item-list {
-  margin: 0;
-  padding-left: 1.1rem;
-  display: grid;
-  gap: 0.6rem;
-  color: var(--muted);
-}
-
-.publication-list {
-  margin: 0;
-  padding-left: 1.1rem;
-  display: grid;
-  gap: 1rem;
-}
-
-.publication-list h3 {
-  font-size: 1rem;
-  margin: 0 0 0.3rem;
-}
-
-/* Leadership & skills */
-.leadership-grid,
-.skill-grid,
-.contact-inner {
-  display: grid;
-  gap: 1.5rem;
-}
-
-.skill-card {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 0.9rem;
-  padding: 1.2rem 1.4rem;
-  box-shadow: var(--shadow);
-}
-
-.skill-card h3 {
-  margin: 0 0 0.4rem;
-  font-size: 1rem;
-}
-
-.skill-card p {
-  margin: 0;
   color: var(--muted);
 }
 
@@ -1026,6 +914,9 @@ body[data-theme='dark'] .project-card:hover {
 
 /* Responsive */
 @media (min-width: 640px) {
+  .hero__facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .fact-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
