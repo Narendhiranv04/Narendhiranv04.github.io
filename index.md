@@ -12,6 +12,7 @@ title: Narendhiran Vijayakumar — Robotics Researcher
       <a class="button button--outline" href="https://drive.google.com/file/d/1SyGD0DjldZzbLfe_uZA7Cfn02GoxvzdS/view?usp=sharing" target="_blank" rel="noopener">View CV</a>
     </div>
   </div>
+
   <div class="hero__panels">
     <div class="hero__panel">
       <h2 class="hero__panel-title">Focus areas</h2>
@@ -22,11 +23,18 @@ title: Narendhiran Vijayakumar — Robotics Researcher
       </ul>
     </div>
     <div class="hero__panel">
+      <h2 class="hero__panel-title">Recent work</h2>
+      <ul>
+        <li>Optimising exoskeleton joint control as a research intern at Monash University.</li>
+        <li>Delivering robust drivable-area segmentation with IIT Bombay's autonomous systems group.</li>
+      </ul>
+    </div>
+    <div class="hero__panel">
       <h2 class="hero__panel-title">Connect</h2>
       <ul>
         <li><a href="mailto:narendhiranv.nitt@gmail.com">narendhiranv.nitt@gmail.com</a></li>
         <li><a href="https://www.linkedin.com/in/narendhiranv04" target="_blank" rel="noopener">LinkedIn</a></li>
-        <li><a href="https://github.com/Narendhiranv04" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://github.com/NarendhiranV04" target="_blank" rel="noopener">GitHub</a></li>
       </ul>
     </div>
   </div>
