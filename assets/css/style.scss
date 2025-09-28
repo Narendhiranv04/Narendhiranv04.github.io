@@ -3,6 +3,7 @@
 
 @import "{{ site.theme }}";
 
+/* CSS Custom Properties (Light + Dark Themes) */
 :root {
   --page-max-width: 960px;
   --bg: #ffffff;
@@ -28,6 +29,7 @@ html[data-theme='dark'] {
   --shadow: 0 18px 36px rgba(15, 23, 42, 0.55);
 }
 
+/* Base Layout */
 body {
   background-color: var(--bg);
   color: var(--text);
@@ -44,6 +46,7 @@ main {
   gap: 3.5rem;
 }
 
+/* Links */
 a {
   color: var(--accent);
   text-decoration-color: rgba(3, 102, 214, 0.2);
@@ -57,50 +60,97 @@ a:focus {
   text-decoration-color: currentColor;
 }
 
+/* Hero Section */
 .hero {
   display: grid;
-  gap: 2rem;
+  /* Chose larger gap from codex branch for more spacious layout */
+  gap: 2.5rem;
+}
+
+.hero__intro {
+  display: grid;
+  gap: 1.25rem;
 }
 
 .hero__tagline {
   font-size: 1.25rem;
   font-weight: 500;
-  max-width: 52ch;
+  /* Expanded to 60ch from codex; was 52ch */
+  max-width: 60ch;
 }
 
+/* Legacy grid (main) retained for backward compatibility */
 .hero__grid {
   display: grid;
   gap: 1.5rem;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
-.hero__column-title {
-  font-size: 0.875rem;
+/* New panel grid (codex branch) */
+.hero__panels {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+/* Panel / Column Titles */
+.hero__column-title,
+.hero__panel-title {
+  font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--muted);
-  margin-bottom: 0.4rem;
+  margin: 0 0 0.4rem;
 }
 
-.hero ul {
+.hero__panel-title {
+  /* Ensures same style even if markup differs */
+  font-size: 0.85rem;
+}
+
+/* Panel Card */
+.hero__panel {
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 0.75rem;
+}
+
+.hero ul,
+.hero__panel ul {
   margin: 0;
   padding-left: 1.1rem;
+  display: grid;
+  gap: 0.35rem;
 }
 
+/* Hero CTA Row */
+.hero__cta {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* Top Navigation / Toolbar (Unified) */
+.page-toolbar,
 .section-nav {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1rem; /* keep wider gap from main */
   flex-wrap: wrap;
   padding: 0.75rem 1rem;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 14px; /* chose codex 14px over main 12px */
   background: var(--accent-soft);
 }
 
+html[data-theme='dark'] .page-toolbar,
 html[data-theme='dark'] .section-nav {
   background: rgba(30, 41, 59, 0.5);
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(8px); /* codex used 8px, main 6px */
 }
 
 .section-nav__label {
@@ -111,19 +161,25 @@ html[data-theme='dark'] .section-nav {
   color: var(--muted);
 }
 
-.section-nav__links {
+/* Support both _links (main) and _list (codex) class names */
+.section-nav__links,
+.section-nav__list {
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
-.section-nav__links a {
+.section-nav__links a,
+.section-nav__list a {
   font-size: 0.95rem;
   font-weight: 500;
 }
 
+/* Theme Toggle */
 .theme-toggle {
-  margin-left: auto;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -138,6 +194,12 @@ html[data-theme='dark'] .section-nav {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Keep original margin-left:auto behavior only when inside a .section-nav (main layout).
+   Removed in codex variant; provide conditional utility. */
+.section-nav > .theme-toggle {
+  margin-left: auto;
+}
+
 .theme-toggle:hover,
 .theme-toggle:focus-visible {
   transform: translateY(-1px);
@@ -149,6 +211,7 @@ html[data-theme='dark'] .section-nav {
   line-height: 1;
 }
 
+/* Content Sections */
 .content-section {
   display: grid;
   gap: 1.5rem;
@@ -166,6 +229,7 @@ html[data-theme='dark'] .section-nav {
   margin: 0;
 }
 
+/* Card Grid */
 .card-grid {
   display: grid;
   gap: 1.25rem;
@@ -195,6 +259,7 @@ html[data-theme='dark'] .section-nav {
   gap: 0.5rem;
 }
 
+/* Stacked List */
 .stacked-list {
   display: grid;
   gap: 1.5rem;
@@ -211,6 +276,7 @@ html[data-theme='dark'] .section-nav {
   font-size: 0.9rem;
 }
 
+/* Skills Grid */
 .skills-grid {
   display: grid;
   gap: 1.5rem;
@@ -229,6 +295,7 @@ html[data-theme='dark'] .section-nav {
   gap: 0.45rem;
 }
 
+/* Accent Section */
 .content-section--accent {
   background: var(--accent-soft);
   border-radius: 20px;
@@ -240,12 +307,14 @@ html[data-theme='dark'] .content-section--accent {
   background: rgba(37, 51, 77, 0.65);
 }
 
+/* CTA Row */
 .cta-row {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
 }
 
+/* Buttons */
 .button {
   display: inline-flex;
   align-items: center;
@@ -278,6 +347,7 @@ html[data-theme='dark'] .button--outline {
   border-color: rgba(96, 165, 250, 0.7);
 }
 
+/* Footer */
 .page-footer {
   margin-top: 3rem;
   padding: 2rem 0;
@@ -287,16 +357,19 @@ html[data-theme='dark'] .button--outline {
   text-align: center;
 }
 
+/* Responsive */
 @media (max-width: 640px) {
   .hero__tagline {
     font-size: 1.1rem;
   }
 
+  .page-toolbar,
   .section-nav {
     justify-content: flex-start;
   }
 
-  .theme-toggle {
+  .page-toolbar .theme-toggle,
+  .section-nav .theme-toggle {
     width: 100%;
     justify-content: center;
     margin-left: 0;

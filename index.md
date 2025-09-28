@@ -4,51 +4,60 @@ title: Narendhiran Vijayakumar — Robotics Researcher
 ---
 
 <section class="hero" aria-labelledby="site-title">
-  <h1 id="site-title">Narendhiran Vijayakumar</h1>
-  <p class="hero__tagline">Designing embodied AI and task &amp; motion planning systems that earn trust outside the lab.</p>
-  <div class="hero__grid">
-    <div class="hero__column">
-      <h2 class="hero__column-title">Focus areas</h2>
+  <div class="hero__intro">
+    <h1 id="site-title">Narendhiran Vijayakumar</h1>
+    <p class="hero__tagline">Designing embodied AI and task &amp; motion planning systems that earn trust outside the lab.</p>
+    <div class="hero__cta">
+      <a class="button" href="mailto:narendhiranv.nitt@gmail.com">Let&rsquo;s collaborate</a>
+      <a class="button button--outline" href="https://drive.google.com/file/d/1SyGD0DjldZzbLfe_uZA7Cfn02GoxvzdS/view?usp=sharing" target="_blank" rel="noopener">View CV</a>
+    </div>
+  </div>
+
+  <div class="hero__panels">
+    <div class="hero__panel">
+      <h2 class="hero__panel-title">Focus areas</h2>
       <ul>
         <li>Embodied AI for dependable autonomy</li>
         <li>Robotics perception &amp; control</li>
         <li>Task and motion planning</li>
       </ul>
     </div>
-    <div class="hero__column">
-      <h2 class="hero__column-title">Recent work</h2>
+    <div class="hero__panel">
+      <h2 class="hero__panel-title">Recent work</h2>
       <ul>
         <li>Optimising exoskeleton joint control as a research intern at Monash University.</li>
         <li>Delivering robust drivable-area segmentation with IIT Bombay's autonomous systems group.</li>
       </ul>
     </div>
-    <div class="hero__column">
-      <h2 class="hero__column-title">Connect</h2>
+    <div class="hero__panel">
+      <h2 class="hero__panel-title">Connect</h2>
       <ul>
         <li><a href="mailto:narendhiranv.nitt@gmail.com">narendhiranv.nitt@gmail.com</a></li>
         <li><a href="https://www.linkedin.com/in/narendhiranv04" target="_blank" rel="noopener">LinkedIn</a></li>
-        <li><a href="https://github.com/Narendhiranv04" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://github.com/NarendhiranV04" target="_blank" rel="noopener">GitHub</a></li>
       </ul>
     </div>
   </div>
 </section>
 
-<nav class="section-nav" aria-label="Page sections">
-  <span class="section-nav__label">Jump to</span>
-  <div class="section-nav__links">
-    <a href="#about">About</a>
-    <a href="#experience">Experience</a>
-    <a href="#publications">Publications</a>
-    <a href="#projects">Projects</a>
-    <a href="#skills">Skills</a>
-    <a href="#leadership">Leadership</a>
-    <a href="#contact">Contact</a>
-  </div>
+<div class="page-toolbar" role="region" aria-label="Page controls">
+  <nav class="section-nav" aria-label="Page sections">
+    <span class="section-nav__label">Sections</span>
+    <ul class="section-nav__list">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#leadership">Leadership</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
   <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
     <span class="theme-toggle__icon" aria-hidden="true">☀️</span>
     <span class="theme-toggle__label">Toggle theme</span>
   </button>
-</nav>
+</div>
 
 <section id="about" class="content-section" aria-labelledby="about-heading">
   <h2 id="about-heading">About</h2>
@@ -208,8 +217,8 @@ title: Narendhiran Vijayakumar — Robotics Researcher
   </div>
 </section>
 
-<footer class="page-footer">
-  <p>&copy; <span id="current-year"></span> Narendhiran Vijayakumar. Built with the Minimal theme.</p>
+<footer class="page-footer" aria-label="Site footer">
+  <p>&copy; <span id="current-year"></span> Narendhiran Vijayakumar. Built on the Minimal theme.</p>
 </footer>
 
 <script src="{{ '/assets/js/site.js' | relative_url }}" defer></script>
