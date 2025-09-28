@@ -3,6 +3,26 @@ layout: default
 title: Narendhiran Vijayakumar — Robotics Researcher
 ---
 
+<header class="site-header" role="banner">
+  <div class="site-header__inner">
+    <a href="{{ '/' | relative_url }}" class="brand">NV</a>
+    <nav aria-label="Primary" role="navigation">
+      <ul class="nav-tabs">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#leadership">Leadership</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
+      <span class="theme-toggle__icon" aria-hidden="true">☀️</span>
+      <span class="theme-toggle__label">Theme</span>
+    </button>
+  </div>
+</header>
+
 <section class="hero" aria-labelledby="site-title">
   <div class="hero__intro">
     <h1 id="site-title">Narendhiran Vijayakumar</h1>
@@ -23,13 +43,6 @@ title: Narendhiran Vijayakumar — Robotics Researcher
       </ul>
     </div>
     <div class="hero__panel">
-      <h2 class="hero__panel-title">Recent work</h2>
-      <ul>
-        <li>Optimising exoskeleton joint control as a research intern at Monash University.</li>
-        <li>Delivering robust drivable-area segmentation with IIT Bombay's autonomous systems group.</li>
-      </ul>
-    </div>
-    <div class="hero__panel">
       <h2 class="hero__panel-title">Connect</h2>
       <ul>
         <li><a href="mailto:narendhiranv.nitt@gmail.com">narendhiranv.nitt@gmail.com</a></li>
@@ -39,25 +52,6 @@ title: Narendhiran Vijayakumar — Robotics Researcher
     </div>
   </div>
 </section>
-
-<div class="page-toolbar" role="region" aria-label="Page controls">
-  <nav class="section-nav" aria-label="Page sections">
-    <span class="section-nav__label">Sections</span>
-    <ul class="section-nav__list">
-      <li><a href="#about">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#publications">Publications</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#leadership">Leadership</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-  <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
-    <span class="theme-toggle__icon" aria-hidden="true">☀️</span>
-    <span class="theme-toggle__label">Toggle theme</span>
-  </button>
-</div>
 
 <section id="about" class="content-section" aria-labelledby="about-heading">
   <h2 id="about-heading">About</h2>
@@ -151,36 +145,6 @@ title: Narendhiran Vijayakumar — Robotics Researcher
   </div>
 </section>
 
-<section id="skills" class="content-section" aria-labelledby="skills-heading">
-  <h2 id="skills-heading">Skills</h2>
-  <div class="skills-grid">
-    <div>
-      <h3>Robotics stack</h3>
-      <ul>
-        <li>ROS 2, Gazebo, PX4, MoveIt</li>
-        <li>Navigation &amp; SLAM pipelines</li>
-        <li>Realtime control &amp; embedded C/C++</li>
-      </ul>
-    </div>
-    <div>
-      <h3>Machine learning</h3>
-      <ul>
-        <li>PyTorch, TensorFlow, ONNX Runtime</li>
-        <li>Spatial transformers &amp; attention models</li>
-        <li>Time-series forecasting &amp; fuzzy logic</li>
-      </ul>
-    </div>
-    <div>
-      <h3>Systems thinking</h3>
-      <ul>
-        <li>Safety-focused experimentation</li>
-        <li>Task &amp; motion planning frameworks</li>
-        <li>Cross-functional collaboration</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
 <section id="leadership" class="content-section" aria-labelledby="leadership-heading">
   <h2 id="leadership-heading">Leadership</h2>
   <div class="card-grid">
@@ -212,13 +176,13 @@ title: Narendhiran Vijayakumar — Robotics Researcher
   <p>I am excited to partner on research, internships and conversations around embodied AI, perception and autonomy.</p>
   <div class="cta-row">
     <a class="button" href="mailto:narendhiranv.nitt@gmail.com">Email me</a>
-    <a class="button button--outline" href="https://www.linkedin.com/in/narendhiranv04" target="_blank" rel="noopener">Connect on LinkedIn</a>
+    <a class="button button--outline" href="https://www.linkedin.com/in/narendhiranv04" target="_blank" rel="noopener">LinkedIn</a>
     <a class="button button--outline" href="https://drive.google.com/file/d/1SyGD0DjldZzbLfe_uZA7Cfn02GoxvzdS/view?usp=sharing" target="_blank" rel="noopener">View CV</a>
   </div>
 </section>
 
-<footer class="page-footer" aria-label="Site footer">
-  <p>&copy; <span id="current-year"></span> Narendhiran Vijayakumar. Built on the Minimal theme.</p>
+<footer class="page-footer" role="contentinfo">
+  <p>&copy; 2025 Narendhiran Vijayakumar.</p>
 </footer>
 
 <script src="{{ '/assets/js/site.js' | relative_url }}" defer></script>
