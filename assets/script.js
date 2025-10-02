@@ -164,7 +164,7 @@ navLinks.forEach((link) => {
 let sections = navLinks
   .map((link) => {
     const targetId = link.getAttribute('href');
-    if (!targetId || !targetId.startsWith('#')) return null;
+       if (!targetId || !targetId.startsWith('#')) return null;
     return document.querySelector(targetId);
   })
   .filter(Boolean);
@@ -367,22 +367,30 @@ if (projectsGallery) {
     const overlayInner = document.createElement('div');
     overlayInner.className = 'project-card__overlay-inner';
 
-    if (project.tag) {
-      const tag = document.createElement('span');
-      tag.className = 'project-card__tag';
-      tag.textContent = project.tag;
-      overlayInner.appendChild(tag);
-    }
+    const header = document.createElement('div');
+    header.className = 'project-card__header';
 
     const title = document.createElement('h3');
     title.className = 'project-card__title';
     title.textContent = project.title;
+    header.appendChild(title);
+
+    if (project.tag) {
+      const tag = document.createElement('span');
+      tag.className = 'project-card__tag';
+      tag.textContent = project.tag;
+      header.appendChild(tag);
+    }
+
+    const body = document.createElement('div');
+    body.className = 'project-card__body';
 
     const summary = document.createElement('p');
     summary.className = 'project-card__summary';
     summary.textContent = project.summary;
 
-    overlayInner.append(title, summary);
+    body.appendChild(summary);
+    overlayInner.append(header, body);
     overlay.appendChild(overlayInner);
     card.append(media, overlay);
     projectsGallery.appendChild(card);
