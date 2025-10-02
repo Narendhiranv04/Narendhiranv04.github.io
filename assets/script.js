@@ -198,22 +198,114 @@ if ('IntersectionObserver' in window && sections.length) {
   navLinks[0].classList.add('is-active');
 }
 
-// Add this new script content to your existing script.js file
+// --- RESEARCH TIMELINE ---
+const researchExperiences = [
+  {
+    title: 'Embodied AI Intern',
+    organization: 'NTU, Singapore',
+    timeframe: 'May 2025 – Present',
+    summary:
+      'Extended Moto-VLA with contrastive learning and in-context memory for retrieval-augmented VLA control.',
+    image: {
+      src: 'https://placehold.co/120x120?text=NTU',
+      alt: 'Placeholder logo for NTU Singapore',
+    },
+  },
+  {
+    title: 'Task & Motion Planning Intern',
+    organization: 'IIIT, Hyderabad',
+    timeframe: 'July 2025 – Present',
+    summary:
+      'Designed a contract-validated visual HRL framework for long-horizon manipulation tasks using MoE and SmolVLA controllers.',
+    image: {
+      src: 'https://placehold.co/120x120?text=IIIT',
+      alt: 'Placeholder logo for IIIT Hyderabad',
+    },
+  },
+  {
+    title: 'Assistive Robotics Intern',
+    organization: 'Monash University',
+    timeframe: 'Jan 2025 – May 2025',
+    summary:
+      'Developed a lightweight GRU for real-time torque prediction in robotic exoskeletons with a fuzzy logic-based control system.',
+    image: {
+      src: 'https://placehold.co/120x120?text=Monash',
+      alt: 'Placeholder logo for Monash University',
+    },
+  },
+  {
+    title: 'Robotic Perception Intern',
+    organization: 'IIT Bombay',
+    timeframe: 'Jun 2024 – Feb 2025',
+    summary:
+      'Developed AURASeg, a model for drivable area segmentation, outperforming YOLOP in mIoU and F1-score.',
+    image: {
+      src: 'https://placehold.co/120x120?text=IIT+B',
+      alt: 'Placeholder logo for IIT Bombay',
+    },
+  },
+];
 
-document.addEventListener('DOMContentLoaded', () => {
-  const timelineItems = document.querySelectorAll('.timeline-item');
+const researchTimeline = document.querySelector('[data-js="research-timeline"]');
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
+if (researchTimeline) {
+  researchExperiences.forEach((experience, index) => {
+    const item = document.createElement('article');
+    item.className = 'timeline-item';
+    item.style.setProperty('--animation-index', index.toString());
+
+    const imageWrapper = document.createElement('div');
+    imageWrapper.className = 'timeline-image';
+
+    const img = document.createElement('img');
+    img.src = experience.image.src;
+    img.alt = experience.image.alt;
+    img.loading = 'lazy';
+    imageWrapper.appendChild(img);
+
+    const content = document.createElement('div');
+    content.className = 'timeline-content';
+
+    const meta = document.createElement('p');
+    meta.className = 'timeline-meta';
+
+    const strong = document.createElement('strong');
+    strong.textContent = experience.organization;
+    meta.append(strong);
+    meta.append(document.createTextNode(` · ${experience.timeframe}`));
+
+    const heading = document.createElement('h3');
+    heading.textContent = experience.title;
+
+    const description = document.createElement('p');
+    description.className = 'timeline-description';
+    description.textContent = experience.summary;
+
+    content.append(meta, heading, description);
+    item.append(imageWrapper, content);
+    researchTimeline.appendChild(item);
+  });
+
+  const timelineItems = researchTimeline.querySelectorAll('.timeline-item');
+
+  if ('IntersectionObserver' in window) {
+    const timelineObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      },
+      {
+        threshold: 0.35,
+        rootMargin: '0px 0px -10% 0px',
       }
-    });
-  }, {
-    threshold: 0.1
-  });
+    );
 
-  timelineItems.forEach(item => {
-    observer.observe(item);
-  });
-});
+    timelineItems.forEach((item) => timelineObserver.observe(item));
+  } else {
+    timelineItems.forEach((item) => item.classList.add('is-visible'));
+  }
+}
+
