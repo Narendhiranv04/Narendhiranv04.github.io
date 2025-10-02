@@ -1,22 +1,26 @@
-# Narendhiranv04.github.io
+# Personal Site
 
-Minimal profile site for **Narendhiran Vijayakumar**—highlighting robotics and AI research, publications, projects, skills, and leadership—while mirroring the look and feel of the Long Horizon Hierarchy page and staying lightweight. The clean single‑page layout includes a light/dark theme toggle, an animated experience timeline, and project cards with dedicated media slots so the content feels intentional without heavy visuals. It can be served directly from GitHub Pages.
+This repository hosts the source for [Narendhiran Vijayakumar's personal research homepage](https://narendhiranv04.github.io/).
+
+The site is a static rebuild of the **Long Horizon Hierarchy** project theme, adapted to showcase biography, research highlights, selected projects, publications, media, and contact information. It is deployed via GitHub Pages from the repository root.
 
 ## Local development
 
-You can preview the site locally with any static file server. One option included with Python is `http.server`:
+Open `index.html` in a browser or use a simple HTTP server:
 
 ```bash
-python -m http.server 4000
+python -m http.server 8000
 ```
 
-Then open [http://localhost:4000](http://localhost:4000) in your browser.
+Then visit <http://localhost:8000>.
 
-## Structure
+## Customizing
 
-- `index.html` – page markup and content
-- `assets/css/styles.css` – global styles, layout, and theme definitions
-- `assets/js/main.js` – mobile navigation toggle, theme persistence, scroll‑triggered animation helpers, and footer year helper
-- `assets/img/` – handcrafted logo marks and other media used in the experience timeline
+- Update profile details, links, and section content directly in `index.html`.
+- Replace the profile photo by updating the `<img>` `src` attribute inside the `.profile-card`.
+- Add or edit projects, publications, and media entries by duplicating the existing card markup.
+- Extend styles in `assets/style.css` if additional layouts are required.
 
-All styles and scripts are handwritten so the page has no build step or external dependencies beyond the hosted fonts.
+## License
+
+Content © Narendhiran Vijayakumar. Theme assets derived from the Long Horizon Hierarchy project and used with attribution.

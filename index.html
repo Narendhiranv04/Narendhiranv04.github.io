@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Personal research page for Narendhiran Vijayakumar highlighting robotics and embodied AI projects."
+    />
+    <title>Narendhiran Vijayakumar</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles & Scripts -->
+    <link rel="stylesheet" href="assets/style.css" />
+    <script defer src="assets/script.js"></script>
+  </head>
+
+  <body data-theme="dark">
+    <header class="site-header" id="top">
+      <div class="container site-header__inner">
+        <a class="site-logo logo" href="#overview">Narendhiran Vijayakumar</a>
+
+        <button
+          class="menu-toggle"
+          type="button"
+          data-js="menu-toggle"
+          aria-expanded="false"
+          aria-controls="site-nav"
+        >
+          <span class="menu-toggle__icon" aria-hidden="true">☰</span>
+          <span class="menu-toggle__text">Menu</span>
+        </button>
+
+        <nav
+          id="site-nav"
+          class="site-nav"
+          data-js="site-nav"
+          aria-label="Main navigation"
+        >
+          <a href="#overview">Overview</a>
+          <a href="#about">About</a>
+          <a href="#research">Research</a>
+          <a href="#projects">Projects</a>
+          <a href="#publications">Publications</a>
+          <a href="#media">Media</a>
+          <a href="#resources">Resources</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <button
+          class="theme-toggle"
+          type="button"
+          data-js="theme-toggle"
+          aria-label="Switch to light theme"
+          title="Switch to light theme"
+        >
+          <span class="theme-toggle__icon" aria-hidden="true">☀️</span>
+          <span class="theme-toggle__text">Light Mode</span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <!-- ======================= -->
+      <!-- Hero / Overview section -->
+      <!-- ======================= -->
+      <section class="hero" id="overview">
+        <div class="container hero__inner">
+          <div class="hero__content">
+            <p class="hero__eyebrow tagline">Robotics · Embodied AI · Human-Centered Autonomy</p>
+            <h1 class="hero__title">Narendhiran Vijayakumar</h1>
+            <p class="hero__lead">
+              I build intelligent robotic systems that work alongside people. My research blends
+              long-horizon planning, multimodal learning, and reliable control to create robots that
+              can understand language, adapt to new tasks, and support human workflows.
+            </p>
+
+            <div class="button-group hero__cta">
+              <a class="button" href="mailto:narendhiranv04@gmail.com" rel="noopener">
+                <span class="icon" aria-hidden="true">✉️</span>
+                <span>Email</span>
+              </a>
+              <a class="button" href="https://scholar.google.com/" target="_blank" rel="noopener">
+                <span class="icon" aria-hidden="true">🎓</span>
+                <span>Scholar</span>
+              </a>
+              <a class="button" href="https://github.com/Narendhiranv04" target="_blank" rel="noopener">
+                <span class="icon" aria-hidden="true">💻</span>
+                <span>GitHub</span>
+              </a>
+              <a class="button secondary" href="https://www.linkedin.com/in/narendhiranv04" target="_blank" rel="noopener">
+                <span class="icon" aria-hidden="true">🔗</span>
+                <span>LinkedIn</span>
+              </a>
+            </div>
+
+            <div class="hero__meta">
+              <p class="hero__authors"><strong>Current:</strong> Graduate Researcher, Embodied AI Lab</p>
+              <p class="hero__venue">Previously at NVIDIA Robotics · IIT Madras · Microsoft Research</p>
+              <p class="hero__venue">Based in Chennai, India · Open for collaborations and internships.</p>
+            </div>
+          </div>
+
+          <div class="hero__media hero__visual">
+            <div class="profile-card">
+              <img
+                src="https://avatars.githubusercontent.com/u/71504281?v=4"
+                alt="Portrait of Narendhiran Vijayakumar"
+                class="profile-card__image"
+              />
+              <div class="profile-card__body">
+                <p class="profile-card__tag">Focus Areas</p>
+                <ul class="profile-card__list">
+                  <li>Language-guided robot learning</li>
+                  <li>Hierarchical decision making</li>
+                  <li>Assistive human-robot interaction</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============= -->
+      <!-- About section -->
+      <!-- ============= -->
+      <section class="teaser" id="about">
+        <div class="container">
+          <h2 class="section-title">About</h2>
+          <p class="section-subtitle">
+            I'm fascinated by robots that can reason with high-level human intent while remaining
+            grounded in the physical world. My work sits at the intersection of machine learning,
+            control, and human factors, and often involves building full-stack systems—from model
+            design and data pipelines to hardware deployments.
+          </p>
+          <div class="about-grid">
+            <article class="about-card">
+              <h3>Vision</h3>
+              <p>
+                Create robots that extend human capabilities in healthcare, manufacturing, and daily
+                living through trustworthy collaboration.
+              </p>
+            </article>
+            <article class="about-card">
+              <h3>Methodology</h3>
+              <p>
+                Combine large language models, reinforcement learning, and classical planning to
+                deliver reliable long-horizon execution.
+              </p>
+            </article>
+            <article class="about-card">
+              <h3>Community</h3>
+              <p>
+                Active mentor and open-source contributor supporting equitable access to robotics
+                education across India.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= -->
+      <!-- Highlights section -->
+      <!-- ================= -->
+      <section class="highlights" id="research" aria-label="Research highlights">
+        <div class="container">
+          <h2 class="section-title">Research Highlights</h2>
+          <p class="section-subtitle">
+            A snapshot of the questions I'm exploring and the principles that guide my approach to
+            embodied intelligence.
+          </p>
+
+          <div class="highlight-grid">
+            <article class="highlight-card">
+              <h3>Interactive Task Planning</h3>
+              <p>
+                Designing hierarchical policies that translate open-ended language into grounded
+                action plans for dexterous manipulation.
+              </p>
+            </article>
+            <article class="highlight-card">
+              <h3>Generalization &amp; Transfer</h3>
+              <p>
+                Building reusable skills that adapt across environments by aligning perception,
+                action, and semantics in shared latent spaces.
+              </p>
+            </article>
+            <article class="highlight-card">
+              <h3>Reliable Autonomy</h3>
+              <p>
+                Fusing model-based control with learned policies to deliver interpretable safety
+                checks and consistent task completion.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================ -->
+      <!-- Projects section -->
+      <!-- ================ -->
+      <section class="architecture" id="projects">
+        <div class="container">
+          <h2 class="section-title">Selected Projects</h2>
+          <p class="section-subtitle">
+            From lab prototypes to field-tested systems, here are a few initiatives that capture the
+            breadth of my work.
+          </p>
+
+          <div class="architecture-grid">
+            <article class="architecture-card">
+              <h3>Long Horizon Hierarchy</h3>
+              <p>
+                A hierarchical framework that composes vision-language models with reinforcement
+                learning to execute multi-step manipulation tasks reliably.
+              </p>
+              <ul>
+                <li>Multi-stage task decomposition with language abstractions</li>
+                <li>Self-evaluation modules for safe policy switching</li>
+                <li>Deployed on Franka and UR5 platforms</li>
+              </ul>
+              <div class="card-links">
+                <a href="https://narendhiranv04.github.io/long_horizon_hierarchy/" target="_blank" rel="noopener">Project Page</a>
+                <a href="https://github.com/Narendhiranv04/long_horizon_hierarchy" target="_blank" rel="noopener">Code</a>
+              </div>
+            </article>
+
+            <article class="architecture-card">
+              <h3>Assistive Telepresence</h3>
+              <p>
+                Co-designed a mobile manipulator with clinicians to deliver remote care, enabling
+                safe human-robot handoffs through shared autonomy.
+              </p>
+              <ul>
+                <li>Hybrid autonomy stack blending teleop and autonomy</li>
+                <li>Multimodal interface for caregivers and patients</li>
+                <li>User studies with rehabilitation partners</li>
+              </ul>
+            </article>
+
+            <article class="architecture-card">
+              <h3>Skill Libraries for Industry 4.0</h3>
+              <p>
+                Developed transferable skill primitives for manufacturing cells, reducing deployment
+                time for new assembly tasks by over 40%.
+              </p>
+              <ul>
+                <li>Parameterized skill representations for rapid reuse</li>
+                <li>Learning-from-demonstration with safety envelopes</li>
+                <li>Validated with collaborative robot arms</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== -->
+      <!-- Publications section -->
+      <!-- ===================== -->
+      <section class="results" id="publications">
+        <div class="container">
+          <h2 class="section-title">Publications &amp; Preprints</h2>
+          <p class="section-subtitle">
+            Representative papers and technical reports. A complete list is available on Google Scholar.
+          </p>
+
+          <div class="results-grid">
+            <article class="result-card">
+              <h3>Hierarchical VLM-RL for Long-Horizon Manipulation</h3>
+              <p>Vijayakumar, N., Ojha, P., et al. <em>Under review</em>, 2024.</p>
+              <ul>
+                <li>Introduces language-conditioned task decomposition with skill-level feedback.</li>
+                <li>Demonstrates zero-shot generalization to novel assembly tasks.</li>
+              </ul>
+              <div class="card-links">
+                <a href="https://arxiv.org/abs/2401.00000" target="_blank" rel="noopener">Preprint</a>
+                <a href="https://youtu.be/videocode" target="_blank" rel="noopener">Video</a>
+              </div>
+            </article>
+
+            <article class="result-card">
+              <h3>Human-in-the-Loop Policy Optimization for Assistive Robots</h3>
+              <p>Vijayakumar, N., et al. <em>ACM HRI</em>, 2023.</p>
+              <ul>
+                <li>Adaptive trust calibration between human supervisors and robot autonomy.</li>
+                <li>Reduces intervention rates by 35% in real-world trials.</li>
+              </ul>
+            </article>
+
+            <article class="result-card">
+              <h3>Multimodal Skill Libraries for Agile Manufacturing</h3>
+              <p>Vijayakumar, N., et al. <em>IEEE ICRA</em>, 2022.</p>
+              <ul>
+                <li>Proposes reusable control primitives parameterized by language prompts.</li>
+                <li>Enables rapid reconfiguration across product lines.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============== -->
+      <!-- Media section -->
+      <!-- ============== -->
+      <section class="long-horizon" id="media">
+        <div class="container">
+          <h2 class="section-title">Talks &amp; Media</h2>
+          <p class="section-subtitle">
+            Talks, demos, and press that capture how our research transitions from the lab to
+            real-world impact.
+          </p>
+
+          <div class="long-horizon__grid">
+            <article class="long-horizon-card">
+              <h3>Featured Talk</h3>
+              <p>Invited seminar on language-driven robot learning at Robotics Society of India, 2024.</p>
+              <a href="https://youtu.be/videocode" target="_blank" rel="noopener">Watch Recording</a>
+            </article>
+            <article class="long-horizon-card">
+              <h3>Press</h3>
+              <p>Coverage in <em>IEEE Spectrum</em> on collaborative robots for assisted living, 2023.</p>
+              <a href="#" target="_blank" rel="noopener">Read Article</a>
+            </article>
+            <article class="long-horizon-card">
+              <h3>Workshops</h3>
+              <p>Organizer, Long-Horizon Embodied AI workshop at CoRL 2023.</p>
+              <a href="#" target="_blank" rel="noopener">Workshop Site</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= -->
+      <!-- Resources section -->
+      <!-- ================= -->
+      <section class="resources" id="resources">
+        <div class="container">
+          <h2 class="section-title">Resources</h2>
+          <p class="section-subtitle">
+            I'm committed to sharing tools and datasets that help others accelerate progress in robotics.
+          </p>
+
+          <div class="resource-grid">
+            <article class="resource-card">
+              <h3>Code Repositories</h3>
+              <p>Open-sourced frameworks for hierarchical RL, simulation pipelines, and evaluation tooling.</p>
+              <a href="https://github.com/Narendhiranv04?tab=repositories" target="_blank" rel="noopener">Explore GitHub</a>
+            </article>
+            <article class="resource-card">
+              <h3>Datasets</h3>
+              <p>Curated manipulation datasets with language annotations for compositional skill learning.</p>
+              <a href="#" target="_blank" rel="noopener">Download (coming soon)</a>
+            </article>
+            <article class="resource-card">
+              <h3>Teaching Materials</h3>
+              <p>Workshops and lecture notes on embodied AI, reinforcement learning, and robot safety.</p>
+              <a href="#" target="_blank" rel="noopener">View Slides</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============== -->
+      <!-- Contact section -->
+      <!-- ============== -->
+      <section class="bibtex" id="contact">
+        <div class="container">
+          <h2 class="section-title">Get in Touch</h2>
+          <p class="section-subtitle">
+            I'm always happy to chat about research collaborations, student mentorship, or speaking
+            opportunities. Send me a note and I'll get back to you shortly.
+          </p>
+
+          <div class="bibtex__content">
+            <div class="contact-card">
+              <h3>Email</h3>
+              <p><a href="mailto:narendhiranv04@gmail.com">narendhiranv04@gmail.com</a></p>
+            </div>
+            <div class="contact-card">
+              <h3>Office Hours</h3>
+              <p>Fridays 4–6 PM IST · Schedule via email</p>
+            </div>
+            <div class="contact-card">
+              <h3>Elsewhere</h3>
+              <ul>
+                <li><a href="https://scholar.google.com/" target="_blank" rel="noopener">Google Scholar</a></li>
+                <li><a href="https://twitter.com/narendhiranv04" target="_blank" rel="noopener">Twitter / X</a></li>
+                <li><a href="https://www.linkedin.com/in/narendhiranv04" target="_blank" rel="noopener">LinkedIn</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <p>© <span id="current-year"></span> Narendhiran Vijayakumar. Built with love for robotics.</p>
+        <a class="back-to-top" href="#top">Back to top ↑</a>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
