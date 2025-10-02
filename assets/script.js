@@ -164,7 +164,7 @@ navLinks.forEach((link) => {
 let sections = navLinks
   .map((link) => {
     const targetId = link.getAttribute('href');
-    if (!targetId || !targetId.startsWith('#')) return null;
+       if (!targetId || !targetId.startsWith('#')) return null;
     return document.querySelector(targetId);
   })
   .filter(Boolean);
@@ -452,4 +452,3 @@ if (projectsGallery) {
     }
   });
 }
-
