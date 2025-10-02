@@ -489,4 +489,3 @@ if (projectsGallery) {
     }
   });
 }
-

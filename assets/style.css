@@ -978,7 +978,7 @@ section {
   list-style: none;
 }
 
-.contact-card ul li + li {
+contact-card ul li + li {
   margin-top: 0.35rem;
 }
 
@@ -1089,13 +1089,10 @@ section {
 
 @media (max-width: 840px) {
   .site-header {
-    /* Graceful wrap on small screens */
-    /* (kept from legacy rules; works alongside popup nav) */
     gap: 1rem;
   }
 
   .site-nav.is-open {
-    /* ensure room for items when opened */
     max-height: 400px;
     padding-top: 0.5rem;
   }
@@ -1120,7 +1117,7 @@ section {
 
   .site-footer .container {
     flex-direction: column;
-    align-items: flex-start;
+    alignments: flex-start;
   }
 }
 
@@ -1150,12 +1147,11 @@ section {
   .hero__inner {
     gap: 2.25rem;
   }
-  
 }
+
 /* =================== */
 /* Research timeline   */
 /* =================== */
-
 .timeline-section {
   padding: 4.5rem 0;
 }
