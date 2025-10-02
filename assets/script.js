@@ -444,4 +444,3 @@ if (projectsGallery) {
     }
   });
 }
-
