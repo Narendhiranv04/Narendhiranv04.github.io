@@ -197,3 +197,23 @@ if ('IntersectionObserver' in window && sections.length) {
   // Basic fallback: mark the first link active
   navLinks[0].classList.add('is-active');
 }
+
+// Add this new script content to your existing script.js file
+
+document.addEventListener('DOMContentLoaded', () => {
+  const timelineItems = document.querySelectorAll('.timeline-item');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  timelineItems.forEach(item => {
+    observer.observe(item);
+  });
+});
