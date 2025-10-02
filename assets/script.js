@@ -309,3 +309,138 @@ if (researchTimeline) {
   }
 }
 
+// --- PROJECT GALLERY ---
+const projects = [
+  {
+    title: 'Autonomous UAS',
+    tag: 'Aerial Robotics',
+    summary:
+      'Led the development of an autonomous quadcopter for SAE AeroTHON-24, ranking top 15 nationwide with custom perception and ROS 2 integrations.',
+    image: {
+      src: 'https://placehold.co/960x720?text=Autonomous+UAS',
+      alt: 'Placeholder hero image representing the Autonomous UAS project.',
+    },
+  },
+  {
+    title: 'PixelBot',
+    tag: 'Multimodal AI',
+    summary:
+      'Built a multimodal conversational assistant for image workflows using LLaVA, SAM2, and GLIGEN that secured 2nd place in the Smart India Hackathon qualifier.',
+    image: {
+      src: 'https://placehold.co/960x720?text=PixelBot',
+      alt: 'Placeholder hero image representing the PixelBot project.',
+    },
+  },
+  {
+    title: 'Line-Following Parrot MAMBO',
+    tag: 'Embedded Autonomy',
+    summary:
+      'Engineered a vision pipeline and Stateflow planner in Simulink for the MathWorks Minidrone challenge to enable autonomous Parrot Mambo flight.',
+    image: {
+      src: 'https://placehold.co/960x720?text=Parrot+Mambo',
+      alt: 'Placeholder hero image representing the Parrot Mambo autonomy project.',
+    },
+  },
+];
+
+const projectsGallery = document.querySelector('[data-js="projects-gallery"]');
+
+if (projectsGallery) {
+  projects.forEach((project, index) => {
+    const card = document.createElement('article');
+    card.className = 'project-card';
+    card.style.setProperty('--animation-index', index.toString());
+    card.setAttribute('tabindex', '0');
+
+    const media = document.createElement('div');
+    media.className = 'project-card__media';
+
+    const img = document.createElement('img');
+    img.src = project.image.src;
+    img.alt = project.image.alt;
+    img.loading = 'lazy';
+    media.appendChild(img);
+
+    const overlay = document.createElement('div');
+    overlay.className = 'project-card__overlay';
+
+    const overlayInner = document.createElement('div');
+    overlayInner.className = 'project-card__overlay-inner';
+
+    if (project.tag) {
+      const tag = document.createElement('span');
+      tag.className = 'project-card__tag';
+      tag.textContent = project.tag;
+      overlayInner.appendChild(tag);
+    }
+
+    const title = document.createElement('h3');
+    title.className = 'project-card__title';
+    title.textContent = project.title;
+
+    const summary = document.createElement('p');
+    summary.className = 'project-card__summary';
+    summary.textContent = project.summary;
+
+    overlayInner.append(title, summary);
+    overlay.appendChild(overlayInner);
+    card.append(media, overlay);
+    projectsGallery.appendChild(card);
+  });
+
+  const projectCards = projectsGallery.querySelectorAll('.project-card');
+
+  if ('IntersectionObserver' in window) {
+    const projectObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      },
+      {
+        threshold: 0.35,
+        rootMargin: '0px 0px -10% 0px',
+      }
+    );
+
+    projectCards.forEach((card) => projectObserver.observe(card));
+  } else {
+    projectCards.forEach((card) => card.classList.add('is-visible'));
+  }
+
+  const deactivateAll = () => {
+    projectCards.forEach((card) => card.classList.remove('is-active'));
+  };
+
+  projectCards.forEach((card) => {
+    card.addEventListener('click', () => {
+      const isActivating = !card.classList.contains('is-active');
+      deactivateAll();
+      if (isActivating) {
+        card.classList.add('is-active');
+      }
+    });
+
+    card.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        const isActivating = !card.classList.contains('is-active');
+        deactivateAll();
+        if (isActivating) {
+          card.classList.add('is-active');
+        }
+      } else if (event.key === 'Escape') {
+        card.classList.remove('is-active');
+        card.blur();
+      }
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!projectsGallery.contains(event.target)) {
+      deactivateAll();
+    }
+  });
+}
