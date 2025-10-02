@@ -164,7 +164,7 @@ navLinks.forEach((link) => {
 let sections = navLinks
   .map((link) => {
     const targetId = link.getAttribute('href');
-       if (!targetId || !targetId.startsWith('#')) return null;
+    if (!targetId || !targetId.startsWith('#')) return null;
     return document.querySelector(targetId);
   })
   .filter(Boolean);
@@ -314,32 +314,51 @@ const projects = [
   {
     title: 'Autonomous UAS',
     tag: 'Aerial Robotics',
+    meta: 'SAE AeroTHON · 2024',
     summary:
-      'Led the development of an autonomous quadcopter for SAE AeroTHON-24, ranking top 15 nationwide with custom perception and ROS 2 integrations.',
+      'Led the development of an autonomous quadcopter platform with custom perception pipelines and ROS 2 integrations that finished top 15 nationwide.',
     image: {
-      src: 'https://placehold.co/960x720?text=Autonomous+UAS',
+      src: 'https://placehold.co/960x720/0f172a/ffffff?text=Autonomous+UAS',
       alt: 'Placeholder hero image representing the Autonomous UAS project.',
     },
   },
   {
     title: 'PixelBot',
     tag: 'Multimodal AI',
+    meta: 'Smart India Hackathon · 2024',
     summary:
-      'Built a multimodal conversational assistant for image workflows using LLaVA, SAM2, and GLIGEN that secured 2nd place in the Smart India Hackathon qualifier.',
+      'Built a multimodal assistant for image-centric workflows using LLaVA, SAM2, and GLIGEN with staged reasoning and evaluation utilities.',
     image: {
-      src: 'https://placehold.co/960x720?text=PixelBot',
+      src: 'https://placehold.co/960x720/101935/ffffff?text=PixelBot',
       alt: 'Placeholder hero image representing the PixelBot project.',
     },
+    highlights: ['Secured 2nd place in the Smart India Hackathon qualifier.'],
   },
   {
     title: 'Line-Following Parrot MAMBO',
     tag: 'Embedded Autonomy',
+    meta: 'MathWorks Minidrone Challenge · 2023',
     summary:
-      'Engineered a vision pipeline and Stateflow planner in Simulink for the MathWorks Minidrone challenge to enable autonomous Parrot Mambo flight.',
+      'Engineered a vision pipeline and Stateflow planner in Simulink to guide the Parrot Mambo microdrone around dynamic track markers.',
     image: {
-      src: 'https://placehold.co/960x720?text=Parrot+Mambo',
+      src: 'https://placehold.co/960x720/111c3d/ffffff?text=Parrot+Mambo',
       alt: 'Placeholder hero image representing the Parrot Mambo autonomy project.',
     },
+  },
+  {
+    title: 'Occlusion Masking – Avoidance Algorithm',
+    tag: 'Independent Project',
+    meta: 'March 2024',
+    summary:
+      'Developed a Python navigation toolkit for 300×300 occupancy grids that computes tangent arcs and masks occlusions to negotiate cluttered scenes.',
+    image: {
+      src: 'https://placehold.co/960x720/0c1a33/ffffff?text=Occlusion+Masking',
+      alt: 'Placeholder hero image representing the occlusion masking avoidance project.',
+    },
+    highlights: [
+      'Integrated tangent-arc computation with masking techniques for obstacle avoidance.',
+      'Enabled circular movement with adjustable radii and efficient paths from a 90° start orientation.',
+    ],
   },
 ];
 
@@ -385,11 +404,29 @@ if (projectsGallery) {
     const body = document.createElement('div');
     body.className = 'project-card__body';
 
+    if (project.meta) {
+      const meta = document.createElement('p');
+      meta.className = 'project-card__meta';
+      meta.textContent = project.meta;
+      body.appendChild(meta);
+    }
+
     const summary = document.createElement('p');
     summary.className = 'project-card__summary';
     summary.textContent = project.summary;
-
     body.appendChild(summary);
+
+    if (Array.isArray(project.highlights) && project.highlights.length) {
+      const list = document.createElement('ul');
+      list.className = 'project-card__highlights';
+      project.highlights.forEach((item) => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        list.appendChild(li);
+      });
+      body.appendChild(list);
+    }
+
     overlayInner.append(header, body);
     overlay.appendChild(overlayInner);
     card.append(media, overlay);
