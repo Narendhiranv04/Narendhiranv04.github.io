@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#121c3b" />
+      <stop offset="50%" stop-color="#273b75" />
+      <stop offset="100%" stop-color="#1b1033" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#grad)" />
+  <g fill="#ffffff" fill-opacity="0.85" font-family="'Space Grotesk', 'DM Sans', sans-serif" font-weight="600">
+    <text x="50%" y="52%" font-size="64" text-anchor="middle" letter-spacing="4">
+      Extracurricular Image
+    </text>
+  </g>
+</svg>
