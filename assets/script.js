@@ -506,8 +506,8 @@ const flagshipProjects = [
     description:
       'Led the systems team delivering a competition-ready quadcopter with full autonomy stack, resilient perception, and safety interlocks.',
     image: {
-      src: 'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1200&q=80',
-      alt: 'Autonomous quadcopter flying over a field',
+      src: 'uav.jpg',
+      alt: 'Autonomous quadcopter at the SAE AeroTHON',
     },
     technologies: ['ROS 2', 'PX4 Autopilot', 'OpenCV', 'NVIDIA Jetson'],
     outcome:
@@ -520,8 +520,8 @@ const flagshipProjects = [
     description:
       'Built a co-pilot for image-centric workflows that blends grounded visual question answering with controllable generative edits.',
     image: {
-      src: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
-      alt: 'Robotic arm interacting with a visual interface',
+      src: 'pixelbot.jpg',
+      alt: 'PixelBot multimodal assistant interface mockup',
     },
     technologies: ['Python', 'LLaVA', 'SAM2', 'FastAPI', 'Redis'],
     outcome:
@@ -534,8 +534,8 @@ const flagshipProjects = [
     description:
       'Engineered a lightweight autonomy stack for the Parrot Mambo microdrone using MATLAB/Simulink for rapid iteration.',
     image: {
-      src: 'https://images.unsplash.com/photo-1508610048659-a06b669e3321?auto=format&fit=crop&w=1200&q=80',
-      alt: 'Micro drone flying through an illuminated course',
+      src: 'mathworks.jpg',
+      alt: 'Parrot Mambo drone on display at the MathWorks challenge',
     },
     technologies: ['MATLAB', 'Simulink', 'Stateflow', 'Embedded Coder'],
     outcome:
@@ -548,8 +548,8 @@ const flagshipProjects = [
     description:
       'Developed a Python toolkit for navigation on dense occupancy grids with occlusion-aware path reasoning.',
     image: {
-      src: 'https://images.unsplash.com/photo-1527430253228-e93688616381?auto=format&fit=crop&w=1200&q=80',
-      alt: 'Path planning visualization on a grid map',
+      src: 'randomized_triangle_2.jpeg',
+      alt: 'Occlusion-aware navigation heatmap visualization',
     },
     technologies: ['Python', 'NumPy', 'Shapely', 'Matplotlib'],
     outcome:

@@ -1079,6 +1079,7 @@ body[data-theme='light'] .project-case__meta-block {
   transform: scale(0.88);
   transition: transform 450ms var(--easing), filter 450ms var(--easing);
   margin: 0 auto;
+  border-radius: clamp(12px, 2vw, 18px);
 }
 
 .extracurricular-card__body {
