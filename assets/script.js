@@ -309,131 +309,355 @@ if (researchTimeline) {
   }
 }
 
-// --- PROJECT GALLERY ---
-const projects = [
+// --- PUBLICATIONS ---
+const publicationGroups = [
   {
-    title: 'Autonomous UAS',
-    tag: 'Aerial Robotics',
-    meta: 'SAE AeroTHON · 2024',
-    summary:
-      'Led the development of an autonomous quadcopter platform with custom perception pipelines and ROS 2 integrations that finished top 15 nationwide.',
-    image: {
-      src: 'https://placehold.co/960x720/0f172a/ffffff?text=Autonomous+UAS',
-      alt: 'Placeholder hero image representing the Autonomous UAS project.',
-    },
+    title: 'In Preparation',
+    description:
+      'Finalising manuscripts that extend our embodied AI agenda before upcoming submission deadlines.',
+    milestone: 'Next submissions: IROS 2026 & RA-L Q4 2025.',
+    items: [
+      {
+        title:
+          'Contrastive Latent-Action Retrieval with In-Context Memory for Robotic Manipulation',
+        authors: 'N. Vijayakumar, R. Li, Z. Wang*',
+        venue: 'IROS · 2026 (target)',
+        status: 'Manuscript drafting',
+        summary:
+          'Retrieval-augmented visual-language-action policy that composes latent actions using on-the-fly memory tokens for long-horizon manipulation.',
+        highlights: [
+          'Contrastive retrieval bank distilled from teleoperation rollouts.',
+          'Memory prompting keeps novel task success stable with minimal finetuning.',
+        ],
+      },
+      {
+        title:
+          'Contract-Validated Option Selection with MoE RL for Long-Horizon Manipulation',
+        authors: 'N. Vijayakumar, P. Ojha, G. Varma, A. Thomas*',
+        venue: 'RA-L · 2025 (target)',
+        status: 'Experiments wrapping up',
+        summary:
+          'Mixture-of-experts reinforcement learning stack that enforces contract-based guarantees when sequencing manipulation skills.',
+        highlights: [
+          'Safety contracts for reachability and force compliance baked into option selection.',
+          'Bridges sim-to-real with curriculum resets and human-in-the-loop validation.',
+        ],
+      },
+    ],
   },
   {
-    title: 'PixelBot',
-    tag: 'Multimodal AI',
-    meta: 'Smart India Hackathon · 2024',
-    summary:
-      'Built a multimodal assistant for image-centric workflows using LLaVA, SAM2, and GLIGEN with staged reasoning and evaluation utilities.',
-    image: {
-      src: 'https://placehold.co/960x720/101935/ffffff?text=PixelBot',
-      alt: 'Placeholder hero image representing the PixelBot project.',
-    },
-    highlights: ['Secured 2nd place in the Smart India Hackathon qualifier.'],
-  },
-  {
-    title: 'Line-Following Parrot MAMBO',
-    tag: 'Embedded Autonomy',
-    meta: 'MathWorks Minidrone Challenge · 2023',
-    summary:
-      'Engineered a vision pipeline and Stateflow planner in Simulink to guide the Parrot Mambo microdrone around dynamic track markers.',
-    image: {
-      src: 'https://placehold.co/960x720/111c3d/ffffff?text=Parrot+Mambo',
-      alt: 'Placeholder hero image representing the Parrot Mambo autonomy project.',
-    },
-  },
-  {
-    title: 'Occlusion Masking – Avoidance Algorithm',
-    tag: 'Independent Project',
-    meta: 'March 2024',
-    summary:
-      'Developed a Python navigation toolkit for 300×300 occupancy grids that computes tangent arcs and masks occlusions to negotiate cluttered scenes.',
-    image: {
-      src: 'https://placehold.co/960x720/0c1a33/ffffff?text=Occlusion+Masking',
-      alt: 'Placeholder hero image representing the occlusion masking avoidance project.',
-    },
-    highlights: [
-      'Integrated tangent-arc computation with masking techniques for obstacle avoidance.',
-      'Enabled circular movement with adjustable radii and efficient paths from a 90° start orientation.',
+    title: 'Under Review',
+    description: 'Peer-reviewed submissions currently in editorial pipelines.',
+    milestone: 'Actively responding to reviewer feedback across three venues.',
+    items: [
+      {
+        title:
+          'Fuzzy Logic–GRU Framework for Real-Time Sit-to-Walk Joint Torque Estimation',
+        authors: 'C. Perera, N. Vijayakumar, A. Agape*',
+        venue: 'IEEE TNNLS · 2025 (under review)',
+        status: 'Initial review cycle',
+        summary:
+          'Lightweight hybrid estimator for exoskeleton torque prediction that blends fuzzy rules with recurrent dynamics for comfort-critical assistive walking.',
+        highlights: [
+          'Adaptive membership functions tuned for sit-to-walk transitions.',
+          'Embedded deployment on STM32 with <2 ms inference latency.',
+        ],
+      },
+      {
+        title:
+          'AURASeg: Attention Guided Upsampling with Residual Boundary-Assistive Refinement',
+        authors: 'N. Vijayakumar*, M. Sridevi',
+        venue: 'Signal, Image and Video Processing · 2025 (under review)',
+        status: 'Awaiting reviewer scores',
+        summary:
+          'Semantic segmentation pipeline for drivable area detection that sharpens occlusion boundaries with residual refinement.',
+        highlights: [
+          'Dual-branch attention for balancing texture cues and layout context.',
+          'Residual boundary assist improves edge IoU on nuScenes val split.',
+        ],
+      },
+      {
+        title: 'Design and Validation of a Micro-UAV with Dynamic Route Planning',
+        authors: 'N. Vijayakumar*, I. Ravikumar, R. Sundhar',
+        venue: 'ICMRAE · 2025 (under review)',
+        status: 'Camera-ready pending',
+        summary:
+          'Micro air vehicle platform with adaptive waypoint planning and robust failsafes for indoor autonomy demos.',
+        highlights: [
+          'On-board route planner adapts to moving obstacles in 3D grids.',
+          'Flight-tested guidance stack with redundant telemetry and watchdogs.',
+        ],
+      },
     ],
   },
 ];
 
-const projectsGallery = document.querySelector('[data-js="projects-gallery"]');
+const publicationContainer = document.querySelector('[data-js="publication-groups"]');
 
-if (projectsGallery) {
-  projects.forEach((project, index) => {
-    const card = document.createElement('article');
-    card.className = 'project-card';
-    card.style.setProperty('--animation-index', index.toString());
-    card.setAttribute('tabindex', '0');
+if (publicationContainer) {
+  publicationGroups.forEach((group, index) => {
+    const wrapper = document.createElement('article');
+    wrapper.className = 'publication-group';
+    wrapper.style.setProperty('--animation-index', index.toString());
 
-    const media = document.createElement('div');
-    media.className = 'project-card__media';
+    const header = document.createElement('header');
+    header.className = 'publication-group__header';
 
-    const img = document.createElement('img');
-    img.src = project.image.src;
-    img.alt = project.image.alt;
-    img.loading = 'lazy';
-    media.appendChild(img);
+    const badge = document.createElement('span');
+    badge.className = 'publication-group__badge';
+    badge.textContent = group.title;
 
-    const overlay = document.createElement('div');
-    overlay.className = 'project-card__overlay';
+    const description = document.createElement('p');
+    description.className = 'publication-group__description';
+    description.textContent = group.description;
 
-    const overlayInner = document.createElement('div');
-    overlayInner.className = 'project-card__overlay-inner';
+    header.append(badge, description);
 
-    const header = document.createElement('div');
-    header.className = 'project-card__header';
-
-    const title = document.createElement('h3');
-    title.className = 'project-card__title';
-    title.textContent = project.title;
-    header.appendChild(title);
-
-    if (project.tag) {
-      const tag = document.createElement('span');
-      tag.className = 'project-card__tag';
-      tag.textContent = project.tag;
-      header.appendChild(tag);
+    if (group.milestone) {
+      const milestone = document.createElement('p');
+      milestone.className = 'publication-group__milestone';
+      milestone.textContent = group.milestone;
+      header.appendChild(milestone);
     }
 
-    const body = document.createElement('div');
-    body.className = 'project-card__body';
+    const list = document.createElement('ul');
+    list.className = 'publication-list';
 
-    if (project.meta) {
-      const meta = document.createElement('p');
-      meta.className = 'project-card__meta';
-      meta.textContent = project.meta;
-      body.appendChild(meta);
-    }
+    group.items.forEach((item) => {
+      const listItem = document.createElement('li');
+      listItem.className = 'publication-card';
 
-    const summary = document.createElement('p');
-    summary.className = 'project-card__summary';
-    summary.textContent = project.summary;
-    body.appendChild(summary);
+      const meta = document.createElement('div');
+      meta.className = 'publication-card__meta';
 
-    if (Array.isArray(project.highlights) && project.highlights.length) {
-      const list = document.createElement('ul');
-      list.className = 'project-card__highlights';
-      project.highlights.forEach((item) => {
-        const li = document.createElement('li');
-        li.textContent = item;
-        list.appendChild(li);
-      });
-      body.appendChild(list);
-    }
+      const venue = document.createElement('span');
+      venue.className = 'publication-card__venue';
+      venue.textContent = item.venue;
 
-    overlayInner.append(header, body);
-    overlay.appendChild(overlayInner);
-    card.append(media, overlay);
-    projectsGallery.appendChild(card);
+      const status = document.createElement('span');
+      status.className = 'publication-card__status';
+      status.textContent = item.status;
+
+      meta.append(venue, status);
+
+      const title = document.createElement('h3');
+      title.className = 'publication-card__title';
+      title.textContent = item.title;
+
+      const authors = document.createElement('p');
+      authors.className = 'publication-card__authors';
+      authors.textContent = item.authors;
+
+      const summary = document.createElement('p');
+      summary.className = 'publication-card__summary';
+      summary.textContent = item.summary;
+
+      listItem.append(meta, title, authors, summary);
+
+      if (Array.isArray(item.highlights) && item.highlights.length) {
+        const highlights = document.createElement('ul');
+        highlights.className = 'publication-card__highlights';
+
+        item.highlights.forEach((highlight) => {
+          const highlightItem = document.createElement('li');
+          highlightItem.textContent = highlight;
+          highlights.appendChild(highlightItem);
+        });
+
+        listItem.appendChild(highlights);
+      }
+
+      list.appendChild(listItem);
+    });
+
+    wrapper.append(header, list);
+    publicationContainer.appendChild(wrapper);
   });
 
-  const projectCards = projectsGallery.querySelectorAll('.project-card');
+  const publicationGroupsEls = publicationContainer.querySelectorAll('.publication-group');
+
+  if ('IntersectionObserver' in window) {
+    const publicationObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      },
+      {
+        threshold: 0.3,
+        rootMargin: '0px 0px -10% 0px',
+      }
+    );
+
+    publicationGroupsEls.forEach((group) => publicationObserver.observe(group));
+  } else {
+    publicationGroupsEls.forEach((group) => group.classList.add('is-visible'));
+  }
+}
+
+// --- FLAGSHIP PROJECTS ---
+const flagshipProjects = [
+  {
+    title: 'Autonomous UAS',
+    focus: 'Aerial Robotics · Systems Lead',
+    timeframe: 'SAE AeroTHON · 2024',
+    description:
+      'Led the systems team delivering a competition-ready quadcopter with full autonomy stack, resilient perception, and safety interlocks.',
+    highlights: [
+      'Modular ROS 2 stack spanning mission planning, guidance, and PX4-based control.',
+      'Vision-driven landing pipeline with adaptive AprilTag filtering for gusty outdoor runs.',
+      'Mission rehearsals validated autonomous sorties under changing payload configurations.',
+    ],
+    technologies: ['ROS 2', 'PX4 Autopilot', 'OpenCV', 'NVIDIA Jetson'],
+    outcome:
+      'Top-15 national finish with sustained autonomous flight across endurance, payload drop, and navigation tasks.',
+  },
+  {
+    title: 'PixelBot Multimodal Assistant',
+    focus: 'Multimodal AI · Team Lead',
+    timeframe: 'Smart India Hackathon · 2024',
+    description:
+      'Built a co-pilot for image-centric workflows that blends grounded visual question answering with controllable generative edits.',
+    highlights: [
+      'Staged reasoning harnessing LLaVA for analysis, SAM2 for masks, and GLIGEN for guided synthesis.',
+      'Pipeline orchestration with async task queue delivering responses under 4 seconds per request.',
+      'Evaluation harness with curated benchmarks for instruction-following and edit fidelity.',
+    ],
+    technologies: ['Python', 'LLaVA', 'SAM2', 'FastAPI', 'Redis'],
+    outcome:
+      'Secured 2nd place in the national qualifier while open-sourcing reusable evaluation utilities.',
+  },
+  {
+    title: 'Parrot Mambo Autonomy Challenge',
+    focus: 'Embedded Autonomy · Controls Engineer',
+    timeframe: 'MathWorks Minidrone Challenge · 2023',
+    description:
+      'Engineered a lightweight autonomy stack for the Parrot Mambo microdrone using MATLAB/Simulink for rapid iteration.',
+    highlights: [
+      'Stateflow-based mission planner with guard conditions for dynamic gate ordering.',
+      'Custom lane-detection vision filters running at 60 FPS on-board the drone.',
+      'Hardware-in-the-loop validation that reduced oscillations during tight turns.',
+    ],
+    technologies: ['MATLAB', 'Simulink', 'Stateflow', 'Embedded Coder'],
+    outcome:
+      'Achieved fully autonomous line-following with reliable gate traversal in final demos.',
+  },
+  {
+    title: 'Occlusion-Aware Avoidance Toolkit',
+    focus: 'Independent Research · Motion Planning',
+    timeframe: 'March 2024',
+    description:
+      'Developed a Python toolkit for navigation on dense occupancy grids with occlusion-aware path reasoning.',
+    highlights: [
+      'Tangent-arc computation with masked visibility cones to negotiate cluttered spaces.',
+      'Parameterised curvature profiles enabling smooth transitions from 90° start orientations.',
+      'Interactive visualiser for debugging candidate paths and clearance margins.',
+    ],
+    technologies: ['Python', 'NumPy', 'Shapely', 'Matplotlib'],
+    outcome:
+      'Adopted in internal autonomy experiments for rapid what-if analysis of navigation policies.',
+  },
+];
+
+const projectShowcase = document.querySelector('[data-js="project-showcase"]');
+
+if (projectShowcase) {
+  flagshipProjects.forEach((project, index) => {
+    const article = document.createElement('article');
+    article.className = 'project-case';
+    article.style.setProperty('--animation-index', index.toString());
+
+    const summary = document.createElement('div');
+    summary.className = 'project-case__summary';
+
+    const eyebrow = document.createElement('p');
+    eyebrow.className = 'project-case__eyebrow';
+    eyebrow.textContent = `${project.focus}`;
+
+    const title = document.createElement('h3');
+    title.className = 'project-case__title';
+    title.textContent = project.title;
+
+    const description = document.createElement('p');
+    description.className = 'project-case__description';
+    description.textContent = project.description;
+
+    summary.append(eyebrow, title, description);
+
+    if (Array.isArray(project.highlights) && project.highlights.length) {
+      const highlightList = document.createElement('ul');
+      highlightList.className = 'project-case__highlights';
+
+      project.highlights.forEach((highlight) => {
+        const li = document.createElement('li');
+        li.textContent = highlight;
+        highlightList.appendChild(li);
+      });
+
+      summary.appendChild(highlightList);
+    }
+
+    const details = document.createElement('div');
+    details.className = 'project-case__details';
+
+    const timelineBlock = document.createElement('div');
+    timelineBlock.className = 'project-case__meta-block';
+
+    const timelineLabel = document.createElement('span');
+    timelineLabel.className = 'project-case__meta-label';
+    timelineLabel.textContent = 'Stage';
+
+    const timelineValue = document.createElement('span');
+    timelineValue.className = 'project-case__meta-value';
+    timelineValue.textContent = project.timeframe;
+
+    timelineBlock.append(timelineLabel, timelineValue);
+    details.appendChild(timelineBlock);
+
+    if (project.technologies && project.technologies.length) {
+      const techBlock = document.createElement('div');
+      techBlock.className = 'project-case__meta-block';
+
+      const techLabel = document.createElement('span');
+      techLabel.className = 'project-case__meta-label';
+      techLabel.textContent = 'Stack';
+
+      const techList = document.createElement('ul');
+      techList.className = 'project-case__tech-list';
+
+      project.technologies.forEach((tech) => {
+        const techItem = document.createElement('li');
+        techItem.textContent = tech;
+        techList.appendChild(techItem);
+      });
+
+      techBlock.append(techLabel, techList);
+      details.appendChild(techBlock);
+    }
+
+    if (project.outcome) {
+      const outcomeBlock = document.createElement('div');
+      outcomeBlock.className = 'project-case__meta-block project-case__meta-block--accent';
+
+      const outcomeLabel = document.createElement('span');
+      outcomeLabel.className = 'project-case__meta-label';
+      outcomeLabel.textContent = 'Outcome';
+
+      const outcomeValue = document.createElement('span');
+      outcomeValue.className = 'project-case__meta-value';
+      outcomeValue.textContent = project.outcome;
+
+      outcomeBlock.append(outcomeLabel, outcomeValue);
+      details.appendChild(outcomeBlock);
+    }
+
+    article.append(summary, details);
+    projectShowcase.appendChild(article);
+  });
+
+  const projectCases = projectShowcase.querySelectorAll('.project-case');
 
   if ('IntersectionObserver' in window) {
     const projectObserver = new IntersectionObserver(
@@ -445,47 +669,13 @@ if (projectsGallery) {
         });
       },
       {
-        threshold: 0.35,
+        threshold: 0.3,
         rootMargin: '0px 0px -10% 0px',
       }
     );
 
-    projectCards.forEach((card) => projectObserver.observe(card));
+    projectCases.forEach((card) => projectObserver.observe(card));
   } else {
-    projectCards.forEach((card) => card.classList.add('is-visible'));
+    projectCases.forEach((card) => card.classList.add('is-visible'));
   }
-
-  const deactivateAll = () => {
-    projectCards.forEach((card) => card.classList.remove('is-active'));
-  };
-
-  projectCards.forEach((card) => {
-    card.addEventListener('click', () => {
-      const isActivating = !card.classList.contains('is-active');
-      deactivateAll();
-      if (isActivating) {
-        card.classList.add('is-active');
-      }
-    });
-
-    card.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        const isActivating = !card.classList.contains('is-active');
-        deactivateAll();
-        if (isActivating) {
-          card.classList.add('is-active');
-        }
-      } else if (event.key === 'Escape') {
-        card.classList.remove('is-active');
-        card.blur();
-      }
-    });
-  });
-
-  document.addEventListener('click', (event) => {
-    if (!projectsGallery.contains(event.target)) {
-      deactivateAll();
-    }
-  });
 }
