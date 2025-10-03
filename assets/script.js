@@ -505,11 +505,10 @@ const flagshipProjects = [
     timeframe: 'SAE AeroTHON · 2024',
     description:
       'Led the systems team delivering a competition-ready quadcopter with full autonomy stack, resilient perception, and safety interlocks.',
-    highlights: [
-      'Modular ROS 2 stack spanning mission planning, guidance, and PX4-based control.',
-      'Vision-driven landing pipeline with adaptive AprilTag filtering for gusty outdoor runs.',
-      'Mission rehearsals validated autonomous sorties under changing payload configurations.',
-    ],
+    image: {
+      src: 'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1200&q=80',
+      alt: 'Autonomous quadcopter flying over a field',
+    },
     technologies: ['ROS 2', 'PX4 Autopilot', 'OpenCV', 'NVIDIA Jetson'],
     outcome:
       'Top-15 national finish with sustained autonomous flight across endurance, payload drop, and navigation tasks.',
@@ -520,11 +519,10 @@ const flagshipProjects = [
     timeframe: 'Smart India Hackathon · 2024',
     description:
       'Built a co-pilot for image-centric workflows that blends grounded visual question answering with controllable generative edits.',
-    highlights: [
-      'Staged reasoning harnessing LLaVA for analysis, SAM2 for masks, and GLIGEN for guided synthesis.',
-      'Pipeline orchestration with async task queue delivering responses under 4 seconds per request.',
-      'Evaluation harness with curated benchmarks for instruction-following and edit fidelity.',
-    ],
+    image: {
+      src: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
+      alt: 'Robotic arm interacting with a visual interface',
+    },
     technologies: ['Python', 'LLaVA', 'SAM2', 'FastAPI', 'Redis'],
     outcome:
       'Secured 2nd place in the national qualifier while open-sourcing reusable evaluation utilities.',
@@ -535,11 +533,10 @@ const flagshipProjects = [
     timeframe: 'MathWorks Minidrone Challenge · 2023',
     description:
       'Engineered a lightweight autonomy stack for the Parrot Mambo microdrone using MATLAB/Simulink for rapid iteration.',
-    highlights: [
-      'Stateflow-based mission planner with guard conditions for dynamic gate ordering.',
-      'Custom lane-detection vision filters running at 60 FPS on-board the drone.',
-      'Hardware-in-the-loop validation that reduced oscillations during tight turns.',
-    ],
+    image: {
+      src: 'https://images.unsplash.com/photo-1508610048659-a06b669e3321?auto=format&fit=crop&w=1200&q=80',
+      alt: 'Micro drone flying through an illuminated course',
+    },
     technologies: ['MATLAB', 'Simulink', 'Stateflow', 'Embedded Coder'],
     outcome:
       'Achieved fully autonomous line-following with reliable gate traversal in final demos.',
@@ -550,11 +547,10 @@ const flagshipProjects = [
     timeframe: 'March 2024',
     description:
       'Developed a Python toolkit for navigation on dense occupancy grids with occlusion-aware path reasoning.',
-    highlights: [
-      'Tangent-arc computation with masked visibility cones to negotiate cluttered spaces.',
-      'Parameterised curvature profiles enabling smooth transitions from 90° start orientations.',
-      'Interactive visualiser for debugging candidate paths and clearance margins.',
-    ],
+    image: {
+      src: 'https://images.unsplash.com/photo-1527430253228-e93688616381?auto=format&fit=crop&w=1200&q=80',
+      alt: 'Path planning visualization on a grid map',
+    },
     technologies: ['Python', 'NumPy', 'Shapely', 'Matplotlib'],
     outcome:
       'Adopted in internal autonomy experiments for rapid what-if analysis of navigation policies.',
@@ -568,6 +564,18 @@ if (projectShowcase) {
     const article = document.createElement('article');
     article.className = 'project-case';
     article.style.setProperty('--animation-index', index.toString());
+
+    if (project.image?.src) {
+      const media = document.createElement('figure');
+      media.className = 'project-case__media';
+
+      const img = document.createElement('img');
+      img.src = project.image.src;
+      img.alt = project.image.alt || `${project.title} illustration`;
+
+      media.appendChild(img);
+      article.appendChild(media);
+    }
 
     const summary = document.createElement('div');
     summary.className = 'project-case__summary';
@@ -585,19 +593,6 @@ if (projectShowcase) {
     description.textContent = project.description;
 
     summary.append(eyebrow, title, description);
-
-    if (Array.isArray(project.highlights) && project.highlights.length) {
-      const highlightList = document.createElement('ul');
-      highlightList.className = 'project-case__highlights';
-
-      project.highlights.forEach((highlight) => {
-        const li = document.createElement('li');
-        li.textContent = highlight;
-        highlightList.appendChild(li);
-      });
-
-      summary.appendChild(highlightList);
-    }
 
     const details = document.createElement('div');
     details.className = 'project-case__details';
@@ -653,7 +648,11 @@ if (projectShowcase) {
       details.appendChild(outcomeBlock);
     }
 
-    article.append(summary, details);
+    const content = document.createElement('div');
+    content.className = 'project-case__content';
+    content.append(summary, details);
+
+    article.appendChild(content);
     projectShowcase.appendChild(article);
   });
 
