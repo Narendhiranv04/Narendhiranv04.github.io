@@ -2,7 +2,7 @@
 
 This repository hosts the source for [Narendhiran Vijayakumar's personal research homepage](https://narendhiranv04.github.io/).
 
-The site is a static rebuild of the **Long Horizon Hierarchy** project theme, adapted to showcase biography, research highlights, selected projects, publications, media, and contact information. It is deployed via GitHub Pages from the repository root.
+Narendhiran | Robotics | Embodied AI | RL
 
 ## Local development
 
