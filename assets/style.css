@@ -1015,24 +1015,18 @@ body[data-theme='light'] .project-case__meta-block {
 }
 
 
+
 .extracurriculars__masonry {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1.75rem, 4vw, 2.75rem);
-}
-
-@media (max-width: 1200px) {
-  .extracurriculars__masonry {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.75rem, 4vw, 2.5rem);
 }
 
 .extracurricular-card {
   --easing: cubic-bezier(0.22, 1, 0.36, 1);
   position: relative;
-  display: flex;
-  flex-direction: row;
-  gap: clamp(1.5rem, 3vw, 2.25rem);
+  display: grid;
+  grid-template-rows: auto 1fr;
   background: color-mix(in srgb, var(--color-surface) 90%, rgba(255, 255, 255, 0.05));
   border-radius: calc(var(--radius-lg) + 6px);
   border: 1px solid color-mix(in srgb, var(--color-border) 55%, transparent);
@@ -1044,6 +1038,7 @@ body[data-theme='light'] .project-case__meta-block {
   animation: card-float 0.9s var(--easing) forwards;
   animation-delay: calc(var(--index, 0) * 0.12s);
   backdrop-filter: blur(14px);
+  min-height: clamp(22rem, 40vw, 24rem);
 }
 
 .extracurricular-card::after {
@@ -1058,11 +1053,12 @@ body[data-theme='light'] .project-case__meta-block {
 
 .extracurricular-card__media {
   position: relative;
-  flex: 0 0 clamp(150px, 21vw, 210px);
+  width: 100%;
   border-radius: calc(var(--radius-lg) - 2px);
   overflow: hidden;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 3;
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-border) 40%, transparent);
+  margin-bottom: clamp(1.25rem, 3vw, 1.75rem);
 }
 
 .extracurricular-card__media img {
@@ -1077,7 +1073,7 @@ body[data-theme='light'] .project-case__meta-block {
 .extracurricular-card__body {
   display: grid;
   gap: clamp(0.85rem, 2vw, 1.25rem);
-  align-content: center;
+  align-content: start;
 }
 
 .extracurricular-card__tag {
@@ -1129,14 +1125,8 @@ body[data-theme='light'] .project-case__meta-block {
   }
 
   .extracurricular-card {
-    flex-direction: column;
     padding: clamp(1.35rem, 4vw, 1.85rem);
-  }
-
-  .extracurricular-card__media {
-    width: 100%;
-    flex: none;
-    aspect-ratio: 1 / 1;
+    min-height: auto;
   }
 }
 
