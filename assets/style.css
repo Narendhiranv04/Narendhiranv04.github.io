@@ -1499,6 +1499,16 @@ body[data-theme='light'] .project-case__meta-block {
   padding-left: 0;
 }
 
+.timeline-item:nth-child(odd) .timeline-image,
+.timeline-item:nth-child(odd) .timeline-content {
+  margin-right: clamp(1.25rem, 3vw, 2.25rem);
+}
+
+.timeline-item:nth-child(even) .timeline-image,
+.timeline-item:nth-child(even) .timeline-content {
+  margin-left: clamp(1.25rem, 3vw, 2.25rem);
+}
+
 .timeline-item::before {
   content: '';
   position: absolute;
@@ -1601,6 +1611,14 @@ body[data-theme='light'] .project-case__meta-block {
 
   .timeline-item::before {
     left: 8px;
+  }
+
+  .timeline-item:nth-child(odd) .timeline-image,
+  .timeline-item:nth-child(odd) .timeline-content,
+  .timeline-item:nth-child(even) .timeline-image,
+  .timeline-item:nth-child(even) .timeline-content {
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .timeline-image {
