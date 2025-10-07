@@ -1446,15 +1446,14 @@ body[data-theme='light'] .project-case__meta-block {
 .timeline {
   position: relative;
   max-width: 920px;
-  margin: 0 auto;
-  padding-bottom: 2rem;
+  margin: 0 auto clamp(3rem, 6vw, 3.5rem);
 }
 
 .timeline::after {
   content: '';
   position: absolute;
   top: 0;
-  bottom: 0;
+  bottom: clamp(3rem, 6vw, 3.5rem);
   left: 50%;
   transform: translateX(-50%);
   width: 4px;
@@ -1482,6 +1481,10 @@ body[data-theme='light'] .project-case__meta-block {
 .timeline-item.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
 }
 
 .timeline-item:nth-child(odd) {
@@ -1578,12 +1581,17 @@ body[data-theme='light'] .project-case__meta-block {
   .timeline::after {
     left: 24px;
     transform: none;
+    bottom: clamp(2.5rem, 10vw, 3rem);
   }
 
   .timeline-item {
     width: 100%;
     padding: 0 0 2.75rem 3.5rem;
     display: block;
+  }
+
+  .timeline-item:last-child {
+    padding-bottom: 0;
   }
 
   .timeline-item:nth-child(even) {
