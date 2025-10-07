@@ -207,7 +207,7 @@ const researchExperiences = [
     summary:
       'Extended Moto-VLA with contrastive learning and in-context memory for retrieval-augmented VLA control.',
     image: {
-      src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAIAAAC2BqGFAAACJUlEQVR4nO3cMWsTYRyA8f+ZoJCSyQrtEjq1fgQbQ+smAbcufgahg9Ch4NBVIZCPYYZ2LtklhE4hixmEgi6WdguENDReh0BxaSESnzvj85vu3nuHPw8vx02XfF3fCP19j7Ie4H9haIihIYaGGBpiaIihIYaGGBpiaIihIYaGGBpiaIihIYaGGBpiaIihIYaGGBpiaIihIYaGGBpiaIihIYaGGBpiaIihIYaGGBpiaIihIYaGGBpiaIihIYaGGBpiaIihIYaGGBpiaIihIYaGGBpiaIihIYaG5Df01vmgcvz57nZz0I+Icv115aRVOWk9//FtdlF+U589+n1bDhWzHuBe6fUkKRZL1RejTvducXjaHp62I2Jz0P++93a2uN74lM2I88jviY6Iy0Zz9eB91lMsRq5Dj750IqL0cjvrQRYg16Ej4mpZDnXeQ4863ZhOS7XqA3vS9FcUChGRFAvp9IYabT55Dx0RV43mswcP9bjXX9mpRcTKq91xz6+OPzXqnqWTSfLk8X0bLj4crTU+Pt1/FxE/Dw7B0eaQ+KNuxj/w6lgOhoYYGmJoiKEhhoYYGmJoiKEhhoYYGmJoiKEhhoYYGmJoiKEhhoYYGmJoiKEhhoYYGmJoiKEhhoYYGmJoiKEhhoYYGmJoiKEhhoYYGmJoiKEhhoYYGmJoiKEhhoYYGmJoiKEhhobcAkUITKcefDcAAAAAAElFTkSuQmCC',
+      src: 'ntu.png',
       alt: 'NTU Singapore logo',
     },
   },
@@ -218,7 +218,7 @@ const researchExperiences = [
     summary:
       'Designed a contract-validated visual HRL framework for long-horizon manipulation tasks using MoE and SmolVLA controllers.',
     image: {
-      src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAIAAAC2BqGFAAABnUlEQVR4nO3cMUrDYBiA4bSIR/AQrhXngicQ3Fy9RWcvUZy8gAdw6QH0Ip06SxEHQUQUdPBtrM8zJSGBjzc/f7ZMhsv7gd833fUA/4XQEaEjQkeEjggdEToidEToiNARoSNCR4SOCB0ROiJ0ROiI0BGhI0JHhI4IHRE6InRE6IjQEaEjQkeEjggdEToidEToiNARoSNCR4SOCB0ROiJ0ROiI0BGhI0JHhI4IHRE6InRE6IjQEaEjQkeEjggdEToidGSkoTfL+acH5ydHq8VstZhtb89eDy5Oj97u+fDIqBzseoCfuXtY3z2sh2HYLOfz68fXizdXxzsd6ltGuqL3j9CRP7Z1fOrwYLpazN6f7nCYr+xD6Kft89t+PYz1YzjGl7+XhI5M/Ki7YUVHhI4IHRE6InRE6IjQEaEjQkeEjggdEToidEToiNARoSNCR4SOCB0ROiJ0ROiI0BGhI0JHhI4IHRE6InRE6IjQEaEjQkeEjggdEToidEToiNARoSNCR4SOCB0ROiJ0ROiI0BGhI0JHhI4IHRE6InRE6MgLLxsmDbeO2FgAAAAASUVORK5CYII=',
+      src: 'iiith.jpg',
       alt: 'IIIT Hyderabad logo',
     },
   },
@@ -229,8 +229,8 @@ const researchExperiences = [
     summary:
       'Developed a lightweight GRU for real-time torque prediction in robotic exoskeletons with a fuzzy logic-based control system.',
     image: {
-      src: 'https://placehold.co/120x120?text=Monash',
-      alt: 'Placeholder logo for Monash University',
+      src: 'monash.svg',
+      alt: 'Monash University logo',
     },
   },
   {
@@ -240,7 +240,7 @@ const researchExperiences = [
     summary:
       'Developed AURASeg, a model for drivable area segmentation, outperforming YOLOP in mIoU and F1-score.',
     image: {
-      src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAIAAAC2BqGFAAAB5klEQVR4nO3csSuEARyH8e8hTLJKGZQRk02S/8CojMqizmgy+wOMJpvFFWWUOpPxyiTKYqJuMog7gyslr/F53zvPZ3p7p29Pb7/xrXXrEWCo7AH/haEhhoYYGmJoiKEhhoYYGmJoiKEhhoYYGmJoiKEhhoYYGmJoiKEhhoYYGmJoiKEhhoYYGmJoiKEhhoYYGmJoiKEhhoYYGmJoiKEhhoYYGmJoiKEhhoYYGmJoiKEhhoYYGmJoiKEhhoYYGjJS9oA/HbSzN/n9sLCelXqSzC7n4TpJmofZPM7jTWq1jE/kYj+35yXu/UO1Q//QaqTVSJKDdg5Xey83jnrP04vZOqts6AE6HU+tdN7LHlFogELPreV0t+wRhfrqdPxqeDQ7VxkZy8xS7i4rezr6P/THW+9GT82n3ix5TLEBOh2vL3m+L3tEof7/or9OR7eTJCfbZa8pVPNH3YwBOh3VZmiIoSGGhhgaYmiIoSGGhhgaYmiIoSGGhhgaYmiIoSGGhhgaYmiIoSGGhhgaYmiIoSGGhhgaYmiIoSGGhhgaYmiIoSGGhhgaYmiIoSGGhhgaYmiIoSGGhhgaYmiIoSGGhhgaYmjIJwSrMfDQpDLQAAAAAElFTkSuQmCC',
+      src: 'iitb.png',
       alt: 'IIT Bombay logo',
     },
   },
