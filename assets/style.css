@@ -1531,9 +1531,10 @@ body[data-theme='light'] .project-case__meta-block {
 }
 
 .timeline-image img {
-  width: min(100%, 420px);
+  width: clamp(180px, 70%, 320px);
+  max-width: 100%;
   height: auto;
-  max-height: clamp(140px, 24vw, 260px);
+  max-height: clamp(120px, 20vw, 220px);
   object-fit: contain;
 }
 
@@ -1547,7 +1548,7 @@ body[data-theme='light'] .project-case__meta-block {
   display: grid;
   gap: 0.65rem;
   overflow: hidden;
-  width: 100%;
+  width: min(100%, 520px);
 }
 
 .timeline-meta {
