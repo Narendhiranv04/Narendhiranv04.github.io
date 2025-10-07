@@ -229,7 +229,7 @@ const researchExperiences = [
     summary:
       'Developed a lightweight GRU for real-time torque prediction in robotic exoskeletons with a fuzzy logic-based control system.',
     image: {
-      src: 'monash.svg',
+      src: 'monash.png',
       alt: 'Monash University logo',
     },
   },
@@ -281,8 +281,8 @@ if (researchTimeline) {
     description.className = 'timeline-description';
     description.textContent = experience.summary;
 
-    content.append(meta, heading, description);
-    item.append(imageWrapper, content);
+    content.append(imageWrapper, meta, heading, description);
+    item.append(content);
     researchTimeline.appendChild(item);
   });
 
@@ -323,11 +323,12 @@ const publicationGroups = [
         authors: 'N. Vijayakumar, R. Li, Z. Wang*',
         venue: 'IROS · 2026 (target)',
         status: 'Manuscript drafting',
-        summary:
-          'Retrieval-augmented visual-language-action policy that composes latent actions using on-the-fly memory tokens for long-horizon manipulation.',
-        highlights: [
-          'Contrastive retrieval bank distilled from teleoperation rollouts.',
-          'Memory prompting keeps novel task success stable with minimal finetuning.',
+        links: [
+          { label: 'arXiv (soon)', href: null },
+          {
+            label: 'Project Page',
+            href: 'https://narendhiranv04.github.io/#projects',
+          },
         ],
       },
       {
@@ -336,11 +337,12 @@ const publicationGroups = [
         authors: 'N. Vijayakumar, P. Ojha, G. Varma, A. Thomas*',
         venue: 'RA-L · 2025 (target)',
         status: 'Experiments wrapping up',
-        summary:
-          'Mixture-of-experts reinforcement learning stack that enforces contract-based guarantees when sequencing manipulation skills.',
-        highlights: [
-          'Safety contracts for reachability and force compliance baked into option selection.',
-          'Bridges sim-to-real with curriculum resets and human-in-the-loop validation.',
+        links: [
+          { label: 'arXiv (soon)', href: null },
+          {
+            label: 'Project Page',
+            href: 'https://narendhiranv04.github.io/#projects',
+          },
         ],
       },
     ],
@@ -356,11 +358,12 @@ const publicationGroups = [
         authors: 'C. Perera, N. Vijayakumar, A. Agape*',
         venue: 'IEEE TNNLS · 2025 (under review)',
         status: 'Initial review cycle',
-        summary:
-          'Lightweight hybrid estimator for exoskeleton torque prediction that blends fuzzy rules with recurrent dynamics for comfort-critical assistive walking.',
-        highlights: [
-          'Adaptive membership functions tuned for sit-to-walk transitions.',
-          'Embedded deployment on STM32 with <2 ms inference latency.',
+        links: [
+          { label: 'arXiv (soon)', href: null },
+          {
+            label: 'Project Page',
+            href: 'https://narendhiranv04.github.io/#projects',
+          },
         ],
       },
       {
@@ -369,11 +372,12 @@ const publicationGroups = [
         authors: 'N. Vijayakumar*, M. Sridevi',
         venue: 'Signal, Image and Video Processing · 2025 (under review)',
         status: 'Awaiting reviewer scores',
-        summary:
-          'Semantic segmentation pipeline for drivable area detection that sharpens occlusion boundaries with residual refinement.',
-        highlights: [
-          'Dual-branch attention for balancing texture cues and layout context.',
-          'Residual boundary assist improves edge IoU on nuScenes val split.',
+        links: [
+          { label: 'arXiv (soon)', href: null },
+          {
+            label: 'Project Page',
+            href: 'https://narendhiranv04.github.io/#projects',
+          },
         ],
       },
       {
@@ -381,11 +385,12 @@ const publicationGroups = [
         authors: 'N. Vijayakumar*, I. Ravikumar, R. Sundhar',
         venue: 'ICMRAE · 2025 (under review)',
         status: 'Camera-ready pending',
-        summary:
-          'Micro air vehicle platform with adaptive waypoint planning and robust failsafes for indoor autonomy demos.',
-        highlights: [
-          'On-board route planner adapts to moving obstacles in 3D grids.',
-          'Flight-tested guidance stack with redundant telemetry and watchdogs.',
+        links: [
+          { label: 'arXiv (soon)', href: null },
+          {
+            label: 'Project Page',
+            href: 'https://narendhiranv04.github.io/#projects',
+          },
         ],
       },
     ],
@@ -448,23 +453,33 @@ if (publicationContainer) {
       authors.className = 'publication-card__authors';
       authors.textContent = item.authors;
 
-      const summary = document.createElement('p');
-      summary.className = 'publication-card__summary';
-      summary.textContent = item.summary;
+      listItem.append(meta, title, authors);
 
-      listItem.append(meta, title, authors, summary);
+      if (Array.isArray(item.links) && item.links.length) {
+        const actions = document.createElement('div');
+        actions.className = 'publication-card__actions';
 
-      if (Array.isArray(item.highlights) && item.highlights.length) {
-        const highlights = document.createElement('ul');
-        highlights.className = 'publication-card__highlights';
+        item.links.forEach((link) => {
+          let action;
 
-        item.highlights.forEach((highlight) => {
-          const highlightItem = document.createElement('li');
-          highlightItem.textContent = highlight;
-          highlights.appendChild(highlightItem);
+          if (link.href) {
+            action = document.createElement('a');
+            action.href = link.href;
+            action.target = '_blank';
+            action.rel = 'noopener';
+          } else {
+            action = document.createElement('button');
+            action.type = 'button';
+            action.disabled = true;
+            action.setAttribute('aria-disabled', 'true');
+          }
+
+          action.className = 'publication-card__action';
+          action.textContent = link.label;
+          actions.appendChild(action);
         });
 
-        listItem.appendChild(highlights);
+        listItem.appendChild(actions);
       }
 
       list.appendChild(listItem);
