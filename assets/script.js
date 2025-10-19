@@ -314,7 +314,7 @@ const publicationGroups = [
   {
     title: 'In Preparation',
     description:
-      'Finalising manuscripts before upcoming submission deadlines.',
+      'Finalising manuscripts that before upcoming submission deadlines.',
     milestone: 'Next submissions: IROS 2026 & RA-L Q4 2025.',
     items: [
       {
@@ -516,7 +516,7 @@ if (publicationContainer) {
 const flagshipProjects = [
   {
     title: 'Autonomous UAS',
-    focus: 'Aerial Robotics · Avionics Lead',
+    focus: 'Aerial Robotics · Systems Lead',
     timeframe: 'SAE AeroTHON · 2024',
     description:
       'Led the systems team delivering a competition-ready quadcopter with full autonomy stack, resilient perception, and safety interlocks.',
@@ -526,7 +526,7 @@ const flagshipProjects = [
     },
     technologies: ['ROS 2', 'PX4 Autopilot', 'OpenCV', 'Raspberry Pi'],
     outcome:
-      'Top-15 podium for autonomous flight across endurance, payload drop, and navigation tasks.',
+      'Top-15 national finish for autonomous flight across endurance, payload drop, and navigation tasks.',
   },
   {
     title: 'PixelBot Multimodal Assistant',
@@ -538,14 +538,14 @@ const flagshipProjects = [
       src: 'pixelbot.jpg',
       alt: 'PixelBot multimodal assistant interface mockup',
     },
-    technologies: ['Python', 'PyTorch', 'FastAPI'],
+    technologies: ['Python', 'PyTorch','FastAPI'],
     outcome:
       'Secured 2nd place in the national qualifier while open-sourcing reusable evaluation utilities.',
   },
   {
     title: 'Parrot Mambo Autonomy Challenge',
     focus: 'Embedded Autonomy · Controls Engineer',
-    timeframe: 'MathWorks Minidrone Challenge · 2024,
+    timeframe: 'MathWorks Minidrone Challenge · 2024',
     description:
       'Engineered a lightweight autonomy stack for the Parrot Mambo microdrone using MATLAB/Simulink for rapid iteration.',
     image: {
@@ -558,7 +558,7 @@ const flagshipProjects = [
   },
   {
     title: 'Occlusion-Aware Avoidance Toolkit',
-    focus: 'Independent Project · Motion Planning',
+    focus: 'Motion Planning',
     timeframe: 'March 2024',
     description:
       'Developed a Python toolkit for navigation on dense occupancy grids with occlusion-aware path reasoning.',
@@ -568,7 +568,7 @@ const flagshipProjects = [
     },
     technologies: ['Python', 'NumPy', 'Matplotlib'],
     outcome:
-      'Project Assignment',
+      'Independent Assignment Project',
   },
 ];
 
