@@ -314,7 +314,7 @@ const publicationGroups = [
   {
     title: 'In Preparation',
     description:
-      'Finalising manuscripts that before upcoming submission deadlines.',
+      'Finalising manuscripts before upcoming submission deadlines.',
     milestone: 'Next submissions: IROS 2026 & RA-L Q4 2025.',
     items: [
       {
@@ -516,7 +516,7 @@ if (publicationContainer) {
 const flagshipProjects = [
   {
     title: 'Autonomous UAS',
-    focus: 'Aerial Robotics · Systems Lead',
+    focus: 'Aerial Robotics · Avionics Lead',
     timeframe: 'SAE AeroTHON · 2024',
     description:
       'Led the systems team delivering a competition-ready quadcopter with full autonomy stack, resilient perception, and safety interlocks.',
@@ -524,9 +524,9 @@ const flagshipProjects = [
       src: 'uav.jpg',
       alt: 'Autonomous quadcopter at the SAE AeroTHON',
     },
-    technologies: ['ROS 2', 'PX4 Autopilot', 'OpenCV', 'NVIDIA Jetson'],
+    technologies: ['ROS 2', 'PX4 Autopilot', 'OpenCV', 'Raspberry Pi'],
     outcome:
-      'Top-15 national finish with sustained autonomous flight across endurance, payload drop, and navigation tasks.',
+      'Top-15 podium for autonomous flight across endurance, payload drop, and navigation tasks.',
   },
   {
     title: 'PixelBot Multimodal Assistant',
@@ -538,27 +538,27 @@ const flagshipProjects = [
       src: 'pixelbot.jpg',
       alt: 'PixelBot multimodal assistant interface mockup',
     },
-    technologies: ['Python', 'LLaVA', 'SAM2', 'FastAPI', 'Redis'],
+    technologies: ['Python', 'PyTorch', 'FastAPI'],
     outcome:
       'Secured 2nd place in the national qualifier while open-sourcing reusable evaluation utilities.',
   },
   {
     title: 'Parrot Mambo Autonomy Challenge',
     focus: 'Embedded Autonomy · Controls Engineer',
-    timeframe: 'MathWorks Minidrone Challenge · 2023',
+    timeframe: 'MathWorks Minidrone Challenge · 2024,
     description:
       'Engineered a lightweight autonomy stack for the Parrot Mambo microdrone using MATLAB/Simulink for rapid iteration.',
     image: {
       src: 'mathworks.jpg',
       alt: 'Parrot Mambo drone on display at the MathWorks challenge',
     },
-    technologies: ['MATLAB', 'Simulink', 'Stateflow', 'Embedded Coder'],
+    technologies: ['MATLAB', 'Simulink', 'Stateflow'],
     outcome:
       'Achieved fully autonomous line-following with reliable gate traversal in final demos.',
   },
   {
     title: 'Occlusion-Aware Avoidance Toolkit',
-    focus: 'Independent Research · Motion Planning',
+    focus: 'Independent Project · Motion Planning',
     timeframe: 'March 2024',
     description:
       'Developed a Python toolkit for navigation on dense occupancy grids with occlusion-aware path reasoning.',
@@ -566,9 +566,9 @@ const flagshipProjects = [
       src: 'randomized_triangle_2.jpeg',
       alt: 'Occlusion-aware navigation heatmap visualization',
     },
-    technologies: ['Python', 'NumPy', 'Shapely', 'Matplotlib'],
+    technologies: ['Python', 'NumPy', 'Matplotlib'],
     outcome:
-      'Adopted in internal autonomy experiments for rapid what-if analysis of navigation policies.',
+      'Project Assignment',
   },
 ];
 
