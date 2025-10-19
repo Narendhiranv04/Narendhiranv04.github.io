@@ -314,7 +314,7 @@ const publicationGroups = [
   {
     title: 'In Preparation',
     description:
-      'Finalising manuscripts that extend our embodied AI agenda before upcoming submission deadlines.',
+      'Finalising manuscripts that before upcoming submission deadlines.',
     milestone: 'Next submissions: IROS 2026 & RA-L Q4 2025.',
     items: [
       {
@@ -350,14 +350,14 @@ const publicationGroups = [
   {
     title: 'Under Review',
     description: 'Peer-reviewed submissions currently in editorial pipelines.',
-    milestone: 'Actively responding to reviewer feedback across three venues.',
+    milestone: 'Waiting for reviewer feedbacks',
     items: [
       {
         title:
           'Fuzzy Logic–GRU Framework for Real-Time Sit-to-Walk Joint Torque Estimation',
         authors: 'C. Perera, N. Vijayakumar, A. Agape*',
         venue: 'IEEE TNNLS · 2025 (under review)',
-        status: 'Initial review cycle',
+        status: 'Submitted',
         links: [
           { label: 'arXiv (soon)', href: null },
           {
@@ -371,7 +371,7 @@ const publicationGroups = [
           'AURASeg: Attention Guided Upsampling with Residual Boundary-Assistive Refinement',
         authors: 'N. Vijayakumar*, M. Sridevi',
         venue: 'Signal, Image and Video Processing · 2025 (under review)',
-        status: 'Awaiting reviewer scores',
+        status: 'Initial Review Cycle',
         links: [
           { label: 'arXiv (soon)', href: null },
           {
@@ -383,7 +383,7 @@ const publicationGroups = [
       {
         title: 'Design and Validation of a Micro-UAV with Dynamic Route Planning',
         authors: 'N. Vijayakumar*, I. Ravikumar, R. Sundhar',
-        venue: 'ICMRAE · 2025 (under review)',
+        venue: 'ICMRAE · 2025 (Accepted)',
         status: 'Camera-ready pending',
         links: [
           { label: 'arXiv (soon)', href: null },
