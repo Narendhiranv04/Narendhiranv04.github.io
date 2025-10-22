@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Embodied AI Intern · NTU, Singapore — Narendhiran Vijayakumar</title>
+    <meta
+      name="description"
+      content="Embodied AI internship at NTU, Singapore: latent-action retrieval and in-context memory for Moto-VLA."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/style.css" />
+    <script defer src="assets/script.js"></script>
+  </head>
+  <body data-theme="dark">
+    <header class="site-header" id="top">
+      <div class="container site-header__inner">
+        <a class="site-logo logo" href="index.html#research">Narendhiran Vijayakumar</a>
+
+        <button
+          class="menu-toggle"
+          type="button"
+          data-js="menu-toggle"
+          aria-expanded="false"
+          aria-controls="site-nav"
+        >
+          <span class="menu-toggle__icon" aria-hidden="true">☰</span>
+          <span class="menu-toggle__text">Menu</span>
+        </button>
+
+        <nav id="site-nav" class="site-nav" data-js="site-nav" aria-label="Main navigation">
+          <a href="index.html#overview">Home</a>
+          <a href="index.html#research">Research</a>
+          <a href="mailto:narendhiranv.nitt@gmail.com">Email</a>
+        </nav>
+
+        <button
+          class="theme-toggle"
+          type="button"
+          data-js="theme-toggle"
+          aria-label="Switch to light theme"
+          title="Switch to light theme"
+        >
+          <span class="theme-toggle__icon" aria-hidden="true">☀️</span>
+          <span class="theme-toggle__text">Light Mode</span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="research-detail">
+        <div class="container">
+          <div class="research-detail__header">
+            <p class="research-detail__eyebrow">Research Experience</p>
+            <h1 class="research-detail__title">Embodied AI Intern · NTU, Singapore</h1>
+            <p class="research-detail__meta">May 2025 – Present</p>
+            <p class="research-detail__summary">
+              Extending Moto-VLA with contrastive latent-action retrieval and in-context memory so manipulation policies focus on
+              the intent of a motion—not just what the scene looks like.
+            </p>
+          </div>
+
+          <div class="research-detail__media">
+            <img src="ntu.png" alt="NTU Singapore logo" />
+          </div>
+
+          <div class="research-detail__content">
+            <article class="research-detail__section" id="spark">
+              <h2>Spark</h2>
+              <p>
+                I came into NTU thinking manipulation was “solved.” Diving into vision-language-action models proved otherwise.
+                Robots still confuse look-alike frames with the right next action. That gap convinced me to chase retrieval that
+                focuses on behaviour instead of appearance.
+              </p>
+            </article>
+
+            <article class="research-detail__section" id="idea">
+              <h2>Idea</h2>
+              <p>
+                Short segments of demonstrations become compact latent-action tokens—snippets like “approach,” “close,” or “lift.”
+                An InfoNCE objective pulls similar action snippets together while FAISS with DTW-aligned windows retrieves the most
+                relevant neighbours for the current step. The aim: fetch what to do next, not just what looks similar.
+              </p>
+            </article>
+
+            <article class="research-detail__section" id="first-look">
+              <h2>First Look</h2>
+              <p>
+                Latent-action retrieval beat image retrieval in early rollouts, but the margins were slim. Positives needed tighter
+                phase alignment and harder negatives. The bigger issue was a mismatch: the policy trained with action tokens yet
+                relied on pixels alone during inference.
+              </p>
+            </article>
+
+            <article class="research-detail__section" id="closing-the-gap">
+              <h2>Closing the Gap</h2>
+              <p>
+                I added an in-context memory at inference. For each step, the policy receives the top-K latent-action snippets as
+                structured hints—simple cues that describe the next move. That tiny addition grounded the controller; it now
+                consults action structure both during training and while executing.
+              </p>
+            </article>
+
+            <article class="research-detail__section" id="engineering">
+              <h2>Engineering Glue</h2>
+              <p>
+                Reliability came from the unglamorous bits: standardising everything to [B, T, D] tensors, chunking FAISS queries to
+                stay memory-safe, caching neighbours between steps, and leaning on mixed precision. Those guard rails turned
+                “sometimes works” experiments into repeatable rollouts.
+              </p>
+            </article>
+
+            <article class="research-detail__section" id="why-it-matters">
+              <h2>Why It Matters</h2>
+              <p>
+                Retrieval by appearance blurs intent. Conditioning Moto-VLA on actions instead gives it a lightweight prior about
+                phase and tempo. It doesn’t solve every failure mode—cluttered scenes still challenge retrieval—but the policy now
+                respects when to make contact and how quickly to move.
+              </p>
+            </article>
+
+            <article class="research-detail__section" id="status">
+              <h2>Status &amp; Next</h2>
+              <p>
+                The pipeline now combines a latent-action tokenizer, DTW-aligned indexing, and an in-context cache. Remaining work
+                focuses on tuning window length, DTW slack, distance metrics, and the sweet spot for K before context turns noisy.
+                Up next: porting to an xArm setup to map out real-world failure modes.
+              </p>
+            </article>
+
+            <article class="research-detail__section" id="one-liner">
+              <h2>One Line Takeaway</h2>
+              <p>
+                Stop matching scenes by how they look; retrieve by what to do. Robots need intent, not just images.
+              </p>
+            </article>
+          </div>
+
+          <div class="research-detail__footer">
+            <a href="index.html#research">← Back to all research experiences</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <p>© <span id="current-year"></span> Narendhiran Vijayakumar. Built with love for robotics.</p>
+        <a class="back-to-top" href="#top">Back to top ↑</a>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
