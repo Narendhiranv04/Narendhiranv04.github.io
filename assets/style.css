@@ -865,128 +865,14 @@ body[data-theme="light"] .timeline-reveal__closing{color:var(--color-heading);}
   }
 }
 
-/* ============================ */
-/* Research Reveal – Final Pass */
-/* ============================ */
 
-/* Highest stacking to avoid timeline/header bleed-through */
-.timeline-reveal-overlay{ z-index: 9997 !important; }
-.timeline-reveal{ z-index: 9999 !important; }
-.site-header, .site-nav, .timeline, .timeline-item, .timeline-content{ z-index: initial; }
-
-/* Overlay: theme-aware dim, no blur */
-.timeline-reveal-overlay{
-  position: fixed; inset: 0;
-  background: rgba(10,14,28,.48);
-  opacity: 0; pointer-events: none;
-  transition: opacity .24s ease-out;
-  filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-}
-body[data-theme="light"] .timeline-reveal-overlay{ background: rgba(0,8,24,.22); }
-body[data-theme="dark"]  .timeline-reveal-overlay{ background: rgba(2,6,18,.55); }
-
-/* Panel: no blur; responsive width/height that work at any zoom */
-:root{
-  --reveal-min-w: 720px;
-  --reveal-ideal-w: 900px;
-  --reveal-max-w: 1040px;
-  --reveal-gap: clamp(16px, 2.6vmin, 24px);
-  --reveal-radius: clamp(14px, 1.8vmin, 18px);
-}
-.timeline-reveal{
-  position: fixed;
-  top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-  width: clamp(var(--reveal-min-w), 86vw, var(--reveal-max-w));
-  max-width: 96vw;
-  max-height: calc(94dvh - var(--reveal-gap)*2);
-  border-radius: var(--reveal-radius);
-  border: 1px solid color-mix(in srgb, var(--color-border), var(--color-accent) 28%);
-  background: linear-gradient(135deg, rgba(18,24,54,.97), rgba(12,16,36,.96));
-  box-shadow:
-    0 42px 120px rgba(4, 7, 18, .70),
-    0 16px 34px rgba(4, 7, 18, .35);
-  color: var(--color-heading);
-  opacity: 0; pointer-events: none;
-  filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-  will-change: transform, opacity;
-}
-
-/* Active states */
-body.timeline-reveal-active .timeline-reveal-overlay{
-  opacity: 1; pointer-events: auto;
-}
-.timeline-content.has-reveal.is-active .timeline-reveal{
-  opacity: 1; pointer-events: auto;
-}
-
-/* Inner scroll container – always tall enough to scroll */
-.timeline-reveal__inner{
-  padding: clamp(20px, 2.8vmin, 28px);
-  max-height: calc(90dvh - var(--reveal-gap)*2);
-  overflow: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
-}
-/* Larger readable text */
-.timeline-reveal__inner,
-.timeline-reveal__narrative{ font-size: 0.98rem; line-height: 1.72; }
-
-/* Keep jiggle/hover effects visible when modal closed */
-.timeline-content .timeline-hover-glow{ pointer-events: none; }
-.timeline-content{ transform-style: preserve-3d; }
-
-/* Hover state bounce + tilt restored */
-.timeline-content.is-hovered{
-  transform: translateY(-6px) scale(1.01) rotateX(var(--tiltX, 0deg)) rotateY(var(--tiltY, 0deg));
-  box-shadow: var(--shadow-elevated);
-}
-
-/* Close button visible and unambiguous */
-.timeline-reveal__close{
-  position: absolute; top: 14px; right: 14px;
-  width: 40px; height: 40px;
-  border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--color-border), var(--color-accent) 30%);
-  background: rgba(34,40,80,.45);
-  display: grid; place-items: center;
-  opacity: 1; transform: none; pointer-events: auto;
-}
-.timeline-reveal__close::before, .timeline-reveal__close::after{
-  content: ''; width: 18px; height: 2px;
-  background: rgba(226,232,255,.92); border-radius: 2px;
-  position: absolute;
-}
-.timeline-reveal__close::before{ transform: rotate(45deg); }
-.timeline-reveal__close::after{ transform: rotate(-45deg); }
-.timeline-reveal__close:hover{ background: rgba(50,60,120,.6); }
-
-/* Narrative: organic, no block section headings */
-.timeline-reveal__narrative b{ font-weight: 700; }
-.timeline-reveal__tag{ display: none !important; } /* optional: remove tag line if you want it cleaner */
-
-/* Accessibility: focus ring inside dialog */
-.timeline-reveal :focus-visible{ outline: 2px solid rgba(136,148,255,.7); outline-offset: 3px; }
-
-/* Prevent any legacy keyframe pops interfering with morph */
-.timeline-content.has-reveal .timeline-reveal{ animation: none !important; filter: none !important; }
-
-/* === Final polish: stronger separation, visibility guard, smoother scroll === */
-.timeline-reveal{
-  background: linear-gradient(135deg, rgba(16,22,46,.985), rgba(10,14,32,.98)) !important;
-  visibility: hidden;
-}
-.timeline-content.has-reveal.is-active .timeline-reveal{
-  visibility: visible;
-}
-
-/* Stronger overlay for clarity on light mode */
-body[data-theme="light"] .timeline-reveal-overlay{ background: rgba(6,10,24,.35) !important; }
-
-/* Ensure inner always scrolls; a tiny padding to avoid last-line cut-offs */
-.timeline-reveal__inner{ padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+/* === TIMELINE REVEAL OVERRIDES (no blur, better layering, smooth scroll, narrative) === */
+.timeline-reveal-overlay{ z-index: 9997 !important; filter:none!important; -webkit-backdrop-filter:none!important; backdrop-filter:none!important; }
+.timeline-reveal{ z-index: 9999 !important; filter:none!important; -webkit-backdrop-filter:none!important; backdrop-filter:none!important; }
+body.timeline-reveal-active{ overflow:hidden; }
+.timeline-reveal{ background:linear-gradient(135deg, rgba(16,22,46,.985), rgba(10,14,32,.98)) !important; visibility:hidden; width:clamp(720px,86vw,1040px); max-height:calc(92dvh - 24px); }
+.timeline-content.has-reveal.is-active .timeline-reveal{ visibility:visible; }
+.timeline-reveal__inner{ max-height:calc(88dvh - 28px); overflow:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; scroll-behavior:smooth; }
+.timeline-reveal__tag{ display:none!important; }
+.timeline-reveal__narrative{ font-size:.98rem; line-height:1.72; }
+.timeline-content.is-hovered{ transform: translateY(-6px) scale(1.01) rotateX(var(--tiltX,0deg)) rotateY(var(--tiltY,0deg)); box-shadow: var(--shadow-elevated); }
