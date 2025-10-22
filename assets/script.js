@@ -2,6 +2,12 @@
 // Merged and conflict-free: combines theme toggle, responsive nav, and active-section highlighting.
 
 const root = document.body;
+if (window.__timelineInitDone) {
+  // Prevent double-binding in SPA-like navigations
+} else {
+  window.__timelineInitDone = true;
+}
+
 
 // --- NAV ELEMENTS (support both data-js and legacy class selectors) ---
 const nav =
@@ -481,9 +487,9 @@ if (researchTimeline) {
     timelineItems.forEach((item) => item.classList.add('is-visible'));
   }
 
-  const revealCards = researchTimeline.querySelectorAll(
-    '.timeline-content.has-reveal'
-  );
+  const revealCards = researchTimeline.querySelectorAll('.timeline-content.has-reveal');
+  // reset any active states from SSR/previous navigation
+  revealCards.forEach(c => c.classList.remove('is-active'));
   const supportsHover =
     typeof window.matchMedia === 'function'
       ? window.matchMedia('(hover: hover)').matches
@@ -501,11 +507,12 @@ if (researchTimeline) {
     const activateReveal = (card) => {
       if (activeCard === card) return;
 
-      if (activeCard) {
+      if (activeCard && activeCard !== card) {
         activeCard.classList.remove('is-active');
         activeCard.setAttribute('aria-expanded', 'false');
       }
 
+      document.querySelectorAll('.timeline-content.has-reveal.is-active').forEach(n=>{ if(n!==card){ n.classList.remove('is-active'); n.setAttribute('aria-expanded','false'); }});
       activeCard = card;
       const reveal = activeCard.querySelector('.timeline-reveal');
       // Dialog semantics
@@ -567,21 +574,30 @@ if (researchTimeline) {
         else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
       };
       const onWheel = (e) => {
-        // Only allow wheel inside the dialog; prevent background scroll
-        if (!reveal.contains(e.target)) e.preventDefault();
+        const inside = reveal.contains(e.target);
+        if (!inside) { e.preventDefault(); return; }
+        // If the target can't scroll further, let it bubble to the inner container
+        // (native scroll performance preserved).
       };
       document.addEventListener('keydown', trap);
       document.addEventListener('wheel', onWheel, { passive: false });
       document.addEventListener('touchmove', onWheel, { passive: false });
 
       anim.addEventListener('finish', () => {
+      // Keep centered and valid after resize/zoom
+      const onResize = () => { /* rely on CSS dvh; nothing to compute, but force reflow */ reveal.getBoundingClientRect(); };
+      window.addEventListener('resize', onResize);
+      reveal._onResize = onResize;
+
         // Put focus inside
         (reveal.querySelector('.timeline-reveal__close') || reveal).focus({ preventScroll: true });
         reveal.style.willChange = '';
         // Store handlers to clean up later
         reveal._trapKeydown = trap;
         reveal._trapWheel = onWheel;
-      });
+      
+        if (reveal._onResize) window.removeEventListener('resize', reveal._onResize);
+
     };
 
 
@@ -611,6 +627,11 @@ if (researchTimeline) {
       overlay.animate([{opacity:1},{opacity:0}], {duration: 200, easing:'ease-in', fill:'forwards'});
 
       anim.addEventListener('finish', () => {
+      // Keep centered and valid after resize/zoom
+      const onResize = () => { /* rely on CSS dvh; nothing to compute, but force reflow */ reveal.getBoundingClientRect(); };
+      window.addEventListener('resize', onResize);
+      reveal._onResize = onResize;
+
         // Clean up styles
         reveal.style.transform = '';
         reveal.style.opacity = '';
@@ -633,11 +654,13 @@ if (researchTimeline) {
           document.removeEventListener('wheel', reveal._trapWheel);
           document.removeEventListener('touchmove', reveal._trapWheel);
         }
-      });
+      
+        if (reveal._onResize) window.removeEventListener('resize', reveal._onResize);
+
     };
 
 
-    overlay.addEventListener('click', deactivateReveal);
+    overlay.addEventListener('click', deactivateReveal, { once:false });
 
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
