@@ -210,6 +210,73 @@ const researchExperiences = [
       src: 'ntu.png',
       alt: 'NTU Singapore logo',
     },
+    spotlight: `
+      <button class="timeline-reveal__close" type="button" aria-label="Close NTU research spotlight"></button>
+      <div class="timeline-reveal__inner">
+        <p class="timeline-reveal__tag">Latent-Action Retrieval · Embodied AI</p>
+        <h4 class="timeline-reveal__title">NTU · Embodied AI Intern</h4>
+        <div class="timeline-reveal__section">
+          <h5>Spark</h5>
+          <p>
+            I walked in thinking manipulation was solved until Vision-Language-Action policies showed me the gap between knowing
+            what a scene looks like and understanding how to move through it. That tension pulled me straight into the rabbit
+            hole of embodied intelligence.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Idea</h5>
+          <p>
+            The goal became simple: retrieve by intent, not by pixels. I tokenise motion into compact latent-action snippets and
+            align them with DTW so “approach”, “close”, and “lift” phases remain intact. FAISS does the heavy lifting on the
+            backend, surfacing the exact manoeuvres the robot should imitate in the moment.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>First Look</h5>
+          <p>
+            Early rollouts beat image-based retrieval only by inches. Tightening positives around phase-aligned clips and mining
+            savage negatives carved a sharper latent space, but the real unlock was matching training and test-time signals.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Closing the Gap</h5>
+          <p>
+            I added an in-context memory that hands the policy the top-K latent actions each step. Suddenly the controller sees
+            action priors, not just frames, and the timing on delicate contacts snapped into place.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Engineering Glue</h5>
+          <p>
+            Clean [B, T, D] contracts, chunked FAISS queries, cached neighbours, and mixed-precision hot paths kept the loop
+            stable enough to iterate. Unglamorous, but the difference between “sometimes” and “publishable”.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Why it Matters</h5>
+          <p>
+            Most VLAs still confuse appearance with intent. Conditioning on retrieved actions gives the robot a lightweight plan
+            for tempo and contact, inching closer to policies that understand what to do, not just what they see.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Status</h5>
+          <p>
+            Three blocks now hum together: an InfoNCE-trained tokenizer, a DTW-aligned FAISS index, and an in-context memory that
+            feeds the policy. When it shines, repeated sub-motions lock in; when it falters, clutter still distracts the
+            retrieval layer.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Next Up</h5>
+          <p>
+            Dialling in token lengths, DTW slack, distance metrics, and K before stress-testing on an xArm to surface all the
+            real-world bruises.
+          </p>
+        </div>
+        <p class="timeline-reveal__closing">“Stop matching by how things look—retrieve what to do next.”</p>
+      </div>
+    `,
   },
   {
     title: 'Task & Motion Planning Intern',
@@ -221,6 +288,56 @@ const researchExperiences = [
       src: 'iiith.jpg',
       alt: 'IIIT Hyderabad logo',
     },
+    spotlight: `
+      <button class="timeline-reveal__close" type="button" aria-label="Close IIITH research spotlight"></button>
+      <div class="timeline-reveal__inner">
+        <p class="timeline-reveal__tag">Hierarchical Policies · Reliability</p>
+        <h4 class="timeline-reveal__title">IIIT Hyderabad · Task & Motion Planning</h4>
+        <div class="timeline-reveal__section">
+          <h5>Why Contracts</h5>
+          <p>
+            Long-horizon manipulation breaks when sub-policies go rogue, so I wrapped every option in temporal logic style
+            contracts. The controller must prove pre- and post-conditions before it ever touches the arm.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Stack</h5>
+          <p>
+            A visual encoder distils SmolVLA features, a Mixture-of-Experts actor selects options, and a symbolic monitor rejects
+            bad choices. When the planner hesitates, a low-latency MPC fallback steps in.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Breakthrough</h5>
+          <p>
+            A “contract buffer” that carries risk scores between stages gave me a safety margin without freezing exploration. It
+            keeps high-level plans adventurous but still checkable in real time.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>System View</h5>
+          <p>
+            Sim traces stream into an orbit of dashboards—trajectory slack, LTL violations, MoE gating entropy—so I can spot the
+            second an option starts hallucinating.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Now</h5>
+          <p>
+            We are mid-way through cluttered-shelf benchmarks, verifying that contract learning still holds once perception noise
+            and occlusions pile in.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Next</h5>
+          <p>
+            Hybrid rollouts with a physical Franka arm and a reset-free tabletop scene to validate whether the monitor can keep
+            up at 20 Hz without fraying latency.
+          </p>
+        </div>
+        <p class="timeline-reveal__closing">Reliability is the feature—not the afterthought.</p>
+      </div>
+    `,
   },
   {
     title: 'Assistive Robotics Intern',
@@ -232,6 +349,48 @@ const researchExperiences = [
       src: 'monash.png',
       alt: 'Monash University logo',
     },
+    spotlight: `
+      <button class="timeline-reveal__close" type="button" aria-label="Close Monash research spotlight"></button>
+      <div class="timeline-reveal__inner">
+        <p class="timeline-reveal__tag">Human-in-the-Loop · Assistive Robotics</p>
+        <h4 class="timeline-reveal__title">Monash University · Assistive Robotics Intern</h4>
+        <div class="timeline-reveal__section">
+          <h5>Challenge</h5>
+          <p>
+            Sit-to-walk transitions punish latency. Our exoskeleton needed torque predictions inside 20 ms or the wearer felt the
+            lag as a drag.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Approach</h5>
+          <p>
+            I built a compact GRU with feature-pruned IMU and EMG signals, then wrapped it in a fuzzy supervisor that throttled
+            assistance based on gait phase confidence.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Iterating</h5>
+          <p>
+            The magic moment was distilling the model to 68k parameters without losing fidelity. Quantisation plus tensor core
+            inference made real-time possible on an embedded Jetson.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>What We Learned</h5>
+          <p>
+            The fuzzy layer smoothed out spurious spikes, especially during imperfect foot contact. We dropped peak torque error
+            by 18% and users stopped noticing the controller catching up.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Reflection</h5>
+          <p>
+            Assistive robotics is equal parts empathy and engineering—every watt delivered must feel invisible.
+          </p>
+        </div>
+        <p class="timeline-reveal__closing">Lightweight models can still feel heavy—unless you design for the human.</p>
+      </div>
+    `,
   },
   {
     title: 'Robotic Perception Intern',
@@ -243,6 +402,48 @@ const researchExperiences = [
       src: 'iitb.png',
       alt: 'IIT Bombay logo',
     },
+    spotlight: `
+      <button class="timeline-reveal__close" type="button" aria-label="Close IIT Bombay research spotlight"></button>
+      <div class="timeline-reveal__inner">
+        <p class="timeline-reveal__tag">Perception · Urban Autonomy</p>
+        <h4 class="timeline-reveal__title">IIT Bombay · Robotic Perception Intern</h4>
+        <div class="timeline-reveal__section">
+          <h5>Problem Space</h5>
+          <p>
+            Dense Indian roads confuse standard drivable-area segmenters. Reflections, puddles, and stray tar patches all look
+            “road enough” to cause disasters.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Solution</h5>
+          <p>
+            I designed AURASeg—Attention-guided Upsampling with Residual boundary refinements—to trace both texture and geometry.
+            A tiny auxiliary edge detector feeds into the decoder so curbs stay crisp.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Moments</h5>
+          <p>
+            When we beat YOLOP on mIoU and F1 we celebrated, but the real win was a wet-road night sequence where AURASeg kept the
+            drivable ribbon tight instead of drifting into headlights.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Deployment</h5>
+          <p>
+            We pruned and quantised the network for Jetson Xavier, then wrote a ROS 2 node that streams segmentation masks with a
+            12 ms budget.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Outlook</h5>
+          <p>
+            Next iteration pushes for domain-adaptive finetuning so fog, dust, and rain all feel native—not rare edge cases.
+          </p>
+        </div>
+        <p class="timeline-reveal__closing">Robust perception is the quiet confidence behind autonomous navigation.</p>
+      </div>
+    `,
   },
 ];
 
@@ -409,6 +610,24 @@ if (researchTimeline) {
           deactivateReveal();
         }
       });
+
+      card.addEventListener('click', () => activateReveal(card));
+
+      card.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          activateReveal(card);
+        }
+      });
+
+      const closeButton = card.querySelector('.timeline-reveal__close');
+      if (closeButton) {
+        closeButton.addEventListener('click', (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          deactivateReveal();
+        });
+      }
     });
   }
 }
@@ -631,6 +850,31 @@ const flagshipProjects = [
     technologies: ['ROS 2', 'PX4 Autopilot', 'OpenCV', 'Raspberry Pi'],
     outcome:
       'Top-15 national finish for autonomous flight across endurance, payload drop, and navigation tasks.',
+    story: {
+      openLabel: 'Read the flight log',
+      closeLabel: 'Hide flight log',
+      body: `
+        <div class="project-story">
+          <p class="project-story__tag">Flight deck memo</p>
+          <h4 class="project-story__title">From wind-tunnel scribbles to a self-reliant sortie</h4>
+          <div class="project-story__grid">
+            <div class="project-story__section">
+              <h5>Ignition</h5>
+              <p>It started with a blank PX4 stack and a mandate to survive gusty coastal winds. We carved the airframe around airflow sims, then staged every avionics line like it was a mission-critical checklist.</p>
+            </div>
+            <div class="project-story__section">
+              <h5>Brains</h5>
+              <p>A dual-loop architecture split fast attitude control on the Pixhawk from higher-level ROS 2 nodes. Vision-based navigation fused AprilTag relocalisation with optical flow to keep position estimates sane when GPS hiccupped.</p>
+            </div>
+            <div class="project-story__section">
+              <h5>Moments</h5>
+              <p>The wow moment was a sunset endurance test where the quad sliced through checkpoints autonomously, payload drop and all, while our safety interlocks quietly vetoed every out-of-envelope manoeuvre.</p>
+            </div>
+          </div>
+          <p class="project-story__closing">Every safe landing was a systems engineering love letter.</p>
+        </div>
+      `,
+    },
   },
   {
     title: 'PixelBot Multimodal Assistant',
@@ -645,6 +889,31 @@ const flagshipProjects = [
     technologies: ['Python', 'PyTorch','FastAPI'],
     outcome:
       'Secured 2nd place in the national qualifier while open-sourcing reusable evaluation utilities.',
+    story: {
+      openLabel: 'Open the build diary',
+      closeLabel: 'Hide the build diary',
+      body: `
+        <div class="project-story">
+          <p class="project-story__tag">Studio log</p>
+          <h4 class="project-story__title">Designing a multimodal co-pilot that feels like a creative partner</h4>
+          <div class="project-story__grid">
+            <div class="project-story__section">
+              <h5>North Star</h5>
+              <p>PixelBot had to ground edits in the image, not hallucinate. We chained CLIP-based localisation with lightweight diffusion controls so every brush stroke stayed truthful.</p>
+            </div>
+            <div class="project-story__section">
+              <h5>Stack</h5>
+              <p>FastAPI orchestrated a PyTorch backend that juggled grounding, captioning, and mask-aware editing. A tiny feedback memory let PixelBot remember the last three user intents.</p>
+            </div>
+            <div class="project-story__section">
+              <h5>Human Touch</h5>
+              <p>We spent nights tuning copy and micro-interactions—glowing cursors, contextual tips, and a “show your work” panel so users saw why PixelBot suggested a move.</p>
+            </div>
+          </div>
+          <p class="project-story__closing">AI feels magical when it makes the designer braver, not redundant.</p>
+        </div>
+      `,
+    },
   },
   {
     title: 'Parrot Mambo Autonomy Challenge',
@@ -659,6 +928,31 @@ const flagshipProjects = [
     technologies: ['MATLAB', 'Simulink', 'Stateflow'],
     outcome:
       'Achieved fully autonomous line-following with reliable gate traversal in final demos.',
+    story: {
+      openLabel: 'Peek into the control room',
+      closeLabel: 'Close the control room',
+      body: `
+        <div class="project-story">
+          <p class="project-story__tag">Lab note</p>
+          <h4 class="project-story__title">Taming the Parrot Mambo with model-based wizardry</h4>
+          <div class="project-story__grid">
+            <div class="project-story__section">
+              <h5>Blueprint</h5>
+              <p>We modelled the quad in Simulink with parameter sweeps straight from on-board logs, then auto-generated code to keep every tweak flight-ready within minutes.</p>
+            </div>
+            <div class="project-story__section">
+              <h5>Control</h5>
+              <p>A Stateflow supervisor blended PID tracking with event-driven manoeuvres, letting the drone pivot around tight gates without overshooting.</p>
+            </div>
+            <div class="project-story__section">
+              <h5>Debugging</h5>
+              <p>We built a neon diagnostic HUD that streamed error cones and motor duty cycles live—our secret weapon for shaving milliseconds off lap times.</p>
+            </div>
+          </div>
+          <p class="project-story__closing">Model-based design turned a tiny drone into a disciplined racer.</p>
+        </div>
+      `,
+    },
   },
   {
     title: 'Occlusion-Aware Avoidance Toolkit',
@@ -673,6 +967,31 @@ const flagshipProjects = [
     technologies: ['Python', 'NumPy', 'Matplotlib'],
     outcome:
       'Independent Assignment Project',
+    story: {
+      openLabel: 'Unpack the research notes',
+      closeLabel: 'Hide the research notes',
+      body: `
+        <div class="project-story">
+          <p class="project-story__tag">Notebook excerpt</p>
+          <h4 class="project-story__title">Rewriting shortest paths when the map lies</h4>
+          <div class="project-story__grid">
+            <div class="project-story__section">
+              <h5>Context</h5>
+              <p>Classic A* ignores occlusions—it only sees inflated obstacles. I wanted planners to reason about what they cannot see yet.</p>
+            </div>
+            <div class="project-story__section">
+              <h5>Core Idea</h5>
+              <p>An uncertainty-aware frontier cost guessed the risk of hidden obstacles using local visibility cones and prior traversals, nudging the robot to scout smartly.</p>
+            </div>
+            <div class="project-story__section">
+              <h5>Outcome</h5>
+              <p>Stress tests on random mazes showed smoother trajectories and fewer oscillations than vanilla A* or D* Lite, especially when corridors collapsed mid-run.</p>
+            </div>
+          </div>
+          <p class="project-story__closing">Path planners should be curious, not just cautious.</p>
+        </div>
+      `,
+    },
   },
 ];
 
@@ -770,6 +1089,73 @@ if (projectShowcase) {
     const content = document.createElement('div');
     content.className = 'project-case__content';
     content.append(summary, details);
+
+    if (project.story) {
+      const footnote = document.createElement('div');
+      footnote.className = 'project-case__footnote';
+
+      const cta = document.createElement('button');
+      cta.type = 'button';
+      cta.className = 'project-case__cta';
+      const openLabel = project.story.openLabel || 'Read more';
+      const closeLabel = project.story.closeLabel || 'Close';
+      cta.setAttribute('aria-expanded', 'false');
+
+      const ctaIcon = document.createElement('span');
+      ctaIcon.className = 'project-case__cta-icon';
+      ctaIcon.setAttribute('aria-hidden', 'true');
+      ctaIcon.textContent = '✧';
+
+      const ctaLabel = document.createElement('span');
+      ctaLabel.className = 'project-case__cta-label';
+      ctaLabel.textContent = openLabel;
+
+      cta.append(ctaIcon, ctaLabel);
+
+      const storyPanel = document.createElement('div');
+      storyPanel.className = 'project-case__story';
+      const storyId = `project-story-${index}`;
+      storyPanel.id = storyId;
+      storyPanel.setAttribute('aria-hidden', 'true');
+      storyPanel.style.maxHeight = '0px';
+      storyPanel.innerHTML = project.story.body;
+
+      cta.setAttribute('aria-controls', storyId);
+
+      footnote.append(cta, storyPanel);
+      content.appendChild(footnote);
+
+      const updateLabels = (expanded) => {
+        ctaLabel.textContent = expanded ? closeLabel : openLabel;
+      };
+
+      const syncHeight = () => {
+        if (!article.classList.contains('is-expanded')) return;
+        storyPanel.style.maxHeight = `${storyPanel.scrollHeight}px`;
+      };
+
+      cta.addEventListener('click', () => {
+        const isExpanded = article.classList.toggle('is-expanded');
+        if (isExpanded) {
+          storyPanel.setAttribute('aria-hidden', 'false');
+          storyPanel.style.maxHeight = `${storyPanel.scrollHeight}px`;
+          requestAnimationFrame(syncHeight);
+          cta.setAttribute('aria-expanded', 'true');
+          cta.classList.add('is-active');
+          updateLabels(true);
+        } else {
+          storyPanel.style.maxHeight = `${storyPanel.scrollHeight}px`;
+          storyPanel.offsetHeight; // force reflow for transition
+          storyPanel.style.maxHeight = '0px';
+          storyPanel.setAttribute('aria-hidden', 'true');
+          cta.setAttribute('aria-expanded', 'false');
+          cta.classList.remove('is-active');
+          updateLabels(false);
+        }
+      });
+
+      window.addEventListener('resize', syncHeight);
+    }
 
     article.appendChild(content);
     projectShowcase.appendChild(article);
