@@ -557,7 +557,7 @@ body[data-theme='light'] .project-case__meta-block{background:rgba(255,255,255,.
   overflow:visible;cursor:pointer;perspective:1400px;isolation:isolate;
   transition:transform .65s cubic-bezier(.22,1,.36,1),box-shadow var(--transition),border-color var(--transition);
   transform-style:preserve-3d;
-  --timeline-reveal-max-width:min(1200px,calc(100vw - clamp(1.5rem,8vw,6rem)));
+  --timeline-reveal-max-width:min(calc(100vw - clamp(2rem,8vw,12rem)),1600px);
   --timeline-reveal-max-height:min(760px,calc(100vh - clamp(4rem,12vh,6rem)));
 }
 .timeline-content.has-reveal.is-active{
@@ -584,18 +584,24 @@ body[data-theme='light'] .project-case__meta-block{background:rgba(255,255,255,.
 }
 
 .timeline-reveal{
-  position:absolute;inset:clamp(1rem,2.8vw,1.35rem);
+  position:fixed;
+  top:50%;
+  left:50%;
+  width:var(--timeline-reveal-max-width);
+  max-width:100vw;
+  max-height:var(--timeline-reveal-max-height);
   background:linear-gradient(135deg,rgba(21,33,68,.88) 0%,rgba(13,19,42,.82) 40%,rgba(20,11,43,.92) 100%);
   border-radius:calc(var(--radius-lg) - 10px);
   border:1px solid rgba(123,131,255,.35);
-  box-shadow:0 32px 80px rgba(6,10,28,.7);
-  transform:translateY(104%) rotateX(-18deg) scale(.94);
-  transform-origin:bottom center;
+  box-shadow:0 42px 110px rgba(6,10,28,.78);
+  transform:translate(-50%,-46%) scale(.92);
+  transform-origin:center;
   opacity:0;
-  filter:blur(16px);
+  filter:blur(18px);
   pointer-events:none;
-  transition:transform .75s cubic-bezier(.2,.8,.2,1.05),opacity .45s ease .05s,filter .6s ease;
-  display:grid;z-index:2;
+  transition:transform .75s cubic-bezier(.2,.8,.2,1.05),opacity .45s ease,filter .6s ease;
+  display:grid;
+  z-index:1202;
   color:var(--color-heading);
   backdrop-filter:blur(22px);
 }
@@ -616,11 +622,10 @@ body.timeline-reveal-active .timeline-reveal-overlay{
   opacity:1;
   pointer-events:auto;
 }
-.timeline-content.has-reveal[data-side="right"] .timeline-reveal{transform-origin:bottom right;}
-.timeline-content.has-reveal[data-side="left"] .timeline-reveal{transform-origin:bottom left;}
 .timeline-content.has-reveal.is-active .timeline-reveal{
-  transform:translateY(0) rotateX(0);
+  transform:translate(-50%,-50%) scale(1);
   opacity:1;
+  filter:blur(0);
   pointer-events:auto;
 }
 .timeline-reveal__close{
@@ -669,20 +674,9 @@ body.timeline-reveal-active .timeline-reveal-overlay{
 
 @media (hover:hover){
   .timeline-content.has-reveal.is-active .timeline-reveal{
-    position:fixed;
-    inset:auto;
-    top:50%;
-    left:50%;
-    width:var(--timeline-reveal-max-width);
-    max-width:var(--timeline-reveal-max-width);
-    max-height:var(--timeline-reveal-max-height);
-    transform:translate(-50%,-50%) scale(1);
     border-radius:clamp(22px,4vw,32px);
     box-shadow:0 54px 140px rgba(4,7,18,.82);
     backdrop-filter:blur(30px);
-    z-index:1202;
-    filter:blur(0);
-    animation:timeline-reveal-pop .85s cubic-bezier(.21,.97,.38,1) forwards;
   }
 
   .timeline-content.has-reveal.is-active .timeline-reveal__inner{
@@ -691,24 +685,6 @@ body.timeline-reveal-active .timeline-reveal-overlay{
     font-size:1.04rem;
     line-height:1.74;
     max-height:var(--timeline-reveal-max-height);
-  }
-}
-
-@keyframes timeline-reveal-pop{
-  0%{
-    transform:translate(-50%,-46%) scale(.92);
-    opacity:0;
-    filter:blur(16px);
-  }
-  55%{
-    transform:translate(-50%,-52%) scale(1.05);
-    opacity:1;
-    filter:blur(6px);
-  }
-  100%{
-    transform:translate(-50%,-50%) scale(1);
-    opacity:1;
-    filter:blur(0);
   }
 }
 
@@ -799,10 +775,16 @@ body[data-theme="light"] .timeline-reveal__closing{color:var(--color-heading);}
   .timeline-item{transition:none;transform:none;opacity:1;}
   .timeline-content.has-reveal{
     transition:none;
+    transform:none;
   }
   .timeline-content.has-reveal .timeline-image,
   .timeline-content.has-reveal .timeline-body,
   .timeline-content.has-reveal .timeline-reveal{
     transition:none;
+  }
+  .timeline-content.has-reveal.is-active .timeline-reveal{
+    transform:none;
+    opacity:1;
+    filter:none;
   }
 }
