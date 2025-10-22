@@ -975,3 +975,18 @@ body.timeline-reveal-active .timeline-reveal-overlay{
 
 /* Prevent any legacy keyframe pops interfering with morph */
 .timeline-content.has-reveal .timeline-reveal{ animation: none !important; filter: none !important; }
+
+/* === Final polish: stronger separation, visibility guard, smoother scroll === */
+.timeline-reveal{
+  background: linear-gradient(135deg, rgba(16,22,46,.985), rgba(10,14,32,.98)) !important;
+  visibility: hidden;
+}
+.timeline-content.has-reveal.is-active .timeline-reveal{
+  visibility: visible;
+}
+
+/* Stronger overlay for clarity on light mode */
+body[data-theme="light"] .timeline-reveal-overlay{ background: rgba(6,10,24,.35) !important; }
+
+/* Ensure inner always scrolls; a tiny padding to avoid last-line cut-offs */
+.timeline-reveal__inner{ padding-bottom: max(16px, env(safe-area-inset-bottom)); }
