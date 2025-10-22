@@ -390,12 +390,6 @@ if (researchTimeline) {
       reveal.innerHTML = experience.spotlight;
 
       content.append(glow, reveal);
-
-      content.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
-          content.blur();
-        }
-      });
     }
 
     item.append(content);
@@ -422,6 +416,76 @@ if (researchTimeline) {
     timelineItems.forEach((item) => timelineObserver.observe(item));
   } else {
     timelineItems.forEach((item) => item.classList.add('is-visible'));
+  }
+
+  const revealCards = researchTimeline.querySelectorAll(
+    '.timeline-content.has-reveal'
+  );
+  const supportsHover =
+    typeof window.matchMedia === 'function'
+      ? window.matchMedia('(hover: hover)').matches
+      : true;
+
+  if (revealCards.length && supportsHover) {
+    const overlay = document.createElement('div');
+    overlay.className = 'timeline-reveal-overlay';
+    document.body.appendChild(overlay);
+
+    let activeCard = null;
+
+    const activateReveal = (card) => {
+      if (activeCard === card) return;
+
+      if (activeCard) {
+        activeCard.classList.remove('is-active');
+      }
+
+      activeCard = card;
+      activeCard.classList.add('is-active');
+      document.body.classList.add('timeline-reveal-active');
+    };
+
+    const deactivateReveal = () => {
+      if (!activeCard) return;
+
+      const focusTarget = document.activeElement;
+      if (focusTarget && activeCard.contains(focusTarget)) {
+        focusTarget.blur();
+      }
+
+      activeCard.classList.remove('is-active');
+      activeCard = null;
+      document.body.classList.remove('timeline-reveal-active');
+    };
+
+    overlay.addEventListener('click', deactivateReveal);
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        deactivateReveal();
+      }
+    });
+
+    revealCards.forEach((card) => {
+      card.addEventListener('pointerenter', () => activateReveal(card));
+
+      card.addEventListener('pointerleave', () => {
+        if (activeCard === card) {
+          deactivateReveal();
+        }
+      });
+
+      card.addEventListener('focusin', () => activateReveal(card));
+
+      card.addEventListener('focusout', (event) => {
+        if (activeCard !== card) return;
+
+        const nextFocusTarget = event.relatedTarget;
+        if (!nextFocusTarget || !card.contains(nextFocusTarget)) {
+          deactivateReveal();
+        }
+      });
+    });
   }
 }
 
