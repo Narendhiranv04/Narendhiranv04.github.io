@@ -587,7 +587,45 @@ if (researchTimeline) {
     });
 
     revealCards.forEach((card) => {
-      card.addEventListener('pointerenter', () => activateReveal(card));
+      // Hover start — do NOT open the reveal on hover; just animate
+      card.addEventListener('pointerenter', (ev) => {
+        card.classList.add('is-hovered');
+        // Initialize cursor vars to center to avoid sudden jump
+        card.style.setProperty('--mx', '50%');
+        card.style.setProperty('--my', '50%');
+        card.style.setProperty('--tiltX', '0deg');
+        card.style.setProperty('--tiltY', '0deg');
+        card.style.setProperty('--imgDx', '0px');
+        card.style.setProperty('--imgDy', '0px');
+      });
+      // Cursor tracking for tilt + parallax
+      card.addEventListener('pointermove', (ev) => {
+        const rect = card.getBoundingClientRect();
+        const x = ev.clientX - rect.left;
+        const y = ev.clientY - rect.top;
+        const px = x / rect.width;
+        const py = y / rect.height;
+
+        // Cursor-follow glow
+        card.style.setProperty('--mx', `${(px * 100).toFixed(1)}%`);
+        card.style.setProperty('--my', `${(py * 100).toFixed(1)}%`);
+
+        // 3D tilt (clamped)
+        const maxTiltX = 7;  // deg
+        const maxTiltY = 9;  // deg
+        const tiltX = (py - 0.5) * -2 * maxTiltX;
+        const tiltY = (px - 0.5) *  2 * maxTiltY;
+        card.style.setProperty('--tiltX', `${tiltX.toFixed(2)}deg`);
+        card.style.setProperty('--tiltY', `${tiltY.toFixed(2)}deg`);
+
+        // Parallax image drift
+        const drift = 10; // px
+        const dx = (px - 0.5) * drift * 2;
+        const dy = (py - 0.5) * drift * 2;
+        card.style.setProperty('--imgDx', `${dx.toFixed(1)}px`);
+        card.style.setProperty('--imgDy', `${dy.toFixed(1)}px`);
+      });
+    
 
       card.addEventListener('pointerleave', (event) => {
         if (activeCard !== card) return;
@@ -600,15 +638,11 @@ if (researchTimeline) {
         deactivateReveal();
       });
 
-      card.addEventListener('focusin', () => activateReveal(card));
+      // Accessibility: do not auto-open on focus; let Enter/Space open
 
       card.addEventListener('focusout', (event) => {
-        if (activeCard !== card) return;
-
-        const nextFocusTarget = event.relatedTarget;
-        if (!nextFocusTarget || !card.contains(nextFocusTarget)) {
-          deactivateReveal();
-        }
+        // Only clear hover visuals on focus leave.
+        card.classList.remove('is-hovered');
       });
 
       card.addEventListener('click', () => activateReveal(card));
