@@ -213,14 +213,14 @@ const researchExperiences = [
     spotlight: `<button class="timeline-reveal__close" type="button" aria-label="Close"></button>
 <div class="timeline-reveal__inner" tabindex="0">
   <div class="timeline-reveal__narrative">
-Spark. I walked into this thinking robot manipulation was kind of “solved” and “saturated”. How naive of me. Then I found VLAs and realized how wrong that was. Got me intrigued about generalist policies and “Embodied AI” – sounded way too interesting for me to ignore. As I read randomly through a lot of papers, I realized the space is exciting and chaotic at the same time–lots of big demos, but also lots of cases where the robot looks at a scene, finds something that looks similar, and still doesn’t know what to do. That pushed me to a simple question: instead of retrieving by appearance, can we retrieve by robot action instead?<br/>
-Idea. The core idea is to represent short chunks of motion as compact “latent action” snippets—little summaries of intent and phase like “approach,” “close,” “lift,” rather than just pixels. I started by training a contrastive model (InfoNCE) to learn these embeddings from demonstrations, so segments that do the same thing end up close together, even if they look different. From there, I built a small retrieval system: slice trajectories into sub-trajectories, align them with DTW so timing lines up, index them with FAISS, and then score neighbors with cosine similarity. The point is to fetch the right action examples for the current moment, not just the most similar frame.<br/>
-First look. At first, this worked—but only a little. Latent-action retrieval beat plain image retrieval in a few rollouts (better contact timing, fewer failures), but the gains were thin. Two problems popped out. One: my “positives” were too loose. Clips that looked similar weren’t always in the same phase. Tightening positives to phase-aligned windows and mining harder negatives made the embedding space sharper. Two: I was teaching the model with latent actions during training but asking it to rely on images at test time. That mismatch was the bigger issue.<br/>
-Closing the gap. To fix it, I added an in-context memory at inference. For each step, I retrieve the top-K latent-action snippets and hand them to the policy as simple, structured context—“here are a few examples of what to do now.” The policy can then attend to those action cues while deciding the next move. That change felt small on paper, but it made the difference: the policy actually uses action structure at test time, not just during training.<br/>
-Annoying struggles. There was a fair amount of engineering glue to make this stable. I standardized everything to a clean [B, T, D] shape contract, added checks to avoid the usual time-dim confusion, chunked FAISS queries to keep memory in check, cached neighbors between steps, and moved heavy paths to mixed precision. None of that is glamorous, but it turned “sometimes works” into “runs reliably enough to iterate” and actually publishable, and not just showcasing a few good rollouts.<br/>
-Why it matters. Where this fits in the bigger VLA picture: a lot of current systems blur appearance with intent. They can find a scene that looks right and still miss the moment to make contact or the tempo of a motion. By retrieving and conditioning on actions, the policy gets a lightweight prior about what should happen next. It doesn’t solve everything (long-horizon chaining is still tricky, and sim-to-real will always be the real test), but it’s a clean way to push beyond “it looks similar, so try this.”<br/>
-Status. Right now I have three pieces wired together: a latent-action tokenizer (trained with InfoNCE), a FAISS index over DTW-aligned sub-trajectories, and an in-context cache that hands the policy a few retrieved action snippets at test time. When it helps, it’s for very specific reasons: repeated sub-motions line up better, and the policy stops second-guessing short, well-defined phases. When it doesn’t help, it’s also clear why: cluttered scenes or lighting shifts pull the wrong neighbors, and a bad retrieval can nudge the policy off course. There’s a small latency tax from retrieval, but it stays reasonable if I keep K tiny and cache across steps.<br/>
-Next up. What I still need to nail down are the boring but important choices: the window length for tokenization, how much DTW slack is healthy, which distance works best beyond plain cosine, and how many examples (K) actually add signal before the context turns noisy. After that, I’ll try it on xArm manipulator to find the failure modes I can’t see in sim. A lot of exciting stuff is yet to be done!<br/>
+<strong>Spark.</strong> I walked into this thinking robot manipulation was kind of “solved” and “saturated”. How naive of me. Then I found VLAs and realized how wrong that was. Got me intrigued about generalist policies and “Embodied AI” – sounded way too interesting for me to ignore. As I read randomly through a lot of papers, I realized the space is exciting and chaotic at the same time–lots of big demos, but also lots of cases where the robot looks at a scene, finds something that looks similar, and still doesn’t know what to do. That pushed me to a simple question: instead of retrieving by appearance, can we retrieve by robot action instead?<br/>
+<strong>Idea.</strong> The core idea is to represent short chunks of motion as compact “latent action” snippets—little summaries of intent and phase like “approach,” “close,” “lift,” rather than just pixels. I started by training a contrastive model (InfoNCE) to learn these embeddings from demonstrations, so segments that do the same thing end up close together, even if they look different. From there, I built a small retrieval system: slice trajectories into sub-trajectories, align them with DTW so timing lines up, index them with FAISS, and then score neighbors with cosine similarity. The point is to fetch the right action examples for the current moment, not just the most similar frame.<br/>
+<strong>First look.</strong> At first, this worked—but only a little. Latent-action retrieval beat plain image retrieval in a few rollouts (better contact timing, fewer failures), but the gains were thin. Two problems popped out. One: my “positives” were too loose. Clips that looked similar weren’t always in the same phase. Tightening positives to phase-aligned windows and mining harder negatives made the embedding space sharper. Two: I was teaching the model with latent actions during training but asking it to rely on images at test time. That mismatch was the bigger issue.<br/>
+<strong>Closing the gap.</strong> To fix it, I added an in-context memory at inference. For each step, I retrieve the top-K latent-action snippets and hand them to the policy as simple, structured context—“here are a few examples of what to do now.” The policy can then attend to those action cues while deciding the next move. That change felt small on paper, but it made the difference: the policy actually uses action structure at test time, not just during training.<br/>
+<strong>Annoying struggles.</strong> There was a fair amount of engineering glue to make this stable. I standardized everything to a clean [B, T, D] shape contract, added checks to avoid the usual time-dim confusion, chunked FAISS queries to keep memory in check, cached neighbors between steps, and moved heavy paths to mixed precision. None of that is glamorous, but it turned “sometimes works” into “runs reliably enough to iterate” and actually publishable, and not just showcasing a few good rollouts.<br/>
+<strong>Why it matters.</strong> Where this fits in the bigger VLA picture: a lot of current systems blur appearance with intent. They can find a scene that looks right and still miss the moment to make contact or the tempo of a motion. By retrieving and conditioning on actions, the policy gets a lightweight prior about what should happen next. It doesn’t solve everything (long-horizon chaining is still tricky, and sim-to-real will always be the real test), but it’s a clean way to push beyond “it looks similar, so try this.”<br/>
+<strong>Status.</strong> Right now I have three pieces wired together: a latent-action tokenizer (trained with InfoNCE), a FAISS index over DTW-aligned sub-trajectories, and an in-context cache that hands the policy a few retrieved action snippets at test time. When it helps, it’s for very specific reasons: repeated sub-motions line up better, and the policy stops second-guessing short, well-defined phases. When it doesn’t help, it’s also clear why: cluttered scenes or lighting shifts pull the wrong neighbors, and a bad retrieval can nudge the policy off course. There’s a small latency tax from retrieval, but it stays reasonable if I keep K tiny and cache across steps.<br/>
+<strong>Next up.</strong> What I still need to nail down are the boring but important choices: the window length for tokenization, how much DTW slack is healthy, which distance works best beyond plain cosine, and how many examples (K) actually add signal before the context turns noisy. After that, I’ll try it on xArm manipulator to find the failure modes I can’t see in sim. A lot of exciting stuff is yet to be done!<br/>
 <br/>
 If I had to sum it up in one line: Isn’t the real goal to stop matching by how things look and instead retrieve, and condition on what to do, so the robot learns intent rather than just images?
   </div>
@@ -488,7 +488,7 @@ if (researchTimeline) {
       ? window.matchMedia('(hover: hover)').matches
       : true;
 
-  if (revealCards.length && supportsHover) {
+  if (revealCards.length) {
     const overlay = document.createElement('div');
     overlay.className = 'timeline-reveal-overlay';
     overlay.setAttribute('aria-hidden', 'true');
@@ -496,134 +496,249 @@ if (researchTimeline) {
 
     let activeCard = null;
 
-    
-    const activateReveal = (card) => {
-      if (activeCard === card) return;
-
-      if (activeCard) {
-        activeCard.classList.remove('is-active');
-        activeCard.setAttribute('aria-expanded', 'false');
+    const lockBody = () => {
+      if (!document.body.dataset.revealPrevOverflow) {
+        document.body.dataset.revealPrevOverflow =
+          document.body.style.overflow ||
+          getComputedStyle(document.body).overflow ||
+          '';
+      }
+      if (!document.body.dataset.revealPrevPadding) {
+        document.body.dataset.revealPrevPadding =
+          document.body.style.paddingRight || '';
       }
 
-      // Close any stray active cards
-      document.querySelectorAll('.timeline-content.has-reveal.is-active').forEach(n=>{ if(n!==card){ n.classList.remove('is-active'); n.setAttribute('aria-expanded','false'); }});
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+
+      document.body.style.overflow = 'hidden';
+      if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+      }
+    };
+
+    const unlockBody = () => {
+      const prevOverflow = document.body.dataset.revealPrevOverflow || '';
+      const prevPadding = document.body.dataset.revealPrevPadding || '';
+
+      document.body.style.overflow = prevOverflow;
+      document.body.style.paddingRight = prevPadding;
+
+      delete document.body.dataset.revealPrevOverflow;
+      delete document.body.dataset.revealPrevPadding;
+    };
+
+    const focusableSelector =
+      'a[href], area[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+    const getFocusable = (rootEl) =>
+      Array.from(rootEl.querySelectorAll(focusableSelector)).filter(
+        (el) =>
+          !el.hasAttribute('disabled') &&
+          el.getAttribute('aria-hidden') !== 'true' &&
+          el.offsetParent !== null
+      );
+
+    const attachFocusTrap = (reveal) => {
+      const handleKeydown = (event) => {
+        if (event.key !== 'Tab') return;
+        const nodes = getFocusable(reveal);
+        if (!nodes.length) return;
+        const first = nodes[0];
+        const last = nodes[nodes.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      };
+
+      const handleFocusIn = (event) => {
+        if (!reveal.contains(event.target)) {
+          const nodes = getFocusable(reveal);
+          if (nodes.length) {
+            nodes[0].focus({ preventScroll: true });
+          }
+        }
+      };
+
+      reveal.addEventListener('keydown', handleKeydown);
+      document.addEventListener('focusin', handleFocusIn);
+
+      reveal._trapKeydown = handleKeydown;
+      reveal._focusGuard = handleFocusIn;
+    };
+
+    const removeFocusTrap = (reveal) => {
+      if (reveal._trapKeydown) {
+        reveal.removeEventListener('keydown', reveal._trapKeydown);
+        delete reveal._trapKeydown;
+      }
+      if (reveal._focusGuard) {
+        document.removeEventListener('focusin', reveal._focusGuard);
+        delete reveal._focusGuard;
+      }
+    };
+
+    const closeActive = ({ restoreFocus = true, immediate = false } = {}) => {
+      if (!activeCard) return Promise.resolve();
+
+      return new Promise((resolve) => {
+        const card = activeCard;
+        const reveal = card.querySelector('.timeline-reveal');
+
+        const finishClose = () => {
+          removeFocusTrap(reveal);
+          card.classList.remove('is-active');
+          card.setAttribute('aria-expanded', 'false');
+          activeCard = null;
+          document.body.classList.remove('timeline-reveal-active');
+          overlay.setAttribute('aria-hidden', 'true');
+          unlockBody();
+          if (restoreFocus) {
+            requestAnimationFrame(() =>
+              card.focus({ preventScroll: true })
+            );
+          }
+          resolve();
+        };
+
+        if (immediate) {
+          finishClose();
+          return;
+        }
+
+        const cardRect = card.getBoundingClientRect();
+        const revealRect = reveal.getBoundingClientRect();
+        const dx =
+          cardRect.left + cardRect.width / 2 -
+          (revealRect.left + revealRect.width / 2);
+        const dy =
+          cardRect.top + cardRect.height / 2 -
+          (revealRect.top + revealRect.height / 2);
+        const sx = Math.max(
+          0.01,
+          cardRect.width / Math.max(1, revealRect.width)
+        );
+        const sy = Math.max(
+          0.01,
+          cardRect.height / Math.max(1, revealRect.height)
+        );
+
+        const animation = reveal.animate(
+          [
+            { transform: 'translate(-50%,-50%) scale(1,1)', opacity: 1 },
+            {
+              transform: `translate(-50%,-50%) translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`,
+              opacity: 0.001,
+            },
+          ],
+          { duration: 360, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards' }
+        );
+
+        overlay.animate(
+          [{ opacity: 1 }, { opacity: 0 }],
+          { duration: 200, easing: 'ease-in', fill: 'forwards' }
+        );
+
+        animation.addEventListener('finish', finishClose, { once: true });
+      });
+    };
+
+    const activateReveal = async (card) => {
+      if (activeCard === card) return;
+
+      await closeActive({ restoreFocus: false });
+
+      const reveal = card.querySelector('.timeline-reveal');
+      if (!reveal) return;
 
       activeCard = card;
-      const reveal = activeCard.querySelector('.timeline-reveal');
 
-      // Dialog semantics
-      reveal.setAttribute('role', 'dialog');
-      reveal.setAttribute('aria-modal', 'true');
-      reveal.setAttribute('aria-label', 'Research spotlight');
+      if (!reveal.hasAttribute('role')) {
+        reveal.setAttribute('role', 'dialog');
+        reveal.setAttribute('aria-modal', 'true');
+      }
+      if (!reveal.getAttribute('aria-label')) {
+        const heading = card.querySelector('h3');
+        reveal.setAttribute(
+          'aria-label',
+          heading ? `${heading.textContent} spotlight` : 'Research spotlight'
+        );
+      }
 
-      // Body scroll lock with scrollbar compensation
-      const sbw = window.innerWidth - document.documentElement.clientWidth;
-      document.body.dataset.prevOverflow = getComputedStyle(document.body).overflow;
-      document.body.style.overflow = 'hidden';
-      if (sbw > 0) document.body.style.paddingRight = `${sbw}px`;
-
+      lockBody();
       document.body.classList.add('timeline-reveal-active');
       overlay.setAttribute('aria-hidden', 'false');
 
-      // Ensure reveal has its final layout first
-      activeCard.classList.add('is-active');
-      activeCard.setAttribute('aria-expanded', 'true');
+      card.classList.add('is-active');
+      card.setAttribute('aria-expanded', 'true');
 
-      // FLIP: measure from card to reveal
       reveal.style.visibility = 'hidden';
       reveal.style.opacity = '0';
       reveal.style.transform = 'translate(-50%,-50%)';
-      reveal.getBoundingClientRect(); // reflow
+      reveal.getBoundingClientRect();
 
-      const cr = activeCard.getBoundingClientRect();
-      const fr = reveal.getBoundingClientRect();
-      const dx = (cr.left + cr.width/2) - (fr.left + fr.width/2);
-      const dy = (cr.top + cr.height/2) - (fr.top + fr.height/2);
-      const sx = Math.max(0.01, cr.width / Math.max(1, fr.width));
-      const sy = Math.max(0.01, cr.height / Math.max(1, fr.height));
+      const cardRect = card.getBoundingClientRect();
+      const revealRect = reveal.getBoundingClientRect();
+      const dx =
+        cardRect.left + cardRect.width / 2 -
+        (revealRect.left + revealRect.width / 2);
+      const dy =
+        cardRect.top + cardRect.height / 2 -
+        (revealRect.top + revealRect.height / 2);
+      const sx = Math.max(
+        0.01,
+        cardRect.width / Math.max(1, revealRect.width)
+      );
+      const sy = Math.max(
+        0.01,
+        cardRect.height / Math.max(1, revealRect.height)
+      );
 
       reveal.style.visibility = '';
+      reveal.style.opacity = '';
+      reveal.style.transform = '';
 
-      const anim = reveal.animate(
+      const animation = reveal.animate(
         [
-          { transform: `translate(-50%,-50%) translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`, opacity: 0.001 },
-          { transform: 'translate(-50%,-50%) scale(1,1)', opacity: 1 }
+          {
+            transform: `translate(-50%,-50%) translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`,
+            opacity: 0.001,
+          },
+          { transform: 'translate(-50%,-50%) scale(1,1)', opacity: 1 },
         ],
         { duration: 460, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards' }
       );
 
-      overlay.animate([{opacity:0},{opacity:1}], {duration: 220, easing:'ease-out', fill:'forwards'});
-
-      // Focus trap + wheel guard
-      const focusable = () => Array.from(reveal.querySelectorAll('button, [href], input, textarea, select, [tabindex]:not([tabindex="-1"])')).filter(el => !el.hasAttribute('disabled') && el.offsetParent !== null);
-      const trap = (e) => {
-        if (e.key !== 'Tab') return;
-        const nodes = focusable(); if (!nodes.length) return;
-        const first = nodes[0], last = nodes[nodes.length-1];
-        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-      };
-      const onWheel = (e) => { if (!reveal.contains(e.target)) e.preventDefault(); };
-
-      document.addEventListener('keydown', trap);
-      document.addEventListener('wheel', onWheel, { passive: false });
-      document.addEventListener('touchmove', onWheel, { passive: false });
-
-      anim.addEventListener('finish', () => {
-        (reveal.querySelector('.timeline-reveal__close') || reveal).focus({ preventScroll: true });
-        reveal._trapKeydown = trap;
-        reveal._trapWheel = onWheel;
-      });
-    };
-
-
-    
-    const deactivateReveal = () => {
-      if (!activeCard) return;
-
-      const card = activeCard;
-      const reveal = card.querySelector('.timeline-reveal');
-
-      const cr = card.getBoundingClientRect();
-      const fr = reveal.getBoundingClientRect();
-      const dx = (cr.left + cr.width/2) - (fr.left + fr.width/2);
-      const dy = (cr.top + cr.height/2) - (fr.top + fr.height/2);
-      const sx = Math.max(0.01, cr.width / Math.max(1, fr.width));
-      const sy = Math.max(0.01, cr.height / Math.max(1, fr.height));
-
-      const anim = reveal.animate(
-        [
-          { transform: 'translate(-50%,-50%) scale(1,1)', opacity: 1 },
-          { transform: `translate(-50%,-50%) translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`, opacity: 0.001 }
-        ],
-        { duration: 360, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards' }
+      overlay.animate(
+        [{ opacity: 0 }, { opacity: 1 }],
+        { duration: 220, easing: 'ease-out', fill: 'forwards' }
       );
 
-      overlay.animate([{opacity:1},{opacity:0}], {duration: 200, easing:'ease-in', fill:'forwards'});
+      attachFocusTrap(reveal);
 
-      anim.addEventListener('finish', () => {
-        card.classList.remove('is-active');
-        card.setAttribute('aria-expanded', 'false');
-        activeCard = null;
-        document.body.classList.remove('timeline-reveal-active');
-        overlay.setAttribute('aria-hidden', 'true');
-        // restore body scroll
-        document.body.style.overflow = document.body.dataset.prevOverflow || '';
-        document.body.style.paddingRight = '';
-        delete document.body.dataset.prevOverflow;
-        // return focus
-        card.focus({ preventScroll: true });
-
-        if (reveal._trapKeydown) document.removeEventListener('keydown', reveal._trapKeydown);
-        if (reveal._trapWheel) {
-          document.removeEventListener('wheel', reveal._trapWheel);
-          document.removeEventListener('touchmove', reveal._trapWheel);
-        }
-      });
+      animation.addEventListener(
+        'finish',
+        () => {
+          const focusTarget =
+            reveal.querySelector('.timeline-reveal__close') ||
+            getFocusable(reveal)[0] ||
+            reveal;
+          focusTarget.focus({ preventScroll: true });
+        },
+        { once: true }
+      );
     };
 
+    const deactivateReveal = () => {
+      void closeActive();
+    };
 
-    overlay.addEventListener('click', deactivateReveal, { once:false });
+    overlay.addEventListener('click', deactivateReveal);
 
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
@@ -632,14 +747,49 @@ if (researchTimeline) {
     });
 
     revealCards.forEach((card) => {
-      card.addEventListener('pointerenter', () => { card.classList.add('is-hovered'); });
-      card.addEventListener('pointermove', (e) => { const r = card.getBoundingClientRect(); const px = (e.clientX - r.left)/r.width - 0.5; const py = (e.clientY - r.top)/r.height - 0.5; card.style.setProperty('--tiltX', (-py*9).toFixed(2)+'deg'); card.style.setProperty('--tiltY', (px*9).toFixed(2)+'deg'); const glow = card.querySelector('.timeline-hover-glow'); if(glow){ glow.style.opacity='1'; glow.style.transform=`translate(${px*10}px, ${py*10}px)`; } });
+      if (supportsHover) {
+        card.addEventListener('pointerenter', () => {
+          card.classList.add('is-hovered');
+        });
+        card.addEventListener('pointermove', (event) => {
+          const rect = card.getBoundingClientRect();
+          const px = event.clientX
+            ? event.clientX - rect.left
+            : rect.width / 2;
+          const py = event.clientY
+            ? event.clientY - rect.top
+            : rect.height / 2;
+          const nx = px / rect.width - 0.5;
+          const ny = py / rect.height - 0.5;
+          card.style.setProperty('--tiltX', `${(-ny * 9).toFixed(2)}deg`);
+          card.style.setProperty('--tiltY', `${(nx * 9).toFixed(2)}deg`);
+          const glow = card.querySelector('.timeline-hover-glow');
+          if (glow) {
+            glow.style.opacity = '1';
+            glow.style.transform = `translate(${nx * 10}px, ${ny * 10}px)`;
+          }
+        });
+        card.addEventListener('pointerleave', () => {
+          card.classList.remove('is-hovered');
+          card.style.removeProperty('--tiltX');
+          card.style.removeProperty('--tiltY');
+          const glow = card.querySelector('.timeline-hover-glow');
+          if (glow) {
+            glow.style.opacity = '0';
+            glow.style.transform = '';
+          }
+        });
+      }
 
-      card.addEventListener('pointerleave', () => { card.classList.remove('is-hovered'); card.style.removeProperty('--tiltX'); card.style.removeProperty('--tiltY'); const glow = card.querySelector('.timeline-hover-glow'); if(glow){ glow.style.opacity='0'; glow.style.transform=''; } });
+      card.addEventListener('focusin', () => {
+        card.classList.add('is-hovered');
+      });
 
-      card.addEventListener('focusin', () => { card.classList.add('is-hovered'); });
-
-      card.addEventListener('focusout', () => { card.classList.remove('is-hovered'); });
+      card.addEventListener('focusout', () => {
+        card.classList.remove('is-hovered');
+        card.style.removeProperty('--tiltX');
+        card.style.removeProperty('--tiltY');
+      });
 
       card.addEventListener('click', () => activateReveal(card));
 
