@@ -865,103 +865,113 @@ body[data-theme="light"] .timeline-reveal__closing{color:var(--color-heading);}
   }
 }
 
+/* ============================ */
+/* Research Reveal – Final Pass */
+/* ============================ */
 
-/* ==== Reveal Overlay: remove heavy blur & prep morph animation ==== */
-.timeline-reveal,
+/* Highest stacking to avoid timeline/header bleed-through */
+.timeline-reveal-overlay{ z-index: 9997 !important; }
+.timeline-reveal{ z-index: 9999 !important; }
+.site-header, .site-nav, .timeline, .timeline-item, .timeline-content{ z-index: initial; }
+
+/* Overlay: theme-aware dim, no blur */
 .timeline-reveal-overlay{
+  position: fixed; inset: 0;
+  background: rgba(10,14,28,.48);
+  opacity: 0; pointer-events: none;
+  transition: opacity .24s ease-out;
   filter: none !important;
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
 }
+body[data-theme="light"] .timeline-reveal-overlay{ background: rgba(0,8,24,.22); }
+body[data-theme="dark"]  .timeline-reveal-overlay{ background: rgba(2,6,18,.55); }
 
-.timeline-reveal-overlay{
-  /* keep a subtle dim without blur */
-  background: rgba(8,12,28,.45) !important;
+/* Panel: no blur; responsive width/height that work at any zoom */
+:root{
+  --reveal-min-w: 720px;
+  --reveal-ideal-w: 900px;
+  --reveal-max-w: 1040px;
+  --reveal-gap: clamp(16px, 2.6vmin, 24px);
+  --reveal-radius: clamp(14px, 1.8vmin, 18px);
 }
-
-.timeline-content.has-reveal .timeline-reveal{
-  /* neutralize pre-existing rotate/scale; JS animates FLIP */
-  transform: translate(-50%,-50%) scale(1) !important;
-  opacity: 0; /* JS animates to 1 */
-  animation: none !important;
+.timeline-reveal{
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: clamp(var(--reveal-min-w), 86vw, var(--reveal-max-w));
+  max-width: 96vw;
+  max-height: calc(94dvh - var(--reveal-gap)*2);
+  border-radius: var(--reveal-radius);
+  border: 1px solid color-mix(in srgb, var(--color-border), var(--color-accent) 28%);
+  background: linear-gradient(135deg, rgba(18,24,54,.97), rgba(12,16,36,.96));
+  box-shadow:
+    0 42px 120px rgba(4, 7, 18, .70),
+    0 16px 34px rgba(4, 7, 18, .35);
+  color: var(--color-heading);
+  opacity: 0; pointer-events: none;
+  filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
   will-change: transform, opacity;
 }
 
+/* Active states */
+body.timeline-reveal-active .timeline-reveal-overlay{
+  opacity: 1; pointer-events: auto;
+}
 .timeline-content.has-reveal.is-active .timeline-reveal{
-  opacity: 1;
+  opacity: 1; pointer-events: auto;
 }
 
-/* Disable keyframe pop while we morph */
-.timeline-content.has-reveal.is-morphing .timeline-reveal{
-  animation: none !important;
-}
-
-/* Better stacking so hovered card glow doesn't sit above overlay */
-.timeline-reveal{ z-index: 1202; }
-.timeline-reveal-overlay{ z-index: 1200; }
-
-/* Close button always visible on active */
-.timeline-content.has-reveal.is-active .timeline-reveal__close{
-  opacity: 1; transform: scale(1);
-}
-
-/* Small visual polish for the reveal panel */
-.timeline-reveal{
-  border: 1px solid rgba(156,169,255,.35) !important;
-  box-shadow: 0 34px 120px rgba(5,8,20,.65), 0 8px 24px rgba(4,6,15,.35) !important;
-  background: linear-gradient(135deg, rgba(18,24,54,.96), rgba(14,18,40,.94)) !important;
-}
-
-/* =============================
-   Modal polish & accessibility
-   ============================= */
-:root{
-  --reveal-w-min: 720px;
-  --reveal-w-ideal: 900px;
-  --reveal-w-max: 1000px;
-}
-
-/* Responsive width and height that adapt to zoom changes */
-.timeline-reveal{
-  width: clamp(var(--reveal-w-min), 86vw, var(--reveal-w-max)) !important;
-  max-height: min(82vh, 980px) !important;
-}
-
-/* Scrollable inner with momentum and no background scroll */
+/* Inner scroll container – always tall enough to scroll */
 .timeline-reveal__inner{
-  max-height: calc(min(78vh, 940px) - 2rem) !important;
-  overflow: auto !important;
+  padding: clamp(20px, 2.8vmin, 28px);
+  max-height: calc(90dvh - var(--reveal-gap)*2);
+  overflow: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
 }
+/* Larger readable text */
+.timeline-reveal__inner,
+.timeline-reveal__narrative{ font-size: 0.98rem; line-height: 1.72; }
 
-/* Theme-aware overlay (no blur) */
-body[data-theme="dark"] .timeline-reveal-overlay{
-  background: rgba(3,6,18,.55) !important;
-}
-body[data-theme="light"] .timeline-reveal-overlay{
-  background: rgba(8,12,28,.28) !important;
+/* Keep jiggle/hover effects visible when modal closed */
+.timeline-content .timeline-hover-glow{ pointer-events: none; }
+.timeline-content{ transform-style: preserve-3d; }
+
+/* Hover state bounce + tilt restored */
+.timeline-content.is-hovered{
+  transform: translateY(-6px) scale(1.01) rotateX(var(--tiltX, 0deg)) rotateY(var(--tiltY, 0deg));
+  box-shadow: var(--shadow-elevated);
 }
 
-/* Prevent any accidental lingering blurs */
-.timeline-reveal, .timeline-reveal *{
-  filter: none !important;
-  backdrop-filter: none !important;
+/* Close button visible and unambiguous */
+.timeline-reveal__close{
+  position: absolute; top: 14px; right: 14px;
+  width: 40px; height: 40px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--color-border), var(--color-accent) 30%);
+  background: rgba(34,40,80,.45);
+  display: grid; place-items: center;
+  opacity: 1; transform: none; pointer-events: auto;
 }
+.timeline-reveal__close::before, .timeline-reveal__close::after{
+  content: ''; width: 18px; height: 2px;
+  background: rgba(226,232,255,.92); border-radius: 2px;
+  position: absolute;
+}
+.timeline-reveal__close::before{ transform: rotate(45deg); }
+.timeline-reveal__close::after{ transform: rotate(-45deg); }
+.timeline-reveal__close:hover{ background: rgba(50,60,120,.6); }
 
-/* Hover bounce/tilt stays visible above the timeline but below modal */
-.timeline-content{ z-index: 2; }
-.timeline-reveal-overlay{ z-index: 1200; }
-.timeline-reveal{ z-index: 1202; }
+/* Narrative: organic, no block section headings */
+.timeline-reveal__narrative b{ font-weight: 700; }
+.timeline-reveal__tag{ display: none !important; } /* optional: remove tag line if you want it cleaner */
 
-/* Narrative style (no headings) */
-.timeline-reveal__narrative{
-  font-size: .98rem;
-  line-height: 1.7;
-  opacity: .96;
-}
-.timeline-reveal__narrative b{
-  font-weight: 700;
-  letter-spacing: .01em;
-}
+/* Accessibility: focus ring inside dialog */
+.timeline-reveal :focus-visible{ outline: 2px solid rgba(136,148,255,.7); outline-offset: 3px; }
+
+/* Prevent any legacy keyframe pops interfering with morph */
+.timeline-content.has-reveal .timeline-reveal{ animation: none !important; filter: none !important; }
