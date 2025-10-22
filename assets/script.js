@@ -380,6 +380,8 @@ if (researchTimeline) {
     if (experience.spotlight) {
       content.classList.add('has-reveal');
       content.setAttribute('tabindex', '0');
+      content.setAttribute('role', 'button');
+      content.setAttribute('aria-expanded', 'false');
       content.setAttribute('aria-label', `${experience.title} deep dive`);
 
       const glow = document.createElement('span');
