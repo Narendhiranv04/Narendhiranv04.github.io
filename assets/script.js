@@ -210,9 +210,9 @@ const researchExperiences = [
       src: 'ntu.png',
       alt: 'NTU Singapore logo',
     },
-    spotlight: `      <button class="timeline-reveal__close" type="button" aria-label="Close"></button>
-      <div class="timeline-reveal__inner" tabindex="0">
-        <div class="timeline-reveal__narrative">
+    spotlight: `<button class="timeline-reveal__close" type="button" aria-label="Close"></button>
+<div class="timeline-reveal__inner" tabindex="0">
+  <div class="timeline-reveal__narrative">
 Spark. I walked into this thinking robot manipulation was kind of “solved” and “saturated”. How naive of me. Then I found VLAs and realized how wrong that was. Got me intrigued about generalist policies and “Embodied AI” – sounded way too interesting for me to ignore. As I read randomly through a lot of papers, I realized the space is exciting and chaotic at the same time–lots of big demos, but also lots of cases where the robot looks at a scene, finds something that looks similar, and still doesn’t know what to do. That pushed me to a simple question: instead of retrieving by appearance, can we retrieve by robot action instead?<br/>
 Idea. The core idea is to represent short chunks of motion as compact “latent action” snippets—little summaries of intent and phase like “approach,” “close,” “lift,” rather than just pixels. I started by training a contrastive model (InfoNCE) to learn these embeddings from demonstrations, so segments that do the same thing end up close together, even if they look different. From there, I built a small retrieval system: slice trajectories into sub-trajectories, align them with DTW so timing lines up, index them with FAISS, and then score neighbors with cosine similarity. The point is to fetch the right action examples for the current moment, not just the most similar frame.<br/>
 First look. At first, this worked—but only a little. Latent-action retrieval beat plain image retrieval in a few rollouts (better contact timing, fewer failures), but the gains were thin. Two problems popped out. One: my “positives” were too loose. Clips that looked similar weren’t always in the same phase. Tightening positives to phase-aligned windows and mining harder negatives made the embedding space sharper. Two: I was teaching the model with latent actions during training but asking it to rely on images at test time. That mismatch was the bigger issue.<br/>
@@ -223,9 +223,8 @@ Status. Right now I have three pieces wired together: a latent-action tokenizer 
 Next up. What I still need to nail down are the boring but important choices: the window length for tokenization, how much DTW slack is healthy, which distance works best beyond plain cosine, and how many examples (K) actually add signal before the context turns noisy. After that, I’ll try it on xArm manipulator to find the failure modes I can’t see in sim. A lot of exciting stuff is yet to be done!<br/>
 <br/>
 If I had to sum it up in one line: Isn’t the real goal to stop matching by how things look and instead retrieve, and condition on what to do, so the robot learns intent rather than just images?
-        </div>
-      </div>
-`,
+  </div>
+</div>`,
   },
   {
     title: 'Task & Motion Planning Intern',
@@ -506,6 +505,9 @@ if (researchTimeline) {
         activeCard.setAttribute('aria-expanded', 'false');
       }
 
+      // Close any stray active cards
+      document.querySelectorAll('.timeline-content.has-reveal.is-active').forEach(n=>{ if(n!==card){ n.classList.remove('is-active'); n.setAttribute('aria-expanded','false'); }});
+
       activeCard = card;
       const reveal = activeCard.querySelector('.timeline-reveal');
 
@@ -514,31 +516,31 @@ if (researchTimeline) {
       reveal.setAttribute('aria-modal', 'true');
       reveal.setAttribute('aria-label', 'Research spotlight');
 
-      // Lock body scroll (with scrollbar compensation)
-      const scrollBarW = window.innerWidth - document.documentElement.clientWidth;
+      // Body scroll lock with scrollbar compensation
+      const sbw = window.innerWidth - document.documentElement.clientWidth;
       document.body.dataset.prevOverflow = getComputedStyle(document.body).overflow;
       document.body.style.overflow = 'hidden';
-      if (scrollBarW > 0) document.body.style.paddingRight = `${scrollBarW}px`;
+      if (sbw > 0) document.body.style.paddingRight = `${sbw}px`;
 
       document.body.classList.add('timeline-reveal-active');
       overlay.setAttribute('aria-hidden', 'false');
 
-      // Turn on active state so reveal has its final layout for measurement
+      // Ensure reveal has its final layout first
       activeCard.classList.add('is-active');
       activeCard.setAttribute('aria-expanded', 'true');
 
-      // FLIP: from card to reveal
+      // FLIP: measure from card to reveal
       reveal.style.visibility = 'hidden';
       reveal.style.opacity = '0';
       reveal.style.transform = 'translate(-50%,-50%)';
       reveal.getBoundingClientRect(); // reflow
 
-      const cardRect = activeCard.getBoundingClientRect();
-      const finalRect = reveal.getBoundingClientRect();
-      const dx = (cardRect.left + cardRect.width/2) - (finalRect.left + finalRect.width/2);
-      const dy = (cardRect.top + cardRect.height/2) - (finalRect.top + finalRect.height/2);
-      const sx = Math.max(0.01, cardRect.width / Math.max(1, finalRect.width));
-      const sy = Math.max(0.01, cardRect.height / Math.max(1, finalRect.height));
+      const cr = activeCard.getBoundingClientRect();
+      const fr = reveal.getBoundingClientRect();
+      const dx = (cr.left + cr.width/2) - (fr.left + fr.width/2);
+      const dy = (cr.top + cr.height/2) - (fr.top + fr.height/2);
+      const sx = Math.max(0.01, cr.width / Math.max(1, fr.width));
+      const sy = Math.max(0.01, cr.height / Math.max(1, fr.height));
 
       reveal.style.visibility = '';
 
@@ -552,23 +554,16 @@ if (researchTimeline) {
 
       overlay.animate([{opacity:0},{opacity:1}], {duration: 220, easing:'ease-out', fill:'forwards'});
 
-      // Focus trap
-      const focusable = () => Array.from(reveal.querySelectorAll('button, [href], input, textarea, select, [tabindex]:not([tabindex="-1"])'))
-        .filter(el => !el.hasAttribute('disabled') && el.offsetParent !== null);
-
+      // Focus trap + wheel guard
+      const focusable = () => Array.from(reveal.querySelectorAll('button, [href], input, textarea, select, [tabindex]:not([tabindex="-1"])')).filter(el => !el.hasAttribute('disabled') && el.offsetParent !== null);
       const trap = (e) => {
         if (e.key !== 'Tab') return;
-        const nodes = focusable();
-        if (!nodes.length) return;
-        const first = nodes[0];
-        const last = nodes[nodes.length - 1];
+        const nodes = focusable(); if (!nodes.length) return;
+        const first = nodes[0], last = nodes[nodes.length-1];
         if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
         else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
       };
-
-      const onWheel = (e) => {
-        if (!reveal.contains(e.target)) e.preventDefault();
-      };
+      const onWheel = (e) => { if (!reveal.contains(e.target)) e.preventDefault(); };
 
       document.addEventListener('keydown', trap);
       document.addEventListener('wheel', onWheel, { passive: false });
@@ -589,12 +584,12 @@ if (researchTimeline) {
       const card = activeCard;
       const reveal = card.querySelector('.timeline-reveal');
 
-      const cardRect = card.getBoundingClientRect();
-      const finalRect = reveal.getBoundingClientRect();
-      const dx = (cardRect.left + cardRect.width/2) - (finalRect.left + finalRect.width/2);
-      const dy = (cardRect.top + cardRect.height/2) - (finalRect.top + finalRect.height/2);
-      const sx = Math.max(0.01, cardRect.width / Math.max(1, finalRect.width));
-      const sy = Math.max(0.01, cardRect.height / Math.max(1, finalRect.height));
+      const cr = card.getBoundingClientRect();
+      const fr = reveal.getBoundingClientRect();
+      const dx = (cr.left + cr.width/2) - (fr.left + fr.width/2);
+      const dy = (cr.top + cr.height/2) - (fr.top + fr.height/2);
+      const sx = Math.max(0.01, cr.width / Math.max(1, fr.width));
+      const sy = Math.max(0.01, cr.height / Math.max(1, fr.height));
 
       const anim = reveal.animate(
         [
@@ -607,17 +602,16 @@ if (researchTimeline) {
       overlay.animate([{opacity:1},{opacity:0}], {duration: 200, easing:'ease-in', fill:'forwards'});
 
       anim.addEventListener('finish', () => {
-        // Remove active state
         card.classList.remove('is-active');
         card.setAttribute('aria-expanded', 'false');
         activeCard = null;
         document.body.classList.remove('timeline-reveal-active');
         overlay.setAttribute('aria-hidden', 'true');
-        // Restore body scroll
+        // restore body scroll
         document.body.style.overflow = document.body.dataset.prevOverflow || '';
         document.body.style.paddingRight = '';
         delete document.body.dataset.prevOverflow;
-        // Return focus
+        // return focus
         card.focus({ preventScroll: true });
 
         if (reveal._trapKeydown) document.removeEventListener('keydown', reveal._trapKeydown);
@@ -629,7 +623,7 @@ if (researchTimeline) {
     };
 
 
-    overlay.addEventListener('click', deactivateReveal);
+    overlay.addEventListener('click', deactivateReveal, { once:false });
 
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
@@ -638,17 +632,14 @@ if (researchTimeline) {
     });
 
     revealCards.forEach((card) => {
-      card.addEventListener('pointerenter', (e) => { card.classList.add('is-hovered'); });
-      card.addEventListener('pointermove', (e) => { const r = card.getBoundingClientRect(); const px = (e.clientX - r.left)/r.width - 0.5; const py = (e.clientY - r.top)/r.height - 0.5; const tiltX = (-py*9).toFixed(2)+'deg'; const tiltY = (px*9).toFixed(2)+'deg'; card.style.setProperty('--tiltX', tiltX); card.style.setProperty('--tiltY', tiltY); const glow = card.querySelector('.timeline-hover-glow'); if(glow){ glow.style.opacity='1'; glow.style.transform=`translate(${px*10}px, ${py*10}px)`; } });
+      card.addEventListener('pointerenter', () => { card.classList.add('is-hovered'); });
+      card.addEventListener('pointermove', (e) => { const r = card.getBoundingClientRect(); const px = (e.clientX - r.left)/r.width - 0.5; const py = (e.clientY - r.top)/r.height - 0.5; card.style.setProperty('--tiltX', (-py*9).toFixed(2)+'deg'); card.style.setProperty('--tiltY', (px*9).toFixed(2)+'deg'); const glow = card.querySelector('.timeline-hover-glow'); if(glow){ glow.style.opacity='1'; glow.style.transform=`translate(${px*10}px, ${py*10}px)`; } });
 
       card.addEventListener('pointerleave', () => { card.classList.remove('is-hovered'); card.style.removeProperty('--tiltX'); card.style.removeProperty('--tiltY'); const glow = card.querySelector('.timeline-hover-glow'); if(glow){ glow.style.opacity='0'; glow.style.transform=''; } });
-      });
 
       card.addEventListener('focusin', () => { card.classList.add('is-hovered'); });
 
       card.addEventListener('focusout', () => { card.classList.remove('is-hovered'); });
-        }
-      });
 
       card.addEventListener('click', () => activateReveal(card));
 
