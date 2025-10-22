@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Assistive torque prediction at Monash · Narendhiran Vijayakumar</title>
+    <meta
+      name="description"
+      content="Detailed write-up of Narendhiran Vijayakumar's work on lightweight torque prediction and fuzzy supervision for sit-to-walk exoskeletons at Monash University."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/style.css" />
+    <script defer src="../assets/script.js"></script>
+  </head>
+  <body class="research-page" data-theme="dark">
+    <div class="research-page__inner">
+      <header class="research-page__masthead">
+        <a class="research-page__back" href="../index.html#research">← Back to research timeline</a>
+        <span></span>
+      </header>
+
+      <article class="research-article">
+        <header class="research-article__header">
+          <div class="research-article__badge">
+            <img src="../monash.png" alt="Monash University logo" />
+            <span>Assistive robotics · Human-in-the-loop</span>
+          </div>
+          <p class="research-article__eyebrow">Assistive Robotics Intern · Jan 2025 – May 2025</p>
+          <h1 class="research-article__title">Torque prediction that keeps the wearer in the loop</h1>
+          <p class="research-article__meta">Monash University · Sit-to-walk exoskeleton controller</p>
+          <p class="research-article__lead">
+            I distilled a gated recurrent network to 68k parameters and paired it with a fuzzy supervisor so our sit-to-walk
+            exoskeleton could deliver torque inside 20 ms. The work centred on feeling invisible to the wearer while staying
+            accurate under noisy IMU and EMG signals.
+          </p>
+        </header>
+
+        <div class="research-article__content">
+          <section class="research-article__section">
+            <h2>Challenge</h2>
+            <p>
+              Sit-to-walk transitions punish latency. If the assistive torque lags by more than a few milliseconds the wearer feels
+              a drag. We needed a controller that predicted joint torques almost instantaneously while handling variable gait
+              phases.
+            </p>
+          </section>
+
+          <section class="research-article__section">
+            <h2>Approach</h2>
+            <p>
+              I pruned the feature set to the most informative IMU and EMG channels, built a compact GRU, and wrapped it with a
+              fuzzy supervisor that modulates assistance based on gait-phase confidence. The result was a model small enough to
+              live on an embedded Jetson.
+            </p>
+          </section>
+
+          <section class="research-article__section">
+            <h2>Iterating</h2>
+            <p>
+              Quantisation plus tensor core inference were key to hitting our timing budget. With mixed-precision kernels we kept
+              inference under 20 ms without sacrificing fidelity, and the controller stopped feeling like it was chasing the user.
+            </p>
+          </section>
+
+          <section class="research-article__section">
+            <h2>What we learned</h2>
+            <p>
+              The fuzzy layer smoothed out torque spikes caused by imperfect foot contact, dropping peak error by 18%. Test
+              subjects stopped noticing the controller catching up—the assistance felt native rather than corrective.
+            </p>
+          </section>
+
+          <section class="research-article__section">
+            <h2>Reflection</h2>
+            <p>
+              Assistive robotics is equal parts empathy and engineering. Every watt has to arrive in sync with the wearer’s
+              intent, and the controller should disappear into the motion.
+            </p>
+          </section>
+
+          <section id="insights" class="research-article__section">
+            <h2>Key insights</h2>
+            <ul>
+              <li>Latency targets should be treated as hard requirements when a human shares the control loop.</li>
+              <li>Feature pruning and model distillation made the GRU fast enough to live on wearable hardware.</li>
+              <li>Fuzzy supervision dampened spikes from noisy contact events without heavy-handed filtering.</li>
+              <li>Quantisation plus tensor cores turned a research prototype into a dependable real-time controller.</li>
+            </ul>
+          </section>
+
+          <section class="research-article__section">
+            <p class="research-article__closing">
+              Lightweight models can still feel heavy—unless you design for the human first.
+            </p>
+          </section>
+        </div>
+      </article>
+
+      <footer class="research-page__footer">
+        <span>Last updated: May 2025</span>
+        <a href="mailto:narendhiranv.nitt@gmail.com">Contact Narendhiran</a>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AURASeg at IIT Bombay · Narendhiran Vijayakumar</title>
+    <meta
+      name="description"
+      content="Narrative on Narendhiran Vijayakumar's AURASeg model for drivable area segmentation developed during the IIT Bombay internship."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/style.css" />
+    <script defer src="../assets/script.js"></script>
+  </head>
+  <body class="research-page" data-theme="dark">
+    <div class="research-page__inner">
+      <header class="research-page__masthead">
+        <a class="research-page__back" href="../index.html#research">← Back to research timeline</a>
+        <span></span>
+      </header>
+
+      <article class="research-article">
+        <header class="research-article__header">
+          <div class="research-article__badge">
+            <img src="../iitb.png" alt="IIT Bombay logo" />
+            <span>Perception · Urban autonomy</span>
+          </div>
+          <p class="research-article__eyebrow">Robotic Perception Intern · Jun 2024 – Feb 2025</p>
+          <h1 class="research-article__title">AURASeg: keeping urban roads drivable</h1>
+          <p class="research-article__meta">IIT Bombay · Drivable area segmentation for Indian roads</p>
+          <p class="research-article__lead">
+            I built AURASeg—Attention-guided Upsampling with Residual boundary refinements—to map drivable space on chaotic Indian
+            roads. The model outperformed YOLOP on mIoU and F1, but the real win was how it held the lane under rain, glare, and
+            reflective puddles.
+          </p>
+        </header>
+
+        <div class="research-article__content">
+          <section class="research-article__section">
+            <h2>Problem space</h2>
+            <p>
+              Dense, reflective roads are brutal on standard segmentation baselines. Puddles, tar patches, and headlight glare all
+              masquerade as “safe” space and pull controllers into danger zones.
+            </p>
+          </section>
+
+          <section class="research-article__section">
+            <h2>Solution</h2>
+            <p>
+              AURASeg couples attention-guided upsampling with residual boundary refinements so the decoder tracks both texture and
+              geometry. A lightweight auxiliary edge detector feeds the decoder to keep curbs crisp while staying real-time.
+            </p>
+          </section>
+
+          <section class="research-article__section">
+            <h2>Moments</h2>
+            <p>
+              Hitting better mIoU and F1 than YOLOP was satisfying, but the real moment was a wet-night sequence where AURASeg kept
+              the drivable ribbon tight instead of drifting into oncoming headlights.
+            </p>
+          </section>
+
+          <section class="research-article__section">
+            <h2>Deployment</h2>
+            <p>
+              We pruned and quantised the network for a Jetson Xavier, then wrapped it in a ROS 2 node that streams masks with a
+              12 ms budget. On-board latency stayed flat even with additional diagnostics switched on.
+            </p>
+          </section>
+
+          <section class="research-article__section">
+            <h2>Outlook</h2>
+            <p>
+              Next up is domain-adaptive fine-tuning so fog, dust, and rain stop feeling like edge cases. The goal is to keep the
+              model honest when the scenery shifts.
+            </p>
+          </section>
+
+          <section id="insights" class="research-article__section">
+            <h2>Key insights</h2>
+            <ul>
+              <li>Urban driving demands segmentation models that respect texture and geometry simultaneously.</li>
+              <li>Auxiliary edge supervision is a low-cost way to keep boundaries sharp on embedded hardware.</li>
+              <li>Quantisation plus ROS 2 integration made deployment viable on a Jetson Xavier without losing throughput.</li>
+              <li>True robustness is measured on messy night sequences, not just benchmark scores.</li>
+            </ul>
+          </section>
+
+          <section class="research-article__section">
+            <p class="research-article__closing">
+              Robust perception is the quiet confidence behind autonomous navigation.
+            </p>
+          </section>
+        </div>
+      </article>
+
+      <footer class="research-page__footer">
+        <span>Last updated: February 2025</span>
+        <a href="mailto:narendhiranv.nitt@gmail.com">Contact Narendhiran</a>
+      </footer>
+    </div>
+  </body>
+</html>

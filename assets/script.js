@@ -210,21 +210,8 @@ const researchExperiences = [
       src: 'ntu.png',
       alt: 'NTU Singapore logo',
     },
-    spotlight: `<button class="timeline-reveal__close" type="button" aria-label="Close"></button>
-<div class="timeline-reveal__inner" tabindex="0">
-  <div class="timeline-reveal__narrative">
-<strong>Spark.</strong> I walked into this thinking robot manipulation was kind of “solved” and “saturated”. How naive of me. Then I found VLAs and realized how wrong that was. Got me intrigued about generalist policies and “Embodied AI” – sounded way too interesting for me to ignore. As I read randomly through a lot of papers, I realized the space is exciting and chaotic at the same time–lots of big demos, but also lots of cases where the robot looks at a scene, finds something that looks similar, and still doesn’t know what to do. That pushed me to a simple question: instead of retrieving by appearance, can we retrieve by robot action instead?<br/>
-<strong>Idea.</strong> The core idea is to represent short chunks of motion as compact “latent action” snippets—little summaries of intent and phase like “approach,” “close,” “lift,” rather than just pixels. I started by training a contrastive model (InfoNCE) to learn these embeddings from demonstrations, so segments that do the same thing end up close together, even if they look different. From there, I built a small retrieval system: slice trajectories into sub-trajectories, align them with DTW so timing lines up, index them with FAISS, and then score neighbors with cosine similarity. The point is to fetch the right action examples for the current moment, not just the most similar frame.<br/>
-<strong>First look.</strong> At first, this worked—but only a little. Latent-action retrieval beat plain image retrieval in a few rollouts (better contact timing, fewer failures), but the gains were thin. Two problems popped out. One: my “positives” were too loose. Clips that looked similar weren’t always in the same phase. Tightening positives to phase-aligned windows and mining harder negatives made the embedding space sharper. Two: I was teaching the model with latent actions during training but asking it to rely on images at test time. That mismatch was the bigger issue.<br/>
-<strong>Closing the gap.</strong> To fix it, I added an in-context memory at inference. For each step, I retrieve the top-K latent-action snippets and hand them to the policy as simple, structured context—“here are a few examples of what to do now.” The policy can then attend to those action cues while deciding the next move. That change felt small on paper, but it made the difference: the policy actually uses action structure at test time, not just during training.<br/>
-<strong>Annoying struggles.</strong> There was a fair amount of engineering glue to make this stable. I standardized everything to a clean [B, T, D] shape contract, added checks to avoid the usual time-dim confusion, chunked FAISS queries to keep memory in check, cached neighbors between steps, and moved heavy paths to mixed precision. None of that is glamorous, but it turned “sometimes works” into “runs reliably enough to iterate” and actually publishable, and not just showcasing a few good rollouts.<br/>
-<strong>Why it matters.</strong> Where this fits in the bigger VLA picture: a lot of current systems blur appearance with intent. They can find a scene that looks right and still miss the moment to make contact or the tempo of a motion. By retrieving and conditioning on actions, the policy gets a lightweight prior about what should happen next. It doesn’t solve everything (long-horizon chaining is still tricky, and sim-to-real will always be the real test), but it’s a clean way to push beyond “it looks similar, so try this.”<br/>
-<strong>Status.</strong> Right now I have three pieces wired together: a latent-action tokenizer (trained with InfoNCE), a FAISS index over DTW-aligned sub-trajectories, and an in-context cache that hands the policy a few retrieved action snippets at test time. When it helps, it’s for very specific reasons: repeated sub-motions line up better, and the policy stops second-guessing short, well-defined phases. When it doesn’t help, it’s also clear why: cluttered scenes or lighting shifts pull the wrong neighbors, and a bad retrieval can nudge the policy off course. There’s a small latency tax from retrieval, but it stays reasonable if I keep K tiny and cache across steps.<br/>
-<strong>Next up.</strong> What I still need to nail down are the boring but important choices: the window length for tokenization, how much DTW slack is healthy, which distance works best beyond plain cosine, and how many examples (K) actually add signal before the context turns noisy. After that, I’ll try it on xArm manipulator to find the failure modes I can’t see in sim. A lot of exciting stuff is yet to be done!<br/>
-<br/>
-If I had to sum it up in one line: Isn’t the real goal to stop matching by how things look and instead retrieve, and condition on what to do, so the robot learns intent rather than just images?
-  </div>
-</div>`,
+    storyUrl: 'research/ntu-latent-action.html',
+    insightsUrl: 'research/ntu-latent-action.html#insights',
   },
   {
     title: 'Task & Motion Planning Intern',
@@ -236,56 +223,8 @@ If I had to sum it up in one line: Isn’t the real goal to stop matching by how
       src: 'iiith.jpg',
       alt: 'IIIT Hyderabad logo',
     },
-    spotlight: `
-      <button class="timeline-reveal__close" type="button" aria-label="Close IIITH research spotlight"></button>
-      <div class="timeline-reveal__inner">
-        <p class="timeline-reveal__tag">Hierarchical Policies · Reliability</p>
-        <h4 class="timeline-reveal__title">IIIT Hyderabad · Task & Motion Planning</h4>
-        <div class="timeline-reveal__section">
-          <h5>Why Contracts</h5>
-          <p>
-            Long-horizon manipulation breaks when sub-policies go rogue, so I wrapped every option in temporal logic style
-            contracts. The controller must prove pre- and post-conditions before it ever touches the arm.
-          </p>
-        </div>
-        <div class="timeline-reveal__section">
-          <h5>Stack</h5>
-          <p>
-            A visual encoder distils SmolVLA features, a Mixture-of-Experts actor selects options, and a symbolic monitor rejects
-            bad choices. When the planner hesitates, a low-latency MPC fallback steps in.
-          </p>
-        </div>
-        <div class="timeline-reveal__section">
-          <h5>Breakthrough</h5>
-          <p>
-            A “contract buffer” that carries risk scores between stages gave me a safety margin without freezing exploration. It
-            keeps high-level plans adventurous but still checkable in real time.
-          </p>
-        </div>
-        <div class="timeline-reveal__section">
-          <h5>System View</h5>
-          <p>
-            Sim traces stream into an orbit of dashboards—trajectory slack, LTL violations, MoE gating entropy—so I can spot the
-            second an option starts hallucinating.
-          </p>
-        </div>
-        <div class="timeline-reveal__section">
-          <h5>Now</h5>
-          <p>
-            We are mid-way through cluttered-shelf benchmarks, verifying that contract learning still holds once perception noise
-            and occlusions pile in.
-          </p>
-        </div>
-        <div class="timeline-reveal__section">
-          <h5>Next</h5>
-          <p>
-            Hybrid rollouts with a physical Franka arm and a reset-free tabletop scene to validate whether the monitor can keep
-            up at 20 Hz without fraying latency.
-          </p>
-        </div>
-        <p class="timeline-reveal__closing">Reliability is the feature—not the afterthought.</p>
-      </div>
-    `,
+    storyUrl: 'research/iiith-contracts.html',
+    insightsUrl: 'research/iiith-contracts.html#insights',
   },
   {
     title: 'Assistive Robotics Intern',
@@ -297,48 +236,8 @@ If I had to sum it up in one line: Isn’t the real goal to stop matching by how
       src: 'monash.png',
       alt: 'Monash University logo',
     },
-    spotlight: `
-      <button class="timeline-reveal__close" type="button" aria-label="Close Monash research spotlight"></button>
-      <div class="timeline-reveal__inner">
-        <p class="timeline-reveal__tag">Human-in-the-Loop · Assistive Robotics</p>
-        <h4 class="timeline-reveal__title">Monash University · Assistive Robotics Intern</h4>
-        <div class="timeline-reveal__section">
-          <h5>Challenge</h5>
-          <p>
-            Sit-to-walk transitions punish latency. Our exoskeleton needed torque predictions inside 20 ms or the wearer felt the
-            lag as a drag.
-          </p>
-        </div>
-        <div class="timeline-reveal__section">
-          <h5>Approach</h5>
-          <p>
-            I built a compact GRU with feature-pruned IMU and EMG signals, then wrapped it in a fuzzy supervisor that throttled
-            assistance based on gait phase confidence.
-          </p>
-        </div>
-        <div class="timeline-reveal__section">
-          <h5>Iterating</h5>
-          <p>
-            The magic moment was distilling the model to 68k parameters without losing fidelity. Quantisation plus tensor core
-            inference made real-time possible on an embedded Jetson.
-          </p>
-        </div>
-        <div class="timeline-reveal__section">
-          <h5>What We Learned</h5>
-          <p>
-            The fuzzy layer smoothed out spurious spikes, especially during imperfect foot contact. We dropped peak torque error
-            by 18% and users stopped noticing the controller catching up.
-          </p>
-        </div>
-        <div class="timeline-reveal__section">
-          <h5>Reflection</h5>
-          <p>
-            Assistive robotics is equal parts empathy and engineering—every watt delivered must feel invisible.
-          </p>
-        </div>
-        <p class="timeline-reveal__closing">Lightweight models can still feel heavy—unless you design for the human.</p>
-      </div>
-    `,
+    storyUrl: 'research/monash-assistive.html',
+    insightsUrl: 'research/monash-assistive.html#insights',
   },
   {
     title: 'Robotic Perception Intern',
@@ -350,48 +249,8 @@ If I had to sum it up in one line: Isn’t the real goal to stop matching by how
       src: 'iitb.png',
       alt: 'IIT Bombay logo',
     },
-    spotlight: `
-      <button class="timeline-reveal__close" type="button" aria-label="Close IIT Bombay research spotlight"></button>
-      <div class="timeline-reveal__inner">
-        <p class="timeline-reveal__tag">Perception · Urban Autonomy</p>
-        <h4 class="timeline-reveal__title">IIT Bombay · Robotic Perception Intern</h4>
-        <div class="timeline-reveal__section">
-          <h5>Problem Space</h5>
-          <p>
-            Dense Indian roads confuse standard drivable-area segmenters. Reflections, puddles, and stray tar patches all look
-            “road enough” to cause disasters.
-          </p>
-        </div>
-        <div class="timeline-reveal__section">
-          <h5>Solution</h5>
-          <p>
-            I designed AURASeg—Attention-guided Upsampling with Residual boundary refinements—to trace both texture and geometry.
-            A tiny auxiliary edge detector feeds into the decoder so curbs stay crisp.
-          </p>
-        </div>
-        <div class="timeline-reveal__section">
-          <h5>Moments</h5>
-          <p>
-            When we beat YOLOP on mIoU and F1 we celebrated, but the real win was a wet-road night sequence where AURASeg kept the
-            drivable ribbon tight instead of drifting into headlights.
-          </p>
-        </div>
-        <div class="timeline-reveal__section">
-          <h5>Deployment</h5>
-          <p>
-            We pruned and quantised the network for Jetson Xavier, then wrote a ROS 2 node that streams segmentation masks with a
-            12 ms budget.
-          </p>
-        </div>
-        <div class="timeline-reveal__section">
-          <h5>Outlook</h5>
-          <p>
-            Next iteration pushes for domain-adaptive finetuning so fog, dust, and rain all feel native—not rare edge cases.
-          </p>
-        </div>
-        <p class="timeline-reveal__closing">Robust perception is the quiet confidence behind autonomous navigation.</p>
-      </div>
-    `,
+    storyUrl: 'research/iitb-auraseg.html',
+    insightsUrl: 'research/iitb-auraseg.html#insights',
   },
 ];
 
@@ -435,24 +294,31 @@ if (researchTimeline) {
     body.className = 'timeline-body';
     body.append(meta, heading, description);
 
-    content.append(imageWrapper, body);
+    if (experience.storyUrl) {
+      const actions = document.createElement('div');
+      actions.className = 'timeline-actions';
 
-    if (experience.spotlight) {
-      content.classList.add('has-reveal');
-      content.setAttribute('tabindex', '0');
-      content.setAttribute('role', 'button');
-      content.setAttribute('aria-expanded', 'false');
-      content.setAttribute('aria-label', `${experience.title} deep dive`);
+      const primaryLink = document.createElement('a');
+      primaryLink.className = 'timeline-link timeline-link--primary';
+      primaryLink.href = experience.storyUrl;
+      primaryLink.textContent = experience.primaryCta || 'Read the full story';
+      primaryLink.setAttribute('aria-label', `${experience.title} full story`);
 
-      const glow = document.createElement('span');
-      glow.className = 'timeline-hover-glow';
+      actions.appendChild(primaryLink);
 
-      const reveal = document.createElement('aside');
-      reveal.className = 'timeline-reveal';
-      reveal.innerHTML = experience.spotlight;
+      if (experience.insightsUrl) {
+        const insightsLink = document.createElement('a');
+        insightsLink.className = 'timeline-link';
+        insightsLink.href = experience.insightsUrl;
+        insightsLink.textContent = experience.secondaryCta || 'Insights';
+        insightsLink.setAttribute('aria-label', `${experience.title} insights`);
+        actions.appendChild(insightsLink);
+      }
 
-      content.append(glow, reveal);
+      body.appendChild(actions);
     }
+
+    content.append(imageWrapper, body);
 
     item.append(content);
     researchTimeline.appendChild(item);
@@ -480,336 +346,8 @@ if (researchTimeline) {
     timelineItems.forEach((item) => item.classList.add('is-visible'));
   }
 
-  const revealCards = researchTimeline.querySelectorAll(
-    '.timeline-content.has-reveal'
-  );
-  const supportsHover =
-    typeof window.matchMedia === 'function'
-      ? window.matchMedia('(hover: hover)').matches
-      : true;
-
-  if (revealCards.length) {
-    const overlay = document.createElement('div');
-    overlay.className = 'timeline-reveal-overlay';
-    overlay.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(overlay);
-
-    let activeCard = null;
-
-    const lockBody = () => {
-      if (!document.body.dataset.revealPrevOverflow) {
-        document.body.dataset.revealPrevOverflow =
-          document.body.style.overflow ||
-          getComputedStyle(document.body).overflow ||
-          '';
-      }
-      if (!document.body.dataset.revealPrevPadding) {
-        document.body.dataset.revealPrevPadding =
-          document.body.style.paddingRight || '';
-      }
-
-      const scrollbarWidth =
-        window.innerWidth - document.documentElement.clientWidth;
-
-      document.body.style.overflow = 'hidden';
-      if (scrollbarWidth > 0) {
-        document.body.style.paddingRight = `${scrollbarWidth}px`;
-      }
-    };
-
-    const unlockBody = () => {
-      const prevOverflow = document.body.dataset.revealPrevOverflow || '';
-      const prevPadding = document.body.dataset.revealPrevPadding || '';
-
-      document.body.style.overflow = prevOverflow;
-      document.body.style.paddingRight = prevPadding;
-
-      delete document.body.dataset.revealPrevOverflow;
-      delete document.body.dataset.revealPrevPadding;
-    };
-
-    const focusableSelector =
-      'a[href], area[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
-
-    const getFocusable = (rootEl) =>
-      Array.from(rootEl.querySelectorAll(focusableSelector)).filter(
-        (el) =>
-          !el.hasAttribute('disabled') &&
-          el.getAttribute('aria-hidden') !== 'true' &&
-          el.offsetParent !== null
-      );
-
-    const attachFocusTrap = (reveal) => {
-      const handleKeydown = (event) => {
-        if (event.key !== 'Tab') return;
-        const nodes = getFocusable(reveal);
-        if (!nodes.length) return;
-        const first = nodes[0];
-        const last = nodes[nodes.length - 1];
-
-        if (event.shiftKey && document.activeElement === first) {
-          event.preventDefault();
-          last.focus();
-        } else if (!event.shiftKey && document.activeElement === last) {
-          event.preventDefault();
-          first.focus();
-        }
-      };
-
-      const handleFocusIn = (event) => {
-        if (!reveal.contains(event.target)) {
-          const nodes = getFocusable(reveal);
-          if (nodes.length) {
-            nodes[0].focus({ preventScroll: true });
-          }
-        }
-      };
-
-      reveal.addEventListener('keydown', handleKeydown);
-      document.addEventListener('focusin', handleFocusIn);
-
-      reveal._trapKeydown = handleKeydown;
-      reveal._focusGuard = handleFocusIn;
-    };
-
-    const removeFocusTrap = (reveal) => {
-      if (reveal._trapKeydown) {
-        reveal.removeEventListener('keydown', reveal._trapKeydown);
-        delete reveal._trapKeydown;
-      }
-      if (reveal._focusGuard) {
-        document.removeEventListener('focusin', reveal._focusGuard);
-        delete reveal._focusGuard;
-      }
-    };
-
-    const closeActive = ({ restoreFocus = true, immediate = false } = {}) => {
-      if (!activeCard) return Promise.resolve();
-
-      return new Promise((resolve) => {
-        const card = activeCard;
-        const reveal = card.querySelector('.timeline-reveal');
-
-        const finishClose = () => {
-          removeFocusTrap(reveal);
-          card.classList.remove('is-active');
-          card.setAttribute('aria-expanded', 'false');
-          activeCard = null;
-          document.body.classList.remove('timeline-reveal-active');
-          overlay.setAttribute('aria-hidden', 'true');
-          unlockBody();
-          if (restoreFocus) {
-            requestAnimationFrame(() =>
-              card.focus({ preventScroll: true })
-            );
-          }
-          resolve();
-        };
-
-        if (immediate) {
-          finishClose();
-          return;
-        }
-
-        const cardRect = card.getBoundingClientRect();
-        const revealRect = reveal.getBoundingClientRect();
-        const dx =
-          cardRect.left + cardRect.width / 2 -
-          (revealRect.left + revealRect.width / 2);
-        const dy =
-          cardRect.top + cardRect.height / 2 -
-          (revealRect.top + revealRect.height / 2);
-        const sx = Math.max(
-          0.01,
-          cardRect.width / Math.max(1, revealRect.width)
-        );
-        const sy = Math.max(
-          0.01,
-          cardRect.height / Math.max(1, revealRect.height)
-        );
-
-        const animation = reveal.animate(
-          [
-            { transform: 'translate(-50%,-50%) scale(1,1)', opacity: 1 },
-            {
-              transform: `translate(-50%,-50%) translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`,
-              opacity: 0.001,
-            },
-          ],
-          { duration: 360, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards' }
-        );
-
-        overlay.animate(
-          [{ opacity: 1 }, { opacity: 0 }],
-          { duration: 200, easing: 'ease-in', fill: 'forwards' }
-        );
-
-        animation.addEventListener('finish', finishClose, { once: true });
-      });
-    };
-
-    const activateReveal = async (card) => {
-      if (activeCard === card) return;
-
-      await closeActive({ restoreFocus: false });
-
-      const reveal = card.querySelector('.timeline-reveal');
-      if (!reveal) return;
-
-      activeCard = card;
-
-      if (!reveal.hasAttribute('role')) {
-        reveal.setAttribute('role', 'dialog');
-        reveal.setAttribute('aria-modal', 'true');
-      }
-      if (!reveal.getAttribute('aria-label')) {
-        const heading = card.querySelector('h3');
-        reveal.setAttribute(
-          'aria-label',
-          heading ? `${heading.textContent} spotlight` : 'Research spotlight'
-        );
-      }
-
-      lockBody();
-      document.body.classList.add('timeline-reveal-active');
-      overlay.setAttribute('aria-hidden', 'false');
-
-      card.classList.add('is-active');
-      card.setAttribute('aria-expanded', 'true');
-
-      reveal.style.visibility = 'hidden';
-      reveal.style.opacity = '0';
-      reveal.style.transform = 'translate(-50%,-50%)';
-      reveal.getBoundingClientRect();
-
-      const cardRect = card.getBoundingClientRect();
-      const revealRect = reveal.getBoundingClientRect();
-      const dx =
-        cardRect.left + cardRect.width / 2 -
-        (revealRect.left + revealRect.width / 2);
-      const dy =
-        cardRect.top + cardRect.height / 2 -
-        (revealRect.top + revealRect.height / 2);
-      const sx = Math.max(
-        0.01,
-        cardRect.width / Math.max(1, revealRect.width)
-      );
-      const sy = Math.max(
-        0.01,
-        cardRect.height / Math.max(1, revealRect.height)
-      );
-
-      reveal.style.visibility = '';
-      reveal.style.opacity = '';
-      reveal.style.transform = '';
-
-      const animation = reveal.animate(
-        [
-          {
-            transform: `translate(-50%,-50%) translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`,
-            opacity: 0.001,
-          },
-          { transform: 'translate(-50%,-50%) scale(1,1)', opacity: 1 },
-        ],
-        { duration: 460, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards' }
-      );
-
-      overlay.animate(
-        [{ opacity: 0 }, { opacity: 1 }],
-        { duration: 220, easing: 'ease-out', fill: 'forwards' }
-      );
-
-      attachFocusTrap(reveal);
-
-      animation.addEventListener(
-        'finish',
-        () => {
-          const focusTarget =
-            reveal.querySelector('.timeline-reveal__close') ||
-            getFocusable(reveal)[0] ||
-            reveal;
-          focusTarget.focus({ preventScroll: true });
-        },
-        { once: true }
-      );
-    };
-
-    const deactivateReveal = () => {
-      void closeActive();
-    };
-
-    overlay.addEventListener('click', deactivateReveal);
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
-        deactivateReveal();
-      }
-    });
-
-    revealCards.forEach((card) => {
-      if (supportsHover) {
-        card.addEventListener('pointerenter', () => {
-          card.classList.add('is-hovered');
-        });
-        card.addEventListener('pointermove', (event) => {
-          const rect = card.getBoundingClientRect();
-          const px = event.clientX
-            ? event.clientX - rect.left
-            : rect.width / 2;
-          const py = event.clientY
-            ? event.clientY - rect.top
-            : rect.height / 2;
-          const nx = px / rect.width - 0.5;
-          const ny = py / rect.height - 0.5;
-          card.style.setProperty('--tiltX', `${(-ny * 9).toFixed(2)}deg`);
-          card.style.setProperty('--tiltY', `${(nx * 9).toFixed(2)}deg`);
-          const glow = card.querySelector('.timeline-hover-glow');
-          if (glow) {
-            glow.style.opacity = '1';
-            glow.style.transform = `translate(${nx * 10}px, ${ny * 10}px)`;
-          }
-        });
-        card.addEventListener('pointerleave', () => {
-          card.classList.remove('is-hovered');
-          card.style.removeProperty('--tiltX');
-          card.style.removeProperty('--tiltY');
-          const glow = card.querySelector('.timeline-hover-glow');
-          if (glow) {
-            glow.style.opacity = '0';
-            glow.style.transform = '';
-          }
-        });
-      }
-
-      card.addEventListener('focusin', () => {
-        card.classList.add('is-hovered');
-      });
-
-      card.addEventListener('focusout', () => {
-        card.classList.remove('is-hovered');
-        card.style.removeProperty('--tiltX');
-        card.style.removeProperty('--tiltY');
-      });
-
-      card.addEventListener('click', () => activateReveal(card));
-
-      card.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          activateReveal(card);
-        }
-      });
-
-      const closeButton = card.querySelector('.timeline-reveal__close');
-      if (closeButton) {
-        closeButton.addEventListener('click', (event) => {
-          event.preventDefault();
-          event.stopPropagation();
-          deactivateReveal();
-        });
-      }
-    });
-  }
+  const revealCards = researchTimeline.querySelectorAll('.timeline-content.has-reveal');
+  revealCards.forEach((card) => card.classList.remove('has-reveal'));
 }
 
 // --- PUBLICATIONS ---

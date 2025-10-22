@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Latent-Action Retrieval at NTU · Narendhiran Vijayakumar</title>
+    <meta
+      name="description"
+      content="Research notebook capturing Narendhiran Vijayakumar's work on latent-action retrieval and in-context memory for Moto-VLA at NTU."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/style.css" />
+    <script defer src="../assets/script.js"></script>
+  </head>
+  <body class="research-page" data-theme="dark">
+    <div class="research-page__inner">
+      <header class="research-page__masthead">
+        <a class="research-page__back" href="../index.html#research">← Back to research timeline</a>
+        <span></span>
+      </header>
+
+      <article class="research-article">
+        <header class="research-article__header">
+          <div class="research-article__badge">
+            <img src="../ntu.png" alt="NTU Singapore logo" />
+            <span>Embodied AI · Manipulation</span>
+          </div>
+          <p class="research-article__eyebrow">Embodied AI Intern · May 2025 – Present</p>
+          <h1 class="research-article__title">Retrieval that remembers the robot's intent</h1>
+          <p class="research-article__meta">Nanyang Technological University, Singapore · Moto-VLA extensions</p>
+          <p class="research-article__lead">
+            I am stretching Moto-VLA with a latent-action retrieval layer and a lightweight in-context memory so the policy looks
+            up what to do next, not just what looks similar. The aim is to make generalist manipulation policies less forgetful
+            about contact timing and task phase.
+          </p>
+        </header>
+
+        <div class="research-article__content">
+          <section class="research-article__section">
+            <h2>Spark</h2>
+            <p>
+              I arrived thinking manipulation with vision-language-action models was already saturated. A week of sifting through
+              demos proved otherwise: the robots still froze when perception and intent drifted apart. That gap turned into a
+              question—what if retrieval keyed off the motions a robot should take instead of the pixels it currently sees?
+            </p>
+          </section>
+
+          <section class="research-article__section">
+            <h2>Idea</h2>
+            <p>
+              I tokenise short trajectory windows into latent action snippets using an InfoNCE contrastive setup so phases like
+              approach, grasp, and lift cluster tightly. Each rollout gets sliced, aligned with DTW to normalise timing, and
+              indexed in FAISS. During control the policy fetches the nearest motion exemplars, not the nearest frames, and keeps
+              the snippets around as structured context.
+            </p>
+          </section>
+
+          <section class="research-article__section">
+            <h2>First look</h2>
+            <p>
+              The first versions nudged success rates upward, but only slightly. The positives were too loose—clips that looked
+              alike were not always in the same phase. Tightening phase alignment, mining harder negatives, and sharpening the
+              token boundaries made the embedding space more meaningful, yet there was still an image/action mismatch at inference
+              time.
+            </p>
+          </section>
+
+          <section class="research-article__section">
+            <h2>Closing the gap</h2>
+            <p>
+              The fix was to give the policy the same latent actions at test time that trained it. For each step I retrieve the
+              top-k snippets and feed them into an in-context memory that the transformer can attend to. Suddenly the controller
+              knew when to close the gripper, how long to linger on contact, and when to transition phases.
+            </p>
+          </section>
+
+          <section class="research-article__section">
+            <h2>Engineering the system</h2>
+            <p>
+              Most of the effort went into the glue: enforcing a strict [B, T, D] contract through the pipeline, chunking FAISS
+              queries to stay memory-safe, caching neighbours across timesteps, and sliding heavy operations into mixed precision.
+              Those pieces turned a “works in two demos” prototype into something that survives nightly training runs.
+            </p>
+          </section>
+
+          <section class="research-article__section">
+            <h2>Why it matters</h2>
+            <p>
+              Blending appearance with intent is where generalist VLAs still stumble. Latent-action retrieval nudges the policy
+              toward the tempo of a motion, not just the pose that resembles the current frame. When it succeeds you can see it in
+              the contact timing and in how confidently the robot chains sub-tasks.
+            </p>
+          </section>
+
+          <section class="research-article__section">
+            <h2>Status &amp; next steps</h2>
+            <p>
+              The tokenizer, FAISS index, and in-context cache now run reliably on our sim bench. Failure cases are clear: clutter
+              or lighting shifts still pull the wrong neighbours. I am tuning window length, DTW slack, distance metrics, and K
+              before porting to a physical xArm to study the sim-to-real breakpoints.
+            </p>
+          </section>
+
+          <section id="insights" class="research-article__section">
+            <h2>Key insights</h2>
+            <ul>
+              <li>Retrieving motion snippets keeps the controller aware of intent even when visual cues drift.</li>
+              <li>Phase-aligned positives and hard negatives are essential for a usable latent-action space.</li>
+              <li>A small in-context memory is enough to close the train/test gap without bloating inference latency.</li>
+              <li>Operational discipline—shape contracts, caching, and mixed precision—matters as much as the modelling idea.</li>
+            </ul>
+          </section>
+
+          <section class="research-article__section">
+            <p class="research-article__closing">
+              The real goal is to condition a robot on what to do next, not merely what looks familiar.
+            </p>
+          </section>
+        </div>
+      </article>
+
+      <footer class="research-page__footer">
+        <span>Last updated: July 2025</span>
+        <a href="mailto:narendhiranv.nitt@gmail.com">Contact Narendhiran</a>
+      </footer>
+    </div>
+  </body>
+</html>
