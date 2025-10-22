@@ -866,53 +866,48 @@ body[data-theme="light"] .timeline-reveal__closing{color:var(--color-heading);}
 }
 
 
-/* =====================================================
-   Research Experience Hover Animation — enhancements
-   (Fixes blur-on-hover by NOT opening reveal on hover.
-    Adds 3D tilt, parallax image, and cursor-follow glow.)
-   ===================================================== */
-.timeline-content{
-  transform-style: preserve-3d;
-  will-change: transform, box-shadow, border-color;
-}
-
-.timeline-content.is-hovered{
-  transform: translateY(-6px) scale(1.01) rotateX(var(--tiltX, 0deg)) rotateY(var(--tiltY, 0deg));
-  border-color: color-mix(in srgb, var(--color-accent) 40%, var(--color-border));
-  box-shadow: var(--shadow-elevated);
-}
-
-.timeline-content .timeline-image,
-.timeline-content .timeline-body{
+/* ==== Reveal Overlay: remove heavy blur & prep morph animation ==== */
+.timeline-reveal,
+.timeline-reveal-overlay{
   filter: none !important;
-  opacity: 1 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
 }
 
-/* Cursor-follow glow (uses vars --mx/--my set by JS) */
-.timeline-content .timeline-hover-glow{
-  background:
-    radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(123,131,255,.22), rgba(123,131,255,0) 60%),
-    radial-gradient(520px circle at calc(var(--mx, 50%)) calc(var(--my, 50%)), rgba(111,225,255,.14), rgba(111,225,255,0) 70%);
-  opacity: 0;
-  transition: opacity .35s ease, transform .45s cubic-bezier(.23,1,.32,1);
-  mix-blend-mode: screen;
-}
-.timeline-content.is-hovered .timeline-hover-glow{ opacity: 1; }
-
-/* Parallax the logo/image slightly on hover (vars set from JS) */
-.timeline-content .timeline-image img{
-  transform: translate3d(var(--imgDx, 0px), var(--imgDy, 0px), 0) scale(var(--imgScale, 1));
-  transition: transform .35s cubic-bezier(.22,1,.36,1);
-}
-.timeline-content.is-hovered .timeline-image img{
-  --imgScale: 1.035;
+.timeline-reveal-overlay{
+  /* keep a subtle dim without blur */
+  background: rgba(8,12,28,.45) !important;
 }
 
-/* Respect reduced motion */
-@media (prefers-reduced-motion: reduce){
-  .timeline-content.is-hovered{
-    transform: translateY(-4px);
-  }
-  .timeline-content .timeline-image img{ transform: none !important; }
-  .timeline-content .timeline-hover-glow{ transition: opacity .2s ease; }
+.timeline-content.has-reveal .timeline-reveal{
+  /* neutralize pre-existing rotate/scale; JS animates FLIP */
+  transform: translate(-50%,-50%) scale(1) !important;
+  opacity: 0; /* JS animates to 1 */
+  animation: none !important;
+  will-change: transform, opacity;
+}
+
+.timeline-content.has-reveal.is-active .timeline-reveal{
+  opacity: 1;
+}
+
+/* Disable keyframe pop while we morph */
+.timeline-content.has-reveal.is-morphing .timeline-reveal{
+  animation: none !important;
+}
+
+/* Better stacking so hovered card glow doesn't sit above overlay */
+.timeline-reveal{ z-index: 1202; }
+.timeline-reveal-overlay{ z-index: 1200; }
+
+/* Close button always visible on active */
+.timeline-content.has-reveal.is-active .timeline-reveal__close{
+  opacity: 1; transform: scale(1);
+}
+
+/* Small visual polish for the reveal panel */
+.timeline-reveal{
+  border: 1px solid rgba(156,169,255,.35) !important;
+  box-shadow: 0 34px 120px rgba(5,8,20,.65), 0 8px 24px rgba(4,6,15,.35) !important;
+  background: linear-gradient(135deg, rgba(18,24,54,.96), rgba(14,18,40,.94)) !important;
 }
