@@ -2,12 +2,6 @@
 // Merged and conflict-free: combines theme toggle, responsive nav, and active-section highlighting.
 
 const root = document.body;
-if (window.__timelineInitDone) {
-  // Prevent double-binding in SPA-like navigations
-} else {
-  window.__timelineInitDone = true;
-}
-
 
 // --- NAV ELEMENTS (support both data-js and legacy class selectors) ---
 const nav =
@@ -216,19 +210,19 @@ const researchExperiences = [
       src: 'ntu.png',
       alt: 'NTU Singapore logo',
     },
-    spotlight: `
-      <button class="timeline-reveal__close" type="button" aria-label="Close"></button>
-      <div class="timeline-reveal__inner" role="document" tabindex="0">
+    spotlight: `      <button class="timeline-reveal__close" type="button" aria-label="Close"></button>
+      <div class="timeline-reveal__inner" tabindex="0">
         <div class="timeline-reveal__narrative">
-          <p><b>Spark.</b> I walked into this thinking robot manipulation was kind of “solved” and “saturated”. How naive of me. Then I found VLAs and realized how wrong that was. Got me intrigued about generalist policies and “Embodied AI” – sounded way too interesting for me to ignore. As I read randomly through a lot of papers, I realized the space is exciting and chaotic at the same time–lots of big demos, but also lots of cases where the robot looks at a scene, finds something that looks similar, and still doesn’t know what to do. That pushed me to a simple question: instead of retrieving by appearance, can we retrieve by robot action instead?</p>
-          <p><b>Idea.</b> The core idea is to represent short chunks of motion as compact “latent action” snippets—little summaries of intent and phase like “approach,” “close,” “lift,” rather than just pixels. I started by training a contrastive model (InfoNCE) to learn these embeddings from demonstrations, so segments that do the same thing end up close together, even if they look different. From there, I built a small retrieval system: slice trajectories into sub-trajectories, align them with DTW so timing lines up, index them with FAISS, and then score neighbors with cosine similarity. The point is to fetch the right action examples for the current moment, not just the most similar frame.</p>
-          <p><b>First look.</b> At first, this worked—but only a little. Latent-action retrieval beat plain image retrieval in a few rollouts (better contact timing, fewer failures), but the gains were thin. Two problems popped out. One: my “positives” were too loose. Clips that looked similar weren’t always in the same phase. Tightening positives to phase-aligned windows and mining harder negatives made the embedding space sharper. Two: I was teaching the model with latent actions during training but asking it to rely on images at test time. That mismatch was the bigger issue.</p>
-          <p><b>Closing the gap.</b> To fix it, I added an in-context memory at inference. For each step, I retrieve the top-K latent-action snippets and hand them to the policy as simple, structured context—“here are a few examples of what to do now.” The policy can then attend to those action cues while deciding the next move. That change felt small on paper, but it made the difference: the policy actually uses action structure at test time, not just during training.</p>
-          <p><b>Annoying struggles.</b> There was a fair amount of engineering glue to make this stable. I standardized everything to a clean [B, T, D] shape contract, added checks to avoid the usual time-dim confusion, chunked FAISS queries to keep memory in check, cached neighbors between steps, and moved heavy paths to mixed precision. None of that is glamorous, but it turned “sometimes works” into “runs reliably enough to iterate” and actually publishable, and not just showcasing a few good rollouts.</p>
-          <p><b>Why it matters.</b> Where this fits in the bigger VLA picture: a lot of current systems blur appearance with intent. They can find a scene that looks right and still miss the moment to make contact or the tempo of a motion. By retrieving and conditioning on actions, the policy gets a lightweight prior about what should happen next. It doesn’t solve everything (long-horizon chaining is still tricky, and sim-to-real will always be the real test), but it’s a clean way to push beyond “it looks similar, so try this.”</p>
-          <p><b>Status.</b> Right now I have three pieces wired together: a latent-action tokenizer (trained with InfoNCE), a FAISS index over DTW-aligned sub-trajectories, and an in-context cache that hands the policy a few retrieved action snippets at test time. When it helps, it’s for very specific reasons: repeated sub-motions line up better, and the policy stops second-guessing short, well-defined phases. When it doesn’t help, it’s also clear why: cluttered scenes or lighting shifts pull the wrong neighbors, and a bad retrieval can nudge the policy off course. There’s a small latency tax from retrieval, but it stays reasonable if I keep K tiny and cache across steps.</p>
-          <p><b>Next up.</b> What I still need to nail down are the boring but important choices: the window length for tokenization, how much DTW slack is healthy, which distance works best beyond plain cosine, and how many examples (K) actually add signal before the context turns noisy. After that, I’ll try it on xArm manipulator to find the failure modes I can’t see in sim. A lot of exciting stuff is yet to be done!</p>
-          <p><b>One line.</b> Isn’t the real goal to stop matching by how things look and instead retrieve, and condition on what to do, so the robot learns intent rather than just images?</p>
+Spark. I walked into this thinking robot manipulation was kind of “solved” and “saturated”. How naive of me. Then I found VLAs and realized how wrong that was. Got me intrigued about generalist policies and “Embodied AI” – sounded way too interesting for me to ignore. As I read randomly through a lot of papers, I realized the space is exciting and chaotic at the same time–lots of big demos, but also lots of cases where the robot looks at a scene, finds something that looks similar, and still doesn’t know what to do. That pushed me to a simple question: instead of retrieving by appearance, can we retrieve by robot action instead?<br/>
+Idea. The core idea is to represent short chunks of motion as compact “latent action” snippets—little summaries of intent and phase like “approach,” “close,” “lift,” rather than just pixels. I started by training a contrastive model (InfoNCE) to learn these embeddings from demonstrations, so segments that do the same thing end up close together, even if they look different. From there, I built a small retrieval system: slice trajectories into sub-trajectories, align them with DTW so timing lines up, index them with FAISS, and then score neighbors with cosine similarity. The point is to fetch the right action examples for the current moment, not just the most similar frame.<br/>
+First look. At first, this worked—but only a little. Latent-action retrieval beat plain image retrieval in a few rollouts (better contact timing, fewer failures), but the gains were thin. Two problems popped out. One: my “positives” were too loose. Clips that looked similar weren’t always in the same phase. Tightening positives to phase-aligned windows and mining harder negatives made the embedding space sharper. Two: I was teaching the model with latent actions during training but asking it to rely on images at test time. That mismatch was the bigger issue.<br/>
+Closing the gap. To fix it, I added an in-context memory at inference. For each step, I retrieve the top-K latent-action snippets and hand them to the policy as simple, structured context—“here are a few examples of what to do now.” The policy can then attend to those action cues while deciding the next move. That change felt small on paper, but it made the difference: the policy actually uses action structure at test time, not just during training.<br/>
+Annoying struggles. There was a fair amount of engineering glue to make this stable. I standardized everything to a clean [B, T, D] shape contract, added checks to avoid the usual time-dim confusion, chunked FAISS queries to keep memory in check, cached neighbors between steps, and moved heavy paths to mixed precision. None of that is glamorous, but it turned “sometimes works” into “runs reliably enough to iterate” and actually publishable, and not just showcasing a few good rollouts.<br/>
+Why it matters. Where this fits in the bigger VLA picture: a lot of current systems blur appearance with intent. They can find a scene that looks right and still miss the moment to make contact or the tempo of a motion. By retrieving and conditioning on actions, the policy gets a lightweight prior about what should happen next. It doesn’t solve everything (long-horizon chaining is still tricky, and sim-to-real will always be the real test), but it’s a clean way to push beyond “it looks similar, so try this.”<br/>
+Status. Right now I have three pieces wired together: a latent-action tokenizer (trained with InfoNCE), a FAISS index over DTW-aligned sub-trajectories, and an in-context cache that hands the policy a few retrieved action snippets at test time. When it helps, it’s for very specific reasons: repeated sub-motions line up better, and the policy stops second-guessing short, well-defined phases. When it doesn’t help, it’s also clear why: cluttered scenes or lighting shifts pull the wrong neighbors, and a bad retrieval can nudge the policy off course. There’s a small latency tax from retrieval, but it stays reasonable if I keep K tiny and cache across steps.<br/>
+Next up. What I still need to nail down are the boring but important choices: the window length for tokenization, how much DTW slack is healthy, which distance works best beyond plain cosine, and how many examples (K) actually add signal before the context turns noisy. After that, I’ll try it on xArm manipulator to find the failure modes I can’t see in sim. A lot of exciting stuff is yet to be done!<br/>
+<br/>
+If I had to sum it up in one line: Isn’t the real goal to stop matching by how things look and instead retrieve, and condition on what to do, so the robot learns intent rather than just images?
         </div>
       </div>
 `,
@@ -487,9 +481,9 @@ if (researchTimeline) {
     timelineItems.forEach((item) => item.classList.add('is-visible'));
   }
 
-  const revealCards = researchTimeline.querySelectorAll('.timeline-content.has-reveal');
-  // reset any active states from SSR/previous navigation
-  revealCards.forEach(c => c.classList.remove('is-active'));
+  const revealCards = researchTimeline.querySelectorAll(
+    '.timeline-content.has-reveal'
+  );
   const supportsHover =
     typeof window.matchMedia === 'function'
       ? window.matchMedia('(hover: hover)').matches
@@ -507,20 +501,20 @@ if (researchTimeline) {
     const activateReveal = (card) => {
       if (activeCard === card) return;
 
-      if (activeCard && activeCard !== card) {
+      if (activeCard) {
         activeCard.classList.remove('is-active');
         activeCard.setAttribute('aria-expanded', 'false');
       }
 
-      document.querySelectorAll('.timeline-content.has-reveal.is-active').forEach(n=>{ if(n!==card){ n.classList.remove('is-active'); n.setAttribute('aria-expanded','false'); }});
       activeCard = card;
       const reveal = activeCard.querySelector('.timeline-reveal');
+
       // Dialog semantics
       reveal.setAttribute('role', 'dialog');
       reveal.setAttribute('aria-modal', 'true');
       reveal.setAttribute('aria-label', 'Research spotlight');
 
-      // Body scroll lock (with scrollbar compensation)
+      // Lock body scroll (with scrollbar compensation)
       const scrollBarW = window.innerWidth - document.documentElement.clientWidth;
       document.body.dataset.prevOverflow = getComputedStyle(document.body).overflow;
       document.body.style.overflow = 'hidden';
@@ -529,17 +523,15 @@ if (researchTimeline) {
       document.body.classList.add('timeline-reveal-active');
       overlay.setAttribute('aria-hidden', 'false');
 
-      // Turn on active state so reveal has final layout
+      // Turn on active state so reveal has its final layout for measurement
       activeCard.classList.add('is-active');
       activeCard.setAttribute('aria-expanded', 'true');
 
-      // FLIP: measure from card to dialog
-      // Force reveal to its final layout but invisible for measurement
+      // FLIP: from card to reveal
       reveal.style.visibility = 'hidden';
       reveal.style.opacity = '0';
       reveal.style.transform = 'translate(-50%,-50%)';
-      // Force reflow
-      reveal.getBoundingClientRect();
+      reveal.getBoundingClientRect(); // reflow
 
       const cardRect = activeCard.getBoundingClientRect();
       const finalRect = reveal.getBoundingClientRect();
@@ -548,9 +540,8 @@ if (researchTimeline) {
       const sx = Math.max(0.01, cardRect.width / Math.max(1, finalRect.width));
       const sy = Math.max(0.01, cardRect.height / Math.max(1, finalRect.height));
 
-      reveal.style.visibility = ''; // show for animation
+      reveal.style.visibility = '';
 
-      // Animate dialog
       const anim = reveal.animate(
         [
           { transform: `translate(-50%,-50%) translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`, opacity: 0.001 },
@@ -561,9 +552,10 @@ if (researchTimeline) {
 
       overlay.animate([{opacity:0},{opacity:1}], {duration: 220, easing:'ease-out', fill:'forwards'});
 
-      // Focus management: trap inside dialog
+      // Focus trap
       const focusable = () => Array.from(reveal.querySelectorAll('button, [href], input, textarea, select, [tabindex]:not([tabindex="-1"])'))
         .filter(el => !el.hasAttribute('disabled') && el.offsetParent !== null);
+
       const trap = (e) => {
         if (e.key !== 'Tab') return;
         const nodes = focusable();
@@ -573,31 +565,20 @@ if (researchTimeline) {
         if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
         else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
       };
+
       const onWheel = (e) => {
-        const inside = reveal.contains(e.target);
-        if (!inside) { e.preventDefault(); return; }
-        // If the target can't scroll further, let it bubble to the inner container
-        // (native scroll performance preserved).
+        if (!reveal.contains(e.target)) e.preventDefault();
       };
+
       document.addEventListener('keydown', trap);
       document.addEventListener('wheel', onWheel, { passive: false });
       document.addEventListener('touchmove', onWheel, { passive: false });
 
       anim.addEventListener('finish', () => {
-      // Keep centered and valid after resize/zoom
-      const onResize = () => { /* rely on CSS dvh; nothing to compute, but force reflow */ reveal.getBoundingClientRect(); };
-      window.addEventListener('resize', onResize);
-      reveal._onResize = onResize;
-
-        // Put focus inside
         (reveal.querySelector('.timeline-reveal__close') || reveal).focus({ preventScroll: true });
-        reveal.style.willChange = '';
-        // Store handlers to clean up later
         reveal._trapKeydown = trap;
         reveal._trapWheel = onWheel;
-      
-        if (reveal._onResize) window.removeEventListener('resize', reveal._onResize);
-
+      });
     };
 
 
@@ -608,7 +589,6 @@ if (researchTimeline) {
       const card = activeCard;
       const reveal = card.querySelector('.timeline-reveal');
 
-      // Reverse FLIP
       const cardRect = card.getBoundingClientRect();
       const finalRect = reveal.getBoundingClientRect();
       const dx = (cardRect.left + cardRect.width/2) - (finalRect.left + finalRect.width/2);
@@ -627,14 +607,6 @@ if (researchTimeline) {
       overlay.animate([{opacity:1},{opacity:0}], {duration: 200, easing:'ease-in', fill:'forwards'});
 
       anim.addEventListener('finish', () => {
-      // Keep centered and valid after resize/zoom
-      const onResize = () => { /* rely on CSS dvh; nothing to compute, but force reflow */ reveal.getBoundingClientRect(); };
-      window.addEventListener('resize', onResize);
-      reveal._onResize = onResize;
-
-        // Clean up styles
-        reveal.style.transform = '';
-        reveal.style.opacity = '';
         // Remove active state
         card.classList.remove('is-active');
         card.setAttribute('aria-expanded', 'false');
@@ -645,22 +617,19 @@ if (researchTimeline) {
         document.body.style.overflow = document.body.dataset.prevOverflow || '';
         document.body.style.paddingRight = '';
         delete document.body.dataset.prevOverflow;
-        // Restore focus to the card
+        // Return focus
         card.focus({ preventScroll: true });
 
-        // Remove traps
         if (reveal._trapKeydown) document.removeEventListener('keydown', reveal._trapKeydown);
         if (reveal._trapWheel) {
           document.removeEventListener('wheel', reveal._trapWheel);
           document.removeEventListener('touchmove', reveal._trapWheel);
         }
-      
-        if (reveal._onResize) window.removeEventListener('resize', reveal._onResize);
-
+      });
     };
 
 
-    overlay.addEventListener('click', deactivateReveal, { once:false });
+    overlay.addEventListener('click', deactivateReveal);
 
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
@@ -669,27 +638,15 @@ if (researchTimeline) {
     });
 
     revealCards.forEach((card) => {
-      card.addEventListener('pointerenter', () => activateReveal(card));
+      card.addEventListener('pointerenter', (e) => { card.classList.add('is-hovered'); });
+      card.addEventListener('pointermove', (e) => { const r = card.getBoundingClientRect(); const px = (e.clientX - r.left)/r.width - 0.5; const py = (e.clientY - r.top)/r.height - 0.5; const tiltX = (-py*9).toFixed(2)+'deg'; const tiltY = (px*9).toFixed(2)+'deg'; card.style.setProperty('--tiltX', tiltX); card.style.setProperty('--tiltY', tiltY); const glow = card.querySelector('.timeline-hover-glow'); if(glow){ glow.style.opacity='1'; glow.style.transform=`translate(${px*10}px, ${py*10}px)`; } });
 
-      card.addEventListener('pointerleave', (event) => {
-        if (activeCard !== card) return;
-
-        const nextTarget = event.relatedTarget;
-        if (nextTarget && (card.contains(nextTarget) || nextTarget === overlay)) {
-          return;
-        }
-
-        deactivateReveal();
+      card.addEventListener('pointerleave', () => { card.classList.remove('is-hovered'); card.style.removeProperty('--tiltX'); card.style.removeProperty('--tiltY'); const glow = card.querySelector('.timeline-hover-glow'); if(glow){ glow.style.opacity='0'; glow.style.transform=''; } });
       });
 
-      card.addEventListener('focusin', () => activateReveal(card));
+      card.addEventListener('focusin', () => { card.classList.add('is-hovered'); });
 
-      card.addEventListener('focusout', (event) => {
-        if (activeCard !== card) return;
-
-        const nextFocusTarget = event.relatedTarget;
-        if (!nextFocusTarget || !card.contains(nextFocusTarget)) {
-          deactivateReveal();
+      card.addEventListener('focusout', () => { card.classList.remove('is-hovered'); });
         }
       });
 
