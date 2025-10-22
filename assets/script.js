@@ -215,68 +215,53 @@ const researchExperiences = [
       <div class="timeline-reveal__inner">
         <p class="timeline-reveal__tag">Latent-Action Retrieval · Embodied AI</p>
         <h4 class="timeline-reveal__title">NTU · Embodied AI Intern</h4>
+
         <div class="timeline-reveal__section">
           <h5>Spark</h5>
-          <p>
-            I walked in thinking manipulation was solved until Vision-Language-Action policies showed me the gap between knowing
-            what a scene looks like and understanding how to move through it. That tension pulled me straight into the rabbit
-            hole of embodied intelligence.
-          </p>
+          <p> I walked into this thinking robot manipulation was kind of “solved” and “saturated”. How naive of me. Then I found VLAs and realized how wrong that was. Got me intrigued about generalist policies and “Embodied AI” – sounded way too interesting for me to ignore. As I read randomly through a lot of papers, I realized the space is exciting and chaotic at the same time–lots of big demos, but also lots of cases where the robot looks at a scene, finds something that looks similar, and still doesn’t know what to do. That pushed me to a simple question: instead of retrieving by appearance, can we retrieve by robot action instead?</p>
         </div>
+
         <div class="timeline-reveal__section">
           <h5>Idea</h5>
-          <p>
-            The goal became simple: retrieve by intent, not by pixels. I tokenise motion into compact latent-action snippets and
-            align them with DTW so “approach”, “close”, and “lift” phases remain intact. FAISS does the heavy lifting on the
-            backend, surfacing the exact manoeuvres the robot should imitate in the moment.
-          </p>
+          <p>The core idea is to represent short chunks of motion as compact “latent action” snippets—little summaries of intent and phase like “approach,” “close,” “lift,” rather than just pixels. I started by training a contrastive model (InfoNCE) to learn these embeddings from demonstrations, so segments that do the same thing end up close together, even if they look different. From there, I built a small retrieval system: slice trajectories into sub-trajectories, align them with DTW so timing lines up, index them with FAISS, and then score neighbors with cosine similarity. The point is to fetch the right action examples for the current moment, not just the most similar frame.</p>
         </div>
+
         <div class="timeline-reveal__section">
-          <h5>First Look</h5>
-          <p>
-            Early rollouts beat image-based retrieval only by inches. Tightening positives around phase-aligned clips and mining
-            savage negatives carved a sharper latent space, but the real unlock was matching training and test-time signals.
-          </p>
+          <h5>First look</h5>
+          <p>At first, this worked—but only a little. Latent-action retrieval beat plain image retrieval in a few rollouts (better contact timing, fewer failures), but the gains were thin. Two problems popped out. One: my “positives” were too loose. Clips that looked similar weren’t always in the same phase. Tightening positives to phase-aligned windows and mining harder negatives made the embedding space sharper. Two: I was teaching the model with latent actions during training but asking it to rely on images at test time. That mismatch was the bigger issue.</p>
         </div>
+
         <div class="timeline-reveal__section">
-          <h5>Closing the Gap</h5>
-          <p>
-            I added an in-context memory that hands the policy the top-K latent actions each step. Suddenly the controller sees
-            action priors, not just frames, and the timing on delicate contacts snapped into place.
-          </p>
+          <h5>Closing the gap</h5>
+          <p>To fix it, I added an in-context memory at inference. For each step, I retrieve the top-K latent-action snippets and hand them to the policy as simple, structured context—“here are a few examples of what to do now.” The policy can then attend to those action cues while deciding the next move. That change felt small on paper, but it made the difference: the policy actually uses action structure at test time, not just during training.</p>
         </div>
+
         <div class="timeline-reveal__section">
-          <h5>Engineering Glue</h5>
-          <p>
-            Clean [B, T, D] contracts, chunked FAISS queries, cached neighbours, and mixed-precision hot paths kept the loop
-            stable enough to iterate. Unglamorous, but the difference between “sometimes” and “publishable”.
-          </p>
+          <h5>Annoying struggles</h5>
+          <p>There was a fair amount of engineering glue to make this stable. I standardized everything to a clean [B, T, D] shape contract, added checks to avoid the usual time-dim confusion, chunked FAISS queries to keep memory in check, cached neighbors between steps, and moved heavy paths to mixed precision. None of that is glamorous, but it turned “sometimes works” into “runs reliably enough to iterate” and actually publishable, and not just showcasing a few good rollouts.</p>
         </div>
+
         <div class="timeline-reveal__section">
-          <h5>Why it Matters</h5>
-          <p>
-            Most VLAs still confuse appearance with intent. Conditioning on retrieved actions gives the robot a lightweight plan
-            for tempo and contact, inching closer to policies that understand what to do, not just what they see.
-          </p>
+          <h5>Why it matters</h5>
+          <p>Where this fits in the bigger VLA picture: a lot of current systems blur appearance with intent. They can find a scene that looks right and still miss the moment to make contact or the tempo of a motion. By retrieving and conditioning on actions, the policy gets a lightweight prior about what should happen next. It doesn’t solve everything (long-horizon chaining is still tricky, and sim-to-real will always be the real test), but it’s a clean way to push beyond “it looks similar, so try this.”</p>
         </div>
+
         <div class="timeline-reveal__section">
           <h5>Status</h5>
-          <p>
-            Three blocks now hum together: an InfoNCE-trained tokenizer, a DTW-aligned FAISS index, and an in-context memory that
-            feeds the policy. When it shines, repeated sub-motions lock in; when it falters, clutter still distracts the
-            retrieval layer.
-          </p>
+          <p>Right now I have three pieces wired together: a latent-action tokenizer (trained with InfoNCE), a FAISS index over DTW-aligned sub-trajectories, and an in-context cache that hands the policy a few retrieved action snippets at test time. When it helps, it’s for very specific reasons: repeated sub-motions line up better, and the policy stops second-guessing short, well-defined phases. When it doesn’t help, it’s also clear why: cluttered scenes or lighting shifts pull the wrong neighbors, and a bad retrieval can nudge the policy off course. There’s a small latency tax from retrieval, but it stays reasonable if I keep K tiny and cache across steps.</p>
         </div>
+
         <div class="timeline-reveal__section">
-          <h5>Next Up</h5>
-          <p>
-            Dialling in token lengths, DTW slack, distance metrics, and K before stress-testing on an xArm to surface all the
-            real-world bruises.
-          </p>
+          <h5>Next up</h5>
+          <p>What I still need to nail down are the boring but important choices: the window length for tokenization, how much DTW slack is healthy, which distance works best beyond plain cosine, and how many examples (K) actually add signal before the context turns noisy. After that, I’ll try it on xArm manipulator to find the failure modes I can’t see in sim. A lot of exciting stuff is yet to be done!</p>
         </div>
-        <p class="timeline-reveal__closing">“Stop matching by how things look—retrieve what to do next.”</p>
+
+        <div class="timeline-reveal__section">
+          <h5>One line</h5>
+          <p>If I had to sum it up in one line: Isn’t the real goal to stop matching by how things look and instead retrieve, and condition on what to do, so the robot learns intent rather than just images?</p>
+        </div>
       </div>
-    `,
+`,
   },
   {
     title: 'Task & Motion Planning Intern',
@@ -551,31 +536,94 @@ if (researchTimeline) {
     const activateReveal = (card) => {
       if (activeCard === card) return;
 
+      // Mark morphing to disable default keyframes
+      card.classList.add('is-morphing');
+
       if (activeCard) {
         activeCard.classList.remove('is-active');
         activeCard.setAttribute('aria-expanded', 'false');
       }
 
       activeCard = card;
-      activeCard.classList.add('is-active');
-      activeCard.setAttribute('aria-expanded', 'true');
+      const reveal = activeCard.querySelector('.timeline-reveal');
+
+      // Make overlay interactive (no blur, just fade in)
       document.body.classList.add('timeline-reveal-active');
       overlay.setAttribute('aria-hidden', 'false');
+
+      // Turn on active state so reveal has final layout
+      activeCard.classList.add('is-active');
+      activeCard.setAttribute('aria-expanded', 'true');
+
+      // Compute FLIP transforms
+      const cardRect = activeCard.getBoundingClientRect();
+      const finalRect = reveal.getBoundingClientRect();
+      const dx = (cardRect.left + cardRect.width/2) - (finalRect.left + finalRect.width/2);
+      const dy = (cardRect.top + cardRect.height/2) - (finalRect.top + finalRect.height/2);
+      const sx = Math.max(0.01, cardRect.width / Math.max(1, finalRect.width));
+      const sy = Math.max(0.01, cardRect.height / Math.max(1, finalRect.height));
+
+      // Prepare: start at card's position/size
+      reveal.style.willChange = 'transform, opacity';
+      reveal.style.transform = `translate(-50%,-50%) translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`;
+      reveal.style.opacity = '0.001';
+
+      // Animate to final (center) state
+      const anim = reveal.animate(
+        [
+          { transform: `translate(-50%,-50%) translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`, opacity: 0.001 },
+          { transform: 'translate(-50%,-50%) scale(1,1)', opacity: 1 }
+        ],
+        { duration: 460, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards' }
+      );
+
+      overlay.animate([{opacity:0},{opacity:1}], {duration: 260, easing:'ease-out', fill:'forwards'});
+
+      anim.addEventListener('finish', () => {
+        reveal.style.transform = '';
+        reveal.style.opacity = '';
+        reveal.style.willChange = '';
+        // Done morphing
+        activeCard.classList.remove('is-morphing');
+      });
     };
 
     const deactivateReveal = () => {
       if (!activeCard) return;
 
-      const focusTarget = document.activeElement;
-      if (focusTarget && activeCard.contains(focusTarget)) {
-        focusTarget.blur();
-      }
+      const card = activeCard;
+      const reveal = card.querySelector('.timeline-reveal');
 
-      activeCard.classList.remove('is-active');
-      activeCard.setAttribute('aria-expanded', 'false');
-      activeCard = null;
-      document.body.classList.remove('timeline-reveal-active');
-      overlay.setAttribute('aria-hidden', 'true');
+      // Compute reverse FLIP
+      const cardRect = card.getBoundingClientRect();
+      const finalRect = reveal.getBoundingClientRect();
+      const dx = (cardRect.left + cardRect.width/2) - (finalRect.left + finalRect.width/2);
+      const dy = (cardRect.top + cardRect.height/2) - (finalRect.top + finalRect.height/2);
+      const sx = Math.max(0.01, cardRect.width / Math.max(1, finalRect.width));
+      const sy = Math.max(0.01, cardRect.height / Math.max(1, finalRect.height));
+
+      reveal.style.willChange = 'transform, opacity';
+
+      const anim = reveal.animate(
+        [
+          { transform: 'translate(-50%,-50%) scale(1,1)', opacity: 1 },
+          { transform: `translate(-50%,-50%) translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`, opacity: 0.001 }
+        ],
+        { duration: 380, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards' }
+      );
+
+      overlay.animate([{opacity:1},{opacity:0}], {duration: 240, easing:'ease-in', fill:'forwards'});
+
+      anim.addEventListener('finish', () => {
+        reveal.style.transform = '';
+        reveal.style.opacity = '';
+        reveal.style.willChange = '';
+        card.classList.remove('is-active');
+        card.setAttribute('aria-expanded', 'false');
+        activeCard = null;
+        document.body.classList.remove('timeline-reveal-active');
+        overlay.setAttribute('aria-hidden', 'true');
+      });
     };
 
     overlay.addEventListener('click', deactivateReveal);
