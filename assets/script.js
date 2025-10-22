@@ -431,6 +431,7 @@ if (researchTimeline) {
   if (revealCards.length && supportsHover) {
     const overlay = document.createElement('div');
     overlay.className = 'timeline-reveal-overlay';
+    overlay.setAttribute('aria-hidden', 'true');
     document.body.appendChild(overlay);
 
     let activeCard = null;
@@ -440,11 +441,14 @@ if (researchTimeline) {
 
       if (activeCard) {
         activeCard.classList.remove('is-active');
+        activeCard.setAttribute('aria-expanded', 'false');
       }
 
       activeCard = card;
       activeCard.classList.add('is-active');
+      activeCard.setAttribute('aria-expanded', 'true');
       document.body.classList.add('timeline-reveal-active');
+      overlay.setAttribute('aria-hidden', 'false');
     };
 
     const deactivateReveal = () => {
@@ -456,8 +460,10 @@ if (researchTimeline) {
       }
 
       activeCard.classList.remove('is-active');
+      activeCard.setAttribute('aria-expanded', 'false');
       activeCard = null;
       document.body.classList.remove('timeline-reveal-active');
+      overlay.setAttribute('aria-hidden', 'true');
     };
 
     overlay.addEventListener('click', deactivateReveal);
@@ -471,10 +477,15 @@ if (researchTimeline) {
     revealCards.forEach((card) => {
       card.addEventListener('pointerenter', () => activateReveal(card));
 
-      card.addEventListener('pointerleave', () => {
-        if (activeCard === card) {
-          deactivateReveal();
+      card.addEventListener('pointerleave', (event) => {
+        if (activeCard !== card) return;
+
+        const nextTarget = event.relatedTarget;
+        if (nextTarget && (card.contains(nextTarget) || nextTarget === overlay)) {
+          return;
         }
+
+        deactivateReveal();
       });
 
       card.addEventListener('focusin', () => activateReveal(card));
