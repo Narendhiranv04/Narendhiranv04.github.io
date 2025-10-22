@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contract-validated HRL at IIIT Hyderabad · Narendhiran Vijayakumar</title>
+    <meta
+      name="description"
+      content="Research journal detailing Narendhiran Vijayakumar's contract-driven hierarchical manipulation framework built at IIIT Hyderabad."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/style.css" />
+    <script defer src="../assets/script.js"></script>
+  </head>
+  <body class="research-page" data-theme="dark">
+    <div class="research-page__inner">
+      <header class="research-page__masthead">
+        <a class="research-page__back" href="../index.html#research">← Back to research timeline</a>
+        <span></span>
+      </header>
+
+      <article class="research-article">
+        <header class="research-article__header">
+          <div class="research-article__badge">
+            <img src="../iiith.jpg" alt="IIIT Hyderabad logo" />
+            <span>Hierarchical control · Safety</span>
+          </div>
+          <p class="research-article__eyebrow">Task &amp; Motion Planning Intern · July 2025 – Present</p>
+          <h1 class="research-article__title">Contracts as the spine of long-horizon manipulation</h1>
+          <p class="research-article__meta">IIIT Hyderabad · Visual HRL with SmolVLA &amp; Mixture-of-Experts</p>
+          <p class="research-article__lead">
+            I am wrapping every option in our hierarchical controller with temporal contracts so the arm must prove pre- and
+            post-conditions before it acts. The system stitches a SmolVLA encoder, a Mixture-of-Experts option selector, and a
+            symbolic safety monitor into one dependable loop.
+          </p>
+        </header>
+
+        <div class="research-article__content">
+          <section class="research-article__section">
+            <h2>Why contracts</h2>
+            <p>
+              Long-horizon policies crumble when a sub-skill drifts outside its safe set. Encoding LTL-style contracts around each
+              option forces the controller to certify that prerequisites hold and that post-conditions are achieved before handing
+              control back to the planner.
+            </p>
+          </section>
+
+          <section class="research-article__section">
+            <h2>Stack</h2>
+            <p>
+              A SmolVLA encoder supplies visual tokens, a Mixture-of-Experts actor scores options, and a symbolic monitor vetoes
+              unsafe transitions. When the MoE hesitates or violates timing bounds, a low-latency MPC fallback steps in to keep
+              the arm moving.
+            </p>
+          </section>
+
+          <section class="research-article__section">
+            <h2>Breakthrough</h2>
+            <p>
+              The “contract buffer” made the architecture usable. It carries risk scores and satisfaction margins between stages so
+              the planner can stay adventurous without tripping the monitor. Latency stayed inside budget and we finally had a
+              dial for trading off caution versus exploration.
+            </p>
+          </section>
+
+          <section class="research-article__section">
+            <h2>System view</h2>
+            <p>
+              Simulation traces stream into dashboards for trajectory slack, LTL violations, and MoE gating entropy. Watching those
+              signals live highlights the moment an option begins hallucinating or when perception noise knocks an invariant off
+              the rails.
+            </p>
+          </section>
+
+          <section class="research-article__section">
+            <h2>Current benchmarks</h2>
+            <p>
+              We are midway through cluttered-shelf manipulation suites. The monitor is holding up under occlusions, but we are
+              still tuning how aggressively the MoE explores when perception confidence dips.
+            </p>
+          </section>
+
+          <section class="research-article__section">
+            <h2>Next steps</h2>
+            <p>
+              The next milestone is a hybrid rollout on a Franka arm inside a reset-free tabletop scene. The contracts need to hold
+              at 20 Hz without inflating latency, so we are profiling the monitor’s C++ bindings and pruning redundant checks.
+            </p>
+          </section>
+
+          <section id="insights" class="research-article__section">
+            <h2>Key insights</h2>
+            <ul>
+              <li>Contracts turn long-horizon execution into a provable handshake between planner and low-level skills.</li>
+              <li>A Mixture-of-Experts actor stays reliable when a symbolic monitor can veto options in real time.</li>
+              <li>Risk buffers preserve exploration by quantifying how close each option runs to contract boundaries.</li>
+              <li>Instrumenting entropy, slack, and violations is the fastest way to spot a failing option before it derails the run.</li>
+            </ul>
+          </section>
+
+          <section class="research-article__section">
+            <p class="research-article__closing">
+              Reliability is the feature—not the afterthought.
+            </p>
+          </section>
+        </div>
+      </article>
+
+      <footer class="research-page__footer">
+        <span>Last updated: July 2025</span>
+        <a href="mailto:narendhiranv.nitt@gmail.com">Contact Narendhiran</a>
+      </footer>
+    </div>
+  </body>
+</html>
