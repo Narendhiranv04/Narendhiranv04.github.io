@@ -434,36 +434,17 @@ if (researchTimeline) {
     document.body.appendChild(overlay);
 
     let activeCard = null;
-    let previousFocus = null;
 
     const activateReveal = (card) => {
       if (activeCard === card) return;
 
       if (activeCard) {
         activeCard.classList.remove('is-active');
-        const activeReveal = activeCard.querySelector('.timeline-reveal');
-        if (activeReveal) {
-          activeReveal.setAttribute('aria-hidden', 'true');
-        }
-        activeCard.setAttribute('aria-expanded', 'false');
       }
 
       activeCard = card;
       activeCard.classList.add('is-active');
-      activeCard.setAttribute('aria-expanded', 'true');
       document.body.classList.add('timeline-reveal-active');
-      previousFocus = card;
-
-      const reveal = activeCard.querySelector('.timeline-reveal');
-      if (reveal) {
-        reveal.setAttribute('aria-hidden', 'false');
-        const closeControl = reveal.querySelector('.timeline-reveal__close');
-        if (closeControl) {
-          requestAnimationFrame(() => {
-            closeControl.focus({ preventScroll: true });
-          });
-        }
-      }
     };
 
     const deactivateReveal = () => {
@@ -474,24 +455,9 @@ if (researchTimeline) {
         focusTarget.blur();
       }
 
-      const reveal = activeCard.querySelector('.timeline-reveal');
-      if (reveal) {
-        reveal.setAttribute('aria-hidden', 'true');
-      }
-
       activeCard.classList.remove('is-active');
-      activeCard.setAttribute('aria-expanded', 'false');
       activeCard = null;
       document.body.classList.remove('timeline-reveal-active');
-
-      if (
-        previousFocus &&
-        typeof previousFocus.focus === 'function' &&
-        document.contains(previousFocus)
-      ) {
-        previousFocus.focus({ preventScroll: true });
-      }
-      previousFocus = null;
     };
 
     overlay.addEventListener('click', deactivateReveal);
@@ -503,52 +469,23 @@ if (researchTimeline) {
     });
 
     revealCards.forEach((card) => {
-      const reveal = card.querySelector('.timeline-reveal');
-      if (!reveal) return;
+      card.addEventListener('pointerenter', () => activateReveal(card));
 
-      reveal.setAttribute('aria-hidden', 'true');
-
-      const closeButton = document.createElement('button');
-      closeButton.type = 'button';
-      closeButton.className = 'timeline-reveal__close';
-      closeButton.setAttribute('aria-label', 'Close spotlight');
-      reveal.insertAdjacentElement('afterbegin', closeButton);
-
-      closeButton.addEventListener('click', (event) => {
-        event.stopPropagation();
-        deactivateReveal();
-      });
-
-      reveal.addEventListener('click', (event) => {
-        event.stopPropagation();
-      });
-
-      card.addEventListener('click', (event) => {
-        const target = event.target;
-        if (target instanceof Element && target.closest('.timeline-reveal')) {
-          return;
-        }
-
-        event.preventDefault();
-
+      card.addEventListener('pointerleave', () => {
         if (activeCard === card) {
           deactivateReveal();
-          return;
         }
-
-        activateReveal(card);
       });
 
-      card.addEventListener('keydown', (event) => {
-        if (event.key !== 'Enter' && event.key !== ' ') return;
-        event.preventDefault();
+      card.addEventListener('focusin', () => activateReveal(card));
 
-        if (activeCard === card) {
+      card.addEventListener('focusout', (event) => {
+        if (activeCard !== card) return;
+
+        const nextFocusTarget = event.relatedTarget;
+        if (!nextFocusTarget || !card.contains(nextFocusTarget)) {
           deactivateReveal();
-          return;
         }
-
-        activateReveal(card);
       });
     });
   }

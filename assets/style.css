@@ -602,8 +602,8 @@ body[data-theme='light'] .project-case__meta-block{background:rgba(255,255,255,.
 .timeline-reveal-overlay{
   position:fixed;
   inset:0;
-  background:rgba(6,10,26,.68);
-  backdrop-filter:blur(34px);
+  background:linear-gradient(140deg,rgba(5,9,20,.78) 0%,rgba(12,18,38,.72) 38%,rgba(6,10,22,.86) 100%);
+  backdrop-filter:blur(28px);
   opacity:0;
   pointer-events:none;
   transition:opacity .45s ease;
@@ -686,7 +686,7 @@ body.timeline-reveal-active .timeline-reveal-overlay{
   }
 
   .timeline-content.has-reveal.is-active .timeline-reveal__inner{
-    padding:clamp(2.2rem,3.6vw,2.9rem) clamp(1.85rem,3vw,2.4rem) clamp(2.1rem,3.6vw,2.7rem);
+    padding:clamp(1.6rem,3vw,2.3rem);
     gap:clamp(.9rem,2.4vw,1.2rem);
     font-size:1.04rem;
     line-height:1.74;
@@ -748,21 +748,8 @@ body[data-theme="light"] .timeline-content.has-reveal .timeline-reveal{
   color:var(--color-heading);
 }
 body[data-theme="light"] .timeline-reveal-overlay{
-  background:rgba(232,236,255,.75);
-  backdrop-filter:blur(28px);
-}
-body[data-theme="light"] .timeline-reveal__close{
-  background:rgba(242,244,255,.72);
-  border-color:rgba(134,142,210,.4);
-}
-body[data-theme="light"] .timeline-reveal__close::before,
-body[data-theme="light"] .timeline-reveal__close::after{
-  background:rgba(46,54,120,.76);
-}
-body[data-theme="light"] .timeline-reveal__close:hover,
-body[data-theme="light"] .timeline-reveal__close:focus-visible{
-  background:rgba(224,230,255,.9);
-  border-color:rgba(100,110,198,.55);
+  background:linear-gradient(140deg,rgba(244,246,255,.78) 0%,rgba(226,230,255,.72) 40%,rgba(212,220,255,.78) 100%);
+  backdrop-filter:blur(24px);
 }
 body[data-theme="light"] .timeline-reveal__title{color:var(--color-heading);}
 body[data-theme="light"] .timeline-reveal__section h5{color:rgba(76,81,191,.75);}
