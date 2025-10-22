@@ -210,6 +210,95 @@ const researchExperiences = [
       src: 'ntu.png',
       alt: 'NTU Singapore logo',
     },
+    spotlight: `
+      <div class="timeline-reveal__inner">
+        <p class="timeline-reveal__tag">Lab Notebook · NTU Embodied AI Intern</p>
+        <h4 class="timeline-reveal__title">Retrieve intent, not just matching pixels.</h4>
+        <div class="timeline-reveal__section">
+          <h5>Spark</h5>
+          <p>
+            I walked into this thinking robot manipulation was kind of “solved” and “saturated”. How naive of me. Then I
+            found VLAs and realized how wrong that was. Got me intrigued about generalist policies and “Embodied AI” –
+            sounded way too interesting to ignore. As I read through a lot of papers, I realised the space is exciting and
+            chaotic – lots of big demos, but also lots of cases where the robot looks at a scene, finds something that looks
+            similar, and still doesn’t know what to do. That pushed me to a simple question: instead of retrieving by
+            appearance, can we retrieve by robot action instead?
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Idea</h5>
+          <p>
+            Represent short chunks of motion as compact “latent action” snippets—little summaries of intent and phase like
+            “approach,” “close,” “lift,” rather than just pixels. I started by training a contrastive model (InfoNCE) to
+            learn these embeddings from demonstrations, so segments that do the same thing end up close together even if they
+            look different. From there, I built a retrieval system: slice trajectories into sub-trajectories, align them with
+            DTW so timing lines up, index with FAISS, and score neighbors with cosine similarity. Fetch the right action
+            examples for the current moment, not just the most similar frame.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>First look</h5>
+          <p>
+            At first, this worked—but only a little. Latent-action retrieval beat plain image retrieval in a few rollouts
+            (better contact timing, fewer failures), but the gains were thin. Two problems popped out. One: my “positives”
+            were too loose. Clips that looked similar weren’t always in the same phase. Tightening positives to
+            phase-aligned windows and mining harder negatives made the embedding space sharper. Two: I was teaching the model
+            with latent actions during training but asking it to rely on images at test time. That mismatch was the bigger
+            issue.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Closing the gap</h5>
+          <p>
+            To fix it, I added an in-context memory at inference. For each step, I retrieve the top-K latent-action snippets
+            and hand them to the policy as structured context—“here are a few examples of what to do now.” The policy can
+            attend to those action cues while deciding the next move. That change felt small on paper, but it made the
+            difference: the policy actually uses action structure at test time, not just during training.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Annoying struggles</h5>
+          <p>
+            There was a fair amount of engineering glue to make this stable. I standardised everything to a clean [B, T, D]
+            shape contract, added checks to avoid the usual time-dim confusion, chunked FAISS queries to keep memory in
+            check, cached neighbours between steps, and moved heavy paths to mixed precision. None of that is glamorous, but
+            it turned “sometimes works” into “runs reliably enough to iterate”.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Why it matters</h5>
+          <p>
+            A lot of current VLAs blur appearance with intent. They can find a scene that looks right and still miss the
+            moment to make contact or the tempo of a motion. By retrieving and conditioning on actions, the policy gets a
+            lightweight prior about what should happen next. It doesn’t solve everything (long-horizon chaining is still
+            tricky, and sim-to-real will always be the real test), but it’s a clean way to push beyond “it looks similar, so
+            try this.”
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Status</h5>
+          <p>
+            Right now I have three pieces wired together: a latent-action tokenizer (InfoNCE trained), a FAISS index over
+            DTW-aligned sub-trajectories, and an in-context cache that hands the policy a few retrieved action snippets at
+            test time. When it helps, repeated sub-motions line up better and the policy stops second-guessing short,
+            well-defined phases. When it doesn’t, clutter or lighting shifts pull the wrong neighbours and a bad retrieval can
+            nudge the policy off course. Latency stays reasonable if K is tiny and cached across steps.
+          </p>
+        </div>
+        <div class="timeline-reveal__section">
+          <h5>Next up</h5>
+          <p>
+            I still need to nail window length for tokenisation, how much DTW slack is healthy, which distance works beyond
+            plain cosine, and how many examples actually add signal before context turns noisy. Then it’s time to push on the
+            xArm manipulator to find the failure modes I can’t see in sim. A lot of exciting stuff is yet to be done!
+          </p>
+        </div>
+        <p class="timeline-reveal__closing">
+          Isn’t the real goal to stop matching by how things look and instead retrieve and condition on what to do, so the
+          robot learns intent rather than just images?
+        </p>
+      </div>
+    `,
   },
   {
     title: 'Task & Motion Planning Intern',
@@ -265,6 +354,7 @@ if (researchTimeline) {
 
     const content = document.createElement('div');
     content.className = 'timeline-content';
+    content.dataset.side = index % 2 === 0 ? 'left' : 'right';
 
     const meta = document.createElement('p');
     meta.className = 'timeline-meta';
@@ -281,7 +371,33 @@ if (researchTimeline) {
     description.className = 'timeline-description';
     description.textContent = experience.summary;
 
-    content.append(imageWrapper, meta, heading, description);
+    const body = document.createElement('div');
+    body.className = 'timeline-body';
+    body.append(meta, heading, description);
+
+    content.append(imageWrapper, body);
+
+    if (experience.spotlight) {
+      content.classList.add('has-reveal');
+      content.setAttribute('tabindex', '0');
+      content.setAttribute('aria-label', `${experience.title} deep dive`);
+
+      const glow = document.createElement('span');
+      glow.className = 'timeline-hover-glow';
+
+      const reveal = document.createElement('aside');
+      reveal.className = 'timeline-reveal';
+      reveal.innerHTML = experience.spotlight;
+
+      content.append(glow, reveal);
+
+      content.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          content.blur();
+        }
+      });
+    }
+
     item.append(content);
     researchTimeline.appendChild(item);
   });
