@@ -212,53 +212,11 @@ const researchExperiences = [
     },
     spotlight: `
       <button class="timeline-reveal__close" type="button" aria-label="Close NTU research spotlight"></button>
-      <div class="timeline-reveal__inner">
+      <div class="timeline-reveal__inner" tabindex="0">
         <p class="timeline-reveal__tag">Latent-Action Retrieval · Embodied AI</p>
         <h4 class="timeline-reveal__title">NTU · Embodied AI Intern</h4>
-
-        <div class="timeline-reveal__section">
-          <h5>Spark</h5>
-          <p> I walked into this thinking robot manipulation was kind of “solved” and “saturated”. How naive of me. Then I found VLAs and realized how wrong that was. Got me intrigued about generalist policies and “Embodied AI” – sounded way too interesting for me to ignore. As I read randomly through a lot of papers, I realized the space is exciting and chaotic at the same time–lots of big demos, but also lots of cases where the robot looks at a scene, finds something that looks similar, and still doesn’t know what to do. That pushed me to a simple question: instead of retrieving by appearance, can we retrieve by robot action instead?</p>
-        </div>
-
-        <div class="timeline-reveal__section">
-          <h5>Idea</h5>
-          <p>The core idea is to represent short chunks of motion as compact “latent action” snippets—little summaries of intent and phase like “approach,” “close,” “lift,” rather than just pixels. I started by training a contrastive model (InfoNCE) to learn these embeddings from demonstrations, so segments that do the same thing end up close together, even if they look different. From there, I built a small retrieval system: slice trajectories into sub-trajectories, align them with DTW so timing lines up, index them with FAISS, and then score neighbors with cosine similarity. The point is to fetch the right action examples for the current moment, not just the most similar frame.</p>
-        </div>
-
-        <div class="timeline-reveal__section">
-          <h5>First look</h5>
-          <p>At first, this worked—but only a little. Latent-action retrieval beat plain image retrieval in a few rollouts (better contact timing, fewer failures), but the gains were thin. Two problems popped out. One: my “positives” were too loose. Clips that looked similar weren’t always in the same phase. Tightening positives to phase-aligned windows and mining harder negatives made the embedding space sharper. Two: I was teaching the model with latent actions during training but asking it to rely on images at test time. That mismatch was the bigger issue.</p>
-        </div>
-
-        <div class="timeline-reveal__section">
-          <h5>Closing the gap</h5>
-          <p>To fix it, I added an in-context memory at inference. For each step, I retrieve the top-K latent-action snippets and hand them to the policy as simple, structured context—“here are a few examples of what to do now.” The policy can then attend to those action cues while deciding the next move. That change felt small on paper, but it made the difference: the policy actually uses action structure at test time, not just during training.</p>
-        </div>
-
-        <div class="timeline-reveal__section">
-          <h5>Annoying struggles</h5>
-          <p>There was a fair amount of engineering glue to make this stable. I standardized everything to a clean [B, T, D] shape contract, added checks to avoid the usual time-dim confusion, chunked FAISS queries to keep memory in check, cached neighbors between steps, and moved heavy paths to mixed precision. None of that is glamorous, but it turned “sometimes works” into “runs reliably enough to iterate” and actually publishable, and not just showcasing a few good rollouts.</p>
-        </div>
-
-        <div class="timeline-reveal__section">
-          <h5>Why it matters</h5>
-          <p>Where this fits in the bigger VLA picture: a lot of current systems blur appearance with intent. They can find a scene that looks right and still miss the moment to make contact or the tempo of a motion. By retrieving and conditioning on actions, the policy gets a lightweight prior about what should happen next. It doesn’t solve everything (long-horizon chaining is still tricky, and sim-to-real will always be the real test), but it’s a clean way to push beyond “it looks similar, so try this.”</p>
-        </div>
-
-        <div class="timeline-reveal__section">
-          <h5>Status</h5>
-          <p>Right now I have three pieces wired together: a latent-action tokenizer (trained with InfoNCE), a FAISS index over DTW-aligned sub-trajectories, and an in-context cache that hands the policy a few retrieved action snippets at test time. When it helps, it’s for very specific reasons: repeated sub-motions line up better, and the policy stops second-guessing short, well-defined phases. When it doesn’t help, it’s also clear why: cluttered scenes or lighting shifts pull the wrong neighbors, and a bad retrieval can nudge the policy off course. There’s a small latency tax from retrieval, but it stays reasonable if I keep K tiny and cache across steps.</p>
-        </div>
-
-        <div class="timeline-reveal__section">
-          <h5>Next up</h5>
-          <p>What I still need to nail down are the boring but important choices: the window length for tokenization, how much DTW slack is healthy, which distance works best beyond plain cosine, and how many examples (K) actually add signal before the context turns noisy. After that, I’ll try it on xArm manipulator to find the failure modes I can’t see in sim. A lot of exciting stuff is yet to be done!</p>
-        </div>
-
-        <div class="timeline-reveal__section">
-          <h5>One line</h5>
-          <p>If I had to sum it up in one line: Isn’t the real goal to stop matching by how things look and instead retrieve, and condition on what to do, so the robot learns intent rather than just images?</p>
+        <div class="timeline-reveal__narrative">
+          <p><b>Spark.</b> I walked into this thinking robot manipulation was kind of “solved” and “saturated”. How naive of me. Then I found VLAs and realized how wrong that was. Got me intrigued about generalist policies and “Embodied AI” – sounded way too interesting for me to ignore. As I read randomly through a lot of papers, I realized the space is exciting and chaotic at the same time–lots of big demos, but also lots of cases where the robot looks at a scene, finds something that looks similar, and still doesn’t know what to do. That pushed me to a simple question: instead of retrieving by appearance, can we retrieve by robot action instead? <b>Idea.</b> The core idea is to represent short chunks of motion as compact “latent action” snippets—little summaries of intent and phase like “approach,” “close,” “lift,” rather than just pixels. I started by training a contrastive model (InfoNCE) to learn these embeddings from demonstrations, so segments that do the same thing end up close together, even if they look different. From there, I built a small retrieval system: slice trajectories into sub-trajectories, align them with DTW so timing lines up, index them with FAISS, and then score neighbors with cosine similarity. The point is to fetch the right action examples for the current moment, not just the most similar frame. <b>First look.</b> At first, this worked—but only a little. Latent-action retrieval beat plain image retrieval in a few rollouts (better contact timing, fewer failures), but the gains were thin. Two problems popped out. One: my “positives” were too loose. Clips that looked similar weren’t always in the same phase. Tightening positives to phase-aligned windows and mining harder negatives made the embedding space sharper. Two: I was teaching the model with latent actions during training but asking it to rely on images at test time. That mismatch was the bigger issue. <b>Closing the gap.</b> To fix it, I added an in-context memory at inference. For each step, I retrieve the top‑K latent‑action snippets and hand them to the policy as simple, structured context—“here are a few examples of what to do now.” The policy can then attend to those action cues while deciding the next move. That change felt small on paper, but it made the difference: the policy actually uses action structure at test time, not just during training. <b>Annoying struggles.</b> There was a fair amount of engineering glue to make this stable. I standardized everything to a clean [B, T, D] shape contract, added checks to avoid the usual time‑dim confusion, chunked FAISS queries to keep memory in check, cached neighbors between steps, and moved heavy paths to mixed precision. None of that is glamorous, but it turned “sometimes works” into “runs reliably enough to iterate” and actually publishable, not just showcasing a few good rollouts. <b>Why it matters.</b> Where this fits in the bigger VLA picture: a lot of current systems blur appearance with intent. They can find a scene that looks right and still miss the moment to make contact or the tempo of a motion. By retrieving and conditioning on actions, the policy gets a lightweight prior about what should happen next. It doesn’t solve everything (long‑horizon chaining is still tricky, and sim‑to‑real will always be the real test), but it’s a clean way to push beyond “it looks similar, so try this.” <b>Status.</b> Right now I have three pieces wired together: a latent‑action tokenizer (trained with InfoNCE), a FAISS index over DTW‑aligned sub‑trajectories, and an in‑context cache that hands the policy a few retrieved action snippets at test time. When it helps, it’s for very specific reasons: repeated sub‑motions line up better, and the policy stops second‑guessing short, well‑defined phases. When it doesn’t help, it’s also clear why: cluttered scenes or lighting shifts pull the wrong neighbors, and a bad retrieval can nudge the policy off course. There’s a small latency tax from retrieval, but it stays reasonable if I keep K tiny and cache across steps. <b>Next up.</b> The boring but important choices: the window length for tokenization, how much DTW slack is healthy, which distance works best beyond plain cosine, and how many examples (K) actually add signal before the context turns noisy. After that, I’ll try it on xArm to find the failure modes I can’t see in sim. A lot of exciting stuff is yet to be done! <b>One line.</b> Isn’t the real goal to stop matching by how things look and instead retrieve—and condition on—what to do, so the robot learns intent rather than just images?</p>
         </div>
       </div>
 `,
