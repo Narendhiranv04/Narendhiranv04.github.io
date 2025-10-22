@@ -380,6 +380,8 @@ if (researchTimeline) {
     if (experience.spotlight) {
       content.classList.add('has-reveal');
       content.setAttribute('tabindex', '0');
+      content.setAttribute('role', 'button');
+      content.setAttribute('aria-expanded', 'false');
       content.setAttribute('aria-label', `${experience.title} deep dive`);
 
       const glow = document.createElement('span');
@@ -390,12 +392,6 @@ if (researchTimeline) {
       reveal.innerHTML = experience.spotlight;
 
       content.append(glow, reveal);
-
-      content.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
-          content.blur();
-        }
-      });
     }
 
     item.append(content);
@@ -422,6 +418,139 @@ if (researchTimeline) {
     timelineItems.forEach((item) => timelineObserver.observe(item));
   } else {
     timelineItems.forEach((item) => item.classList.add('is-visible'));
+  }
+
+  const revealCards = researchTimeline.querySelectorAll(
+    '.timeline-content.has-reveal'
+  );
+  const supportsHover =
+    typeof window.matchMedia === 'function'
+      ? window.matchMedia('(hover: hover)').matches
+      : true;
+
+  if (revealCards.length && supportsHover) {
+    const overlay = document.createElement('div');
+    overlay.className = 'timeline-reveal-overlay';
+    document.body.appendChild(overlay);
+
+    let activeCard = null;
+    let previousFocus = null;
+
+    const activateReveal = (card) => {
+      if (activeCard === card) return;
+
+      if (activeCard) {
+        activeCard.classList.remove('is-active');
+        const activeReveal = activeCard.querySelector('.timeline-reveal');
+        if (activeReveal) {
+          activeReveal.setAttribute('aria-hidden', 'true');
+        }
+        activeCard.setAttribute('aria-expanded', 'false');
+      }
+
+      activeCard = card;
+      activeCard.classList.add('is-active');
+      activeCard.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('timeline-reveal-active');
+      previousFocus = card;
+
+      const reveal = activeCard.querySelector('.timeline-reveal');
+      if (reveal) {
+        reveal.setAttribute('aria-hidden', 'false');
+        const closeControl = reveal.querySelector('.timeline-reveal__close');
+        if (closeControl) {
+          requestAnimationFrame(() => {
+            closeControl.focus({ preventScroll: true });
+          });
+        }
+      }
+    };
+
+    const deactivateReveal = () => {
+      if (!activeCard) return;
+
+      const focusTarget = document.activeElement;
+      if (focusTarget && activeCard.contains(focusTarget)) {
+        focusTarget.blur();
+      }
+
+      const reveal = activeCard.querySelector('.timeline-reveal');
+      if (reveal) {
+        reveal.setAttribute('aria-hidden', 'true');
+      }
+
+      activeCard.classList.remove('is-active');
+      activeCard.setAttribute('aria-expanded', 'false');
+      activeCard = null;
+      document.body.classList.remove('timeline-reveal-active');
+
+      if (
+        previousFocus &&
+        typeof previousFocus.focus === 'function' &&
+        document.contains(previousFocus)
+      ) {
+        previousFocus.focus({ preventScroll: true });
+      }
+      previousFocus = null;
+    };
+
+    overlay.addEventListener('click', deactivateReveal);
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        deactivateReveal();
+      }
+    });
+
+    revealCards.forEach((card) => {
+      const reveal = card.querySelector('.timeline-reveal');
+      if (!reveal) return;
+
+      reveal.setAttribute('aria-hidden', 'true');
+
+      const closeButton = document.createElement('button');
+      closeButton.type = 'button';
+      closeButton.className = 'timeline-reveal__close';
+      closeButton.setAttribute('aria-label', 'Close spotlight');
+      reveal.insertAdjacentElement('afterbegin', closeButton);
+
+      closeButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        deactivateReveal();
+      });
+
+      reveal.addEventListener('click', (event) => {
+        event.stopPropagation();
+      });
+
+      card.addEventListener('click', (event) => {
+        const target = event.target;
+        if (target instanceof Element && target.closest('.timeline-reveal')) {
+          return;
+        }
+
+        event.preventDefault();
+
+        if (activeCard === card) {
+          deactivateReveal();
+          return;
+        }
+
+        activateReveal(card);
+      });
+
+      card.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+
+        if (activeCard === card) {
+          deactivateReveal();
+          return;
+        }
+
+        activateReveal(card);
+      });
+    });
   }
 }
 
