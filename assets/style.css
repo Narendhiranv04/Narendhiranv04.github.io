@@ -911,3 +911,57 @@ body[data-theme="light"] .timeline-reveal__closing{color:var(--color-heading);}
   box-shadow: 0 34px 120px rgba(5,8,20,.65), 0 8px 24px rgba(4,6,15,.35) !important;
   background: linear-gradient(135deg, rgba(18,24,54,.96), rgba(14,18,40,.94)) !important;
 }
+
+/* =============================
+   Modal polish & accessibility
+   ============================= */
+:root{
+  --reveal-w-min: 720px;
+  --reveal-w-ideal: 900px;
+  --reveal-w-max: 1000px;
+}
+
+/* Responsive width and height that adapt to zoom changes */
+.timeline-reveal{
+  width: clamp(var(--reveal-w-min), 86vw, var(--reveal-w-max)) !important;
+  max-height: min(82vh, 980px) !important;
+}
+
+/* Scrollable inner with momentum and no background scroll */
+.timeline-reveal__inner{
+  max-height: calc(min(78vh, 940px) - 2rem) !important;
+  overflow: auto !important;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Theme-aware overlay (no blur) */
+body[data-theme="dark"] .timeline-reveal-overlay{
+  background: rgba(3,6,18,.55) !important;
+}
+body[data-theme="light"] .timeline-reveal-overlay{
+  background: rgba(8,12,28,.28) !important;
+}
+
+/* Prevent any accidental lingering blurs */
+.timeline-reveal, .timeline-reveal *{
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Hover bounce/tilt stays visible above the timeline but below modal */
+.timeline-content{ z-index: 2; }
+.timeline-reveal-overlay{ z-index: 1200; }
+.timeline-reveal{ z-index: 1202; }
+
+/* Narrative style (no headings) */
+.timeline-reveal__narrative{
+  font-size: .98rem;
+  line-height: 1.7;
+  opacity: .96;
+}
+.timeline-reveal__narrative b{
+  font-weight: 700;
+  letter-spacing: .01em;
+}
