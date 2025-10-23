@@ -551,6 +551,7 @@ const flagshipProjects = [
       src: 'uav.jpg',
       alt: 'Autonomous quadcopter at the SAE AeroTHON',
     },
+    placeholders: ['Payload bay mockup', 'Failsafe wiring map'],
     technologies: ['ROS 2', 'PX4 Autopilot', 'OpenCV', 'Raspberry Pi'],
     outcome:
       'Top-15 national finish for autonomous flight across endurance, payload drop, and navigation tasks.',
@@ -559,23 +560,16 @@ const flagshipProjects = [
       closeLabel: 'Hide flight log',
       body: `
         <div class="project-story">
-          <p class="project-story__tag">Flight deck memo</p>
-          <h4 class="project-story__title">From wind-tunnel scribbles to a self-reliant sortie</h4>
-          <div class="project-story__grid">
-            <div class="project-story__section">
-              <h5>Ignition</h5>
-              <p>It started with a blank PX4 stack and a mandate to survive gusty coastal winds. We carved the airframe around airflow sims, then staged every avionics line like it was a mission-critical checklist.</p>
+          <div class="project-story__window">
+            <p class="project-story__tag">Flight deck memo</p>
+            <h4 class="project-story__title">From wind-tunnel scribbles to a self-reliant sortie</h4>
+            <div class="project-story__body">
+              <p>We rebuilt the composite arms around airflow simulations so the battery sled stayed cool while technicians could reroute harnesses during frantic pit windows.</p>
+              <p>Night-long integration runs replayed PX4 HITL logs while we toggled every safety interlock; only when the ROS 2 watchdogs stayed silent did we let the quad hover untethered.</p>
+              <p>The acceptance sortie started before sunrise, logging crisp AprilTag relocalisation plots that convinced judges the autonomy stack could rescue itself from GPS dropouts.</p>
             </div>
-            <div class="project-story__section">
-              <h5>Brains</h5>
-              <p>A dual-loop architecture split fast attitude control on the Pixhawk from higher-level ROS 2 nodes. Vision-based navigation fused AprilTag relocalisation with optical flow to keep position estimates sane when GPS hiccupped.</p>
-            </div>
-            <div class="project-story__section">
-              <h5>Moments</h5>
-              <p>The wow moment was a sunset endurance test where the quad sliced through checkpoints autonomously, payload drop and all, while our safety interlocks quietly vetoed every out-of-envelope manoeuvre.</p>
-            </div>
+            <p class="project-story__closing">Every safe landing was a systems engineering love letter.</p>
           </div>
-          <p class="project-story__closing">Every safe landing was a systems engineering love letter.</p>
         </div>
       `,
     },
@@ -590,6 +584,7 @@ const flagshipProjects = [
       src: 'pixelbot.jpg',
       alt: 'PixelBot multimodal assistant interface mockup',
     },
+    placeholders: ['UI mood board', 'Inference timeline'],
     technologies: ['Python', 'PyTorch','FastAPI'],
     outcome:
       'Secured 2nd place in the national qualifier while open-sourcing reusable evaluation utilities.',
@@ -598,23 +593,16 @@ const flagshipProjects = [
       closeLabel: 'Hide the build diary',
       body: `
         <div class="project-story">
-          <p class="project-story__tag">Studio log</p>
-          <h4 class="project-story__title">Designing a multimodal co-pilot that feels like a creative partner</h4>
-          <div class="project-story__grid">
-            <div class="project-story__section">
-              <h5>North Star</h5>
-              <p>PixelBot had to ground edits in the image, not hallucinate. We chained CLIP-based localisation with lightweight diffusion controls so every brush stroke stayed truthful.</p>
+          <div class="project-story__window">
+            <p class="project-story__tag">Studio log</p>
+            <h4 class="project-story__title">Designing a multimodal co-pilot that feels like a creative partner</h4>
+            <div class="project-story__body">
+              <p>User interviews pushed us to write copy that sounded like a senior designer, so every suggestion read like a colleague whispering over Figma instead of a generic chatbot.</p>
+              <p>CLIP heatmaps anchored the right pixels while a trimmed diffusion loop executed edits, keeping answers grounded in the canvas rather than hallucinated from thin air.</p>
+              <p>Session transcripts streamed into a feedback dashboard that highlighted hesitation points, letting us retune tooltips and default masks hours before the final pitch.</p>
             </div>
-            <div class="project-story__section">
-              <h5>Stack</h5>
-              <p>FastAPI orchestrated a PyTorch backend that juggled grounding, captioning, and mask-aware editing. A tiny feedback memory let PixelBot remember the last three user intents.</p>
-            </div>
-            <div class="project-story__section">
-              <h5>Human Touch</h5>
-              <p>We spent nights tuning copy and micro-interactions—glowing cursors, contextual tips, and a “show your work” panel so users saw why PixelBot suggested a move.</p>
-            </div>
+            <p class="project-story__closing">AI feels magical when it makes the designer braver, not redundant.</p>
           </div>
-          <p class="project-story__closing">AI feels magical when it makes the designer braver, not redundant.</p>
         </div>
       `,
     },
@@ -629,6 +617,7 @@ const flagshipProjects = [
       src: 'mathworks.jpg',
       alt: 'Parrot Mambo drone on display at the MathWorks challenge',
     },
+    placeholders: ['Simulink snapshot', 'Diagnostics HUD'],
     technologies: ['MATLAB', 'Simulink', 'Stateflow'],
     outcome:
       'Achieved fully autonomous line-following with reliable gate traversal in final demos.',
@@ -637,23 +626,16 @@ const flagshipProjects = [
       closeLabel: 'Close the control room',
       body: `
         <div class="project-story">
-          <p class="project-story__tag">Lab note</p>
-          <h4 class="project-story__title">Taming the Parrot Mambo with model-based wizardry</h4>
-          <div class="project-story__grid">
-            <div class="project-story__section">
-              <h5>Blueprint</h5>
-              <p>We modelled the quad in Simulink with parameter sweeps straight from on-board logs, then auto-generated code to keep every tweak flight-ready within minutes.</p>
+          <div class="project-story__window">
+            <p class="project-story__tag">Lab note</p>
+            <h4 class="project-story__title">Taming the Parrot Mambo with model-based wizardry</h4>
+            <div class="project-story__body">
+              <p>Simulink models digested every prop wash log we collected, letting us reparameterise the plant before breakfast scrubs so the quad always matched reality.</p>
+              <p>A Stateflow supervisor orchestrated PID loops and gate events, keeping pivots razor sharp even when battery voltage sagged mid-heat.</p>
+              <p>Bench runs with neon diagnostics spelled out motor duty cycles and error cones, helping us shave milliseconds off lap times by the final showdown.</p>
             </div>
-            <div class="project-story__section">
-              <h5>Control</h5>
-              <p>A Stateflow supervisor blended PID tracking with event-driven manoeuvres, letting the drone pivot around tight gates without overshooting.</p>
-            </div>
-            <div class="project-story__section">
-              <h5>Debugging</h5>
-              <p>We built a neon diagnostic HUD that streamed error cones and motor duty cycles live—our secret weapon for shaving milliseconds off lap times.</p>
-            </div>
+            <p class="project-story__closing">Model-based design turned a tiny drone into a disciplined racer.</p>
           </div>
-          <p class="project-story__closing">Model-based design turned a tiny drone into a disciplined racer.</p>
         </div>
       `,
     },
@@ -668,6 +650,7 @@ const flagshipProjects = [
       src: 'randomized_triangle_2.jpeg',
       alt: 'Occlusion-aware navigation heatmap visualization',
     },
+    placeholders: ['Visibility heatmap', 'Frontier notes'],
     technologies: ['Python', 'NumPy', 'Matplotlib'],
     outcome:
       'Independent Assignment Project',
@@ -676,23 +659,16 @@ const flagshipProjects = [
       closeLabel: 'Hide the research notes',
       body: `
         <div class="project-story">
-          <p class="project-story__tag">Notebook excerpt</p>
-          <h4 class="project-story__title">Rewriting shortest paths when the map lies</h4>
-          <div class="project-story__grid">
-            <div class="project-story__section">
-              <h5>Context</h5>
-              <p>Classic A* ignores occlusions—it only sees inflated obstacles. I wanted planners to reason about what they cannot see yet.</p>
+          <div class="project-story__window">
+            <p class="project-story__tag">Notebook excerpt</p>
+            <h4 class="project-story__title">Rewriting shortest paths when the map lies</h4>
+            <div class="project-story__body">
+              <p>Classic grid planners treat unknown space like empty air; I wanted the toolkit to treat every blind corner as a hypothesis instead.</p>
+              <p>Visibility cones blended with traversal history to assign speculative costs, pulling the robot toward gentle reconnaissance sweeps rather than reckless shortcuts.</p>
+              <p>Synthetic mazes with collapsing corridors proved the point—trajectories stayed smooth and the planner stopped thrashing when the world changed mid-run.</p>
             </div>
-            <div class="project-story__section">
-              <h5>Core Idea</h5>
-              <p>An uncertainty-aware frontier cost guessed the risk of hidden obstacles using local visibility cones and prior traversals, nudging the robot to scout smartly.</p>
-            </div>
-            <div class="project-story__section">
-              <h5>Outcome</h5>
-              <p>Stress tests on random mazes showed smoother trajectories and fewer oscillations than vanilla A* or D* Lite, especially when corridors collapsed mid-run.</p>
-            </div>
+            <p class="project-story__closing">Path planners should be curious, not just cautious.</p>
           </div>
-          <p class="project-story__closing">Path planners should be curious, not just cautious.</p>
         </div>
       `,
     },
@@ -711,11 +687,41 @@ if (projectShowcase) {
       const media = document.createElement('figure');
       media.className = 'project-case__media';
 
+      const mediaGrid = document.createElement('div');
+      mediaGrid.className = 'project-case__media-grid';
+
+      const mainFrame = document.createElement('div');
+      mainFrame.className = 'project-case__media-main';
+
       const img = document.createElement('img');
       img.src = project.image.src;
       img.alt = project.image.alt || `${project.title} illustration`;
+      img.loading = 'lazy';
 
-      media.appendChild(img);
+      mainFrame.appendChild(img);
+      mediaGrid.appendChild(mainFrame);
+
+      const placeholderLabels = Array.isArray(project.placeholders)
+        ? project.placeholders.slice(0, 2)
+        : [];
+
+      while (placeholderLabels.length < 2) {
+        placeholderLabels.push('Image placeholder');
+      }
+
+      placeholderLabels.forEach((label, idx) => {
+        const placeholder = document.createElement('div');
+        placeholder.className = `project-case__media-placeholder project-case__media-placeholder--${idx + 1}`;
+        placeholder.setAttribute('aria-hidden', 'true');
+
+        const span = document.createElement('span');
+        span.textContent = label;
+
+        placeholder.appendChild(span);
+        mediaGrid.appendChild(placeholder);
+      });
+
+      media.appendChild(mediaGrid);
       article.appendChild(media);
     }
 
