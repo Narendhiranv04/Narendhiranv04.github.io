@@ -41,63 +41,40 @@
         </header>
 
         <div class="research-article__content">
-          <section class="research-article__section">
-            <h2>Challenge</h2>
-            <p>
-              Sit-to-walk transitions punish latency. If the assistive torque lags by more than a few milliseconds the wearer feels
-              a drag. We needed a controller that predicted joint torques almost instantaneously while handling variable gait
-              phases.
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>Challenge.</strong>
+            Sit-to-walk transitions punish latency. If the assistive torque lags by more than a few milliseconds the wearer feels a
+            drag. We needed a controller that predicted joint torques almost instantaneously while handling variable gait phases.
+          </p>
 
-          <section class="research-article__section">
-            <h2>Approach</h2>
-            <p>
-              I pruned the feature set to the most informative IMU and EMG channels, built a compact GRU, and wrapped it with a
-              fuzzy supervisor that modulates assistance based on gait-phase confidence. The result was a model small enough to
-              live on an embedded Jetson.
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>Approach.</strong>
+            I pruned the feature set to the most informative IMU and EMG channels, built a compact GRU, and wrapped it with a fuzzy
+            supervisor that modulates assistance based on gait-phase confidence. The result was a model small enough to live on an
+            embedded Jetson.
+          </p>
 
-          <section class="research-article__section">
-            <h2>Iterating</h2>
-            <p>
-              Quantisation plus tensor core inference were key to hitting our timing budget. With mixed-precision kernels we kept
-              inference under 20 ms without sacrificing fidelity, and the controller stopped feeling like it was chasing the user.
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>Iterating.</strong>
+            Quantisation plus tensor core inference were key to hitting our timing budget. With mixed-precision kernels we kept
+            inference under 20 ms without sacrificing fidelity, and the controller stopped feeling like it was chasing the user.
+          </p>
 
-          <section class="research-article__section">
-            <h2>What we learned</h2>
-            <p>
-              The fuzzy layer smoothed out torque spikes caused by imperfect foot contact, dropping peak error by 18%. Test
-              subjects stopped noticing the controller catching up—the assistance felt native rather than corrective.
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>What we learned.</strong>
+            The fuzzy layer smoothed out torque spikes caused by imperfect foot contact, dropping peak error by 18%. Test subjects
+            stopped noticing the controller catching up—the assistance felt native rather than corrective.
+          </p>
 
-          <section class="research-article__section">
-            <h2>Reflection</h2>
-            <p>
-              Assistive robotics is equal parts empathy and engineering. Every watt has to arrive in sync with the wearer’s
-              intent, and the controller should disappear into the motion.
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>Reflection.</strong>
+            Assistive robotics is equal parts empathy and engineering. Every watt has to arrive in sync with the wearer’s intent, and
+            the controller should disappear into the motion.
+          </p>
 
-          <section id="insights" class="research-article__section">
-            <h2>Key insights</h2>
-            <ul>
-              <li>Latency targets should be treated as hard requirements when a human shares the control loop.</li>
-              <li>Feature pruning and model distillation made the GRU fast enough to live on wearable hardware.</li>
-              <li>Fuzzy supervision dampened spikes from noisy contact events without heavy-handed filtering.</li>
-              <li>Quantisation plus tensor cores turned a research prototype into a dependable real-time controller.</li>
-            </ul>
-          </section>
-
-          <section class="research-article__section">
-            <p class="research-article__closing">
-              Lightweight models can still feel heavy—unless you design for the human first.
-            </p>
-          </section>
+          <p class="research-article__closing">
+            Lightweight models can still feel heavy—unless you design for the human first.
+          </p>
         </div>
       </article>
 
