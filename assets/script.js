@@ -205,7 +205,7 @@ const researchExperiences = [
     organization: 'NTU, Singapore',
     timeframe: 'May 2025 – Present',
     summary:
-      'Extended Moto-VLA with contrastive learning and in-context memory for retrieval-augmented VLA control.',
+      'Built latent-action retrieval with InfoNCE tokenisers, DTW alignment, and in-context memory so Moto-VLA keys off intent.',
     image: {
       src: 'ntu.png',
       alt: 'NTU Singapore logo',
@@ -217,7 +217,7 @@ const researchExperiences = [
     organization: 'IIIT, Hyderabad',
     timeframe: 'July 2025 – Present',
     summary:
-      'Designed a contract-validated visual HRL framework for long-horizon manipulation tasks using MoE and SmolVLA controllers.',
+      'Deployed contract-validated VLM planning with MoE-guided recovery skills so long-horizon tasks recover from failures.',
     image: {
       src: 'iiith.jpg',
       alt: 'IIIT Hyderabad logo',

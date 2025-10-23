@@ -40,68 +40,182 @@
             <span>Embodied AI · Manipulation</span>
           </div>
           <p class="research-article__eyebrow">Embodied AI Intern · May 2025 – Present</p>
-          <h1 class="research-article__title">Retrieval that remembers the robot's intent</h1>
+          <h1 class="research-article__title">Latent-action retrieval for robots that remember intent</h1>
           <p class="research-article__meta">Nanyang Technological University, Singapore · Moto-VLA extensions</p>
           <p class="research-article__lead">
-            I am stretching Moto-VLA with a latent-action retrieval layer and a lightweight in-context memory so the policy looks
-            up what to do next, not just what looks similar. The aim is to make generalist manipulation policies less forgetful
-            about contact timing and task phase.
+            Moto-VLA looked solid on paper until I realised it was still picking actions because scenes looked familiar, not
+            because the robot actually knew what to do. This internship is my attempt to fix that by retrieving and conditioning on
+            actions instead of appearance.
           </p>
         </header>
+
+        <figure class="research-article__hero">
+          <svg
+            viewBox="0 0 1200 520"
+            role="img"
+            aria-labelledby="ntu-latent-action-hero-title ntu-latent-action-hero-desc"
+          >
+            <title id="ntu-latent-action-hero-title">
+              Latent action retrieval guiding Moto-VLA policy decisions
+            </title>
+            <desc id="ntu-latent-action-hero-desc">
+              A wide illustration showing latent action snippets, FAISS neighbours, and policy attention over time.
+            </desc>
+            <defs>
+              <linearGradient id="ntu-hero-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#2a3f7f" />
+                <stop offset="45%" stop-color="#1a2750" />
+                <stop offset="100%" stop-color="#070c1d" />
+              </linearGradient>
+              <linearGradient id="ntu-hero-timeline" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#7dd3fc" />
+                <stop offset="50%" stop-color="#a855f7" />
+                <stop offset="100%" stop-color="#f472b6" />
+              </linearGradient>
+              <linearGradient id="ntu-hero-memory" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#c4b5fd" stop-opacity="0.95" />
+                <stop offset="100%" stop-color="#312e81" stop-opacity="0.6" />
+              </linearGradient>
+              <clipPath id="ntu-hero-clip">
+                <rect x="40" y="40" width="1120" height="360" rx="32" />
+              </clipPath>
+            </defs>
+            <rect width="1200" height="520" fill="url(#ntu-hero-bg)" rx="36" />
+            <g clip-path="url(#ntu-hero-clip)" opacity="0.88">
+              <rect x="40" y="40" width="1120" height="360" fill="#0f172a" opacity="0.65" />
+              <g stroke="#475569" stroke-width="1" opacity="0.32">
+                <line x1="40" y1="96" x2="1160" y2="96" />
+                <line x1="40" y1="168" x2="1160" y2="168" />
+                <line x1="40" y1="240" x2="1160" y2="240" />
+                <line x1="40" y1="312" x2="1160" y2="312" />
+                <line x1="40" y1="384" x2="1160" y2="384" />
+              </g>
+              <g opacity="0.8">
+                <rect x="96" y="128" width="220" height="156" rx="20" fill="url(#ntu-hero-memory)" />
+                <rect x="366" y="108" width="220" height="176" rx="20" fill="url(#ntu-hero-memory)" opacity="0.9" />
+                <rect x="636" y="148" width="220" height="136" rx="20" fill="url(#ntu-hero-memory)" opacity="0.75" />
+                <rect x="906" y="120" width="220" height="164" rx="20" fill="url(#ntu-hero-memory)" opacity="0.68" />
+              </g>
+              <g fill="#0f172a" stroke="#cbd5f5" stroke-width="2" opacity="0.85">
+                <rect x="116" y="148" width="180" height="84" rx="14" />
+                <rect x="386" y="128" width="180" height="84" rx="14" />
+                <rect x="656" y="168" width="180" height="84" rx="14" />
+                <rect x="926" y="140" width="180" height="84" rx="14" />
+              </g>
+              <g fill="#f9fafb" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="20" font-weight="600">
+                <text x="136" y="198">approach</text>
+                <text x="406" y="178">close gripper</text>
+                <text x="676" y="218">lift &amp; align</text>
+                <text x="946" y="190">handoff cue</text>
+              </g>
+              <g fill="#94a3b8" font-family="'DM Mono', 'Fira Code', monospace" font-size="15" opacity="0.82">
+                <text x="120" y="244">latent snippet t-2</text>
+                <text x="390" y="224">latent snippet t-1</text>
+                <text x="660" y="264">latent snippet t</text>
+                <text x="930" y="236">latent snippet t+1</text>
+              </g>
+              <g stroke="url(#ntu-hero-timeline)" stroke-width="6" stroke-linecap="round" opacity="0.9">
+                <line x1="120" y1="320" x2="1080" y2="320" />
+              </g>
+              <g fill="#0ea5e9" opacity="0.95">
+                <circle cx="200" cy="320" r="12" />
+                <circle cx="470" cy="320" r="12" />
+                <circle cx="740" cy="320" r="12" />
+                <circle cx="1010" cy="320" r="12" />
+              </g>
+              <g fill="#f8fafc" font-family="'DM Mono', 'Fira Code', monospace" font-size="14" opacity="0.82">
+                <text x="172" y="356">DTW align</text>
+                <text x="444" y="356">FAISS K</text>
+                <text x="712" y="356">cosine</text>
+                <text x="988" y="356">policy attn</text>
+              </g>
+            </g>
+            <g fill="#e2e8f0" font-family="'DM Sans', 'Segoe UI', sans-serif">
+              <text x="60" y="440" font-size="26" font-weight="700">Latent action memory</text>
+              <text x="60" y="472" font-size="18" opacity="0.75">
+                Retrieve by intent-aligned motion slices, not by appearance alone.
+              </text>
+            </g>
+          </svg>
+          <figcaption>Retrieval conditioned on action snippets rather than raw image frames.</figcaption>
+        </figure>
 
         <div class="research-article__content">
           <p class="research-article__text">
             <strong>Spark.</strong>
-            I arrived thinking manipulation with vision-language-action models was already saturated. A week of sifting through
-            demos proved otherwise: the robots still froze when perception and intent drifted apart. That gap turned into a
-            question—what if retrieval keyed off the motions a robot should take instead of the pixels it currently sees?
+            I walked into this thinking robot manipulation was kind of “solved” and “saturated”. How naive of me. Then I found
+            VLAs and realised how wrong that was. Got me intrigued about generalist policies and “Embodied AI” – sounded way too
+            interesting for me to ignore. As I read randomly through a lot of papers, I realised the space is exciting and chaotic
+            at the same time–lots of big demos, but also lots of cases where the robot looks at a scene, finds something that looks
+            similar, and still doesn’t know what to do. That pushed me to a simple question: instead of retrieving by appearance,
+            can we retrieve by robot action instead?
           </p>
 
           <p class="research-article__text">
             <strong>Idea.</strong>
-            I tokenise short trajectory windows into latent action snippets using an InfoNCE contrastive setup so phases like
-            approach, grasp, and lift cluster tightly. Each rollout gets sliced, aligned with DTW to normalise timing, and
-            indexed in FAISS. During control the policy fetches the nearest motion exemplars, not the nearest frames, and keeps
-            the snippets around as structured context.
+            The core idea is to represent short chunks of motion as compact “latent action” snippets—little summaries of intent and
+            phase like “approach,” “close,” “lift,” rather than just pixels. I started by training a VAE model with contrastive loss
+            (InfoNCE) to learn these embeddings from demonstrations, so segments that do the same thing end up close together, even
+            if they look different. From there, I built a small retrieval system: slice trajectories into sub-trajectories, align
+            them with DTW so timing lines up, index them with FAISS, and then score neighbours with cosine similarity. The point is
+            to fetch the right action examples for the current moment, not just the most similar frame.
           </p>
 
           <p class="research-article__text">
             <strong>First look.</strong>
-            The first versions nudged success rates upward, but only slightly. The positives were too loose—clips that looked
-            alike were not always in the same phase. Tightening phase alignment, mining harder negatives, and sharpening the token
-            boundaries made the embedding space more meaningful, yet there was still an image/action mismatch at inference time.
+            At first, this worked—but only a little. Latent-action retrieval beat plain image retrieval in a few rollouts (better
+            contact timing, fewer failures), but the gains were thin. Two problems popped out. One: my “positives” were too loose.
+            Clips that looked similar weren’t always in the same phase. Tightening positives to phase-aligned windows and mining
+            harder negatives made the embedding space sharper. Two: I was teaching the model with latent actions during training
+            but asking it to rely on images at test time. That mismatch was the bigger issue.
           </p>
 
           <p class="research-article__text">
             <strong>Closing the gap.</strong>
-            The fix was to give the policy the same latent actions at test time that trained it. For each step I retrieve the
-            top-k snippets and feed them into an in-context memory that the transformer can attend to. Suddenly the controller knew
-            when to close the gripper, how long to linger on contact, and when to transition phases.
+            To fix it, I added an in-context memory at inference. For each step, I retrieve the top-K latent-action snippets and
+            hand them to the policy as simple, structured context—“here are a few examples of what to do now.” The policy can then
+            attend to those action cues while deciding the next move. That change felt small on paper, but it made the difference:
+            the policy actually uses action structure at test time, not just during training.
           </p>
 
           <p class="research-article__text">
-            <strong>Engineering the system.</strong>
-            Most of the effort went into the glue: enforcing a strict [B, T, D] contract through the pipeline, chunking FAISS
-            queries to stay memory-safe, caching neighbours across timesteps, and sliding heavy operations into mixed precision.
-            Those pieces turned a “works in two demos” prototype into something that survives nightly training runs.
+            <strong>Annoying struggles.</strong>
+            There was a fair amount of engineering glue to make this stable. I standardised everything to a clean [B, T, D] shape
+            contract, added checks to avoid the usual time-dim confusion, chunked FAISS queries to keep memory in check, cached
+            neighbours between steps, and moved heavy paths to mixed precision. None of that is glamorous, but it turned “sometimes
+            works” into “runs reliably enough to iterate” and actually publishable, and not just showcasing a few good rollouts.
           </p>
 
           <p class="research-article__text">
             <strong>Why it matters.</strong>
-            Blending appearance with intent is where generalist VLAs still stumble. Latent-action retrieval nudges the policy
-            toward the tempo of a motion, not just the pose that resembles the current frame. When it succeeds you can see it in
-            the contact timing and in how confidently the robot chains sub-tasks.
+            Where this fits in the bigger VLA picture: a lot of current systems blur appearance with intent. They can find a scene
+            that looks right and still miss the moment to make contact or the tempo of a motion. By retrieving and conditioning on
+            actions, the policy gets a lightweight prior about what should happen next. It doesn’t solve everything (long-horizon
+            chaining is still tricky, and sim-to-real will always be the real test), but it’s a clean way to push beyond “it looks
+            similar, so try this.”
           </p>
 
           <p class="research-article__text">
-            <strong>Status &amp; next steps.</strong>
-            The tokenizer, FAISS index, and in-context cache now run reliably on our sim bench. Failure cases are clear: clutter or
-            lighting shifts still pull the wrong neighbours. I am tuning window length, DTW slack, distance metrics, and K before
-            porting to a physical xArm to study the sim-to-real breakpoints.
+            <strong>Status.</strong>
+            Right now I have three pieces wired together: a latent-action tokenizer (trained with InfoNCE), a FAISS index over
+            DTW-aligned sub-trajectories, and an in-context cache that hands the policy a few retrieved action snippets at test
+            time. When it helps, it’s for very specific reasons: repeated sub-motions line up better, and the policy stops
+            second-guessing short, well-defined phases. When it doesn’t help, it’s also clear why: cluttered scenes or lighting
+            shifts pull the wrong neighbours, and a bad retrieval can nudge the policy off course. There’s a small latency tax from
+            retrieval, but it stays reasonable if I keep K tiny and cache across steps.
+          </p>
+
+          <p class="research-article__text">
+            <strong>Next up.</strong>
+            What I still need to nail down are the boring but important choices: the window length for tokenisation, how much DTW
+            slack is healthy, which distance works best beyond plain cosine, and how many examples (K) actually add signal before
+            the context turns noisy. After that, I’ll try it on xArm manipulator to find the failure modes I can’t see in sim. A lot
+            of exciting stuff is yet to be done!
           </p>
 
           <p class="research-article__closing">
-            The real goal is to condition a robot on what to do next, not merely what looks familiar.
+            If I had to sum it up in one line: Isn’t the real goal to stop matching by how things look and instead retrieve, and
+            condition on what to do, so the robot learns intent rather than just images?
           </p>
         </div>
       </article>
