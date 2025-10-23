@@ -41,86 +41,59 @@
         </header>
 
         <div class="research-article__content">
-          <section class="research-article__section">
-            <h2>Spark</h2>
-            <p>
-              I arrived thinking manipulation with vision-language-action models was already saturated. A week of sifting through
-              demos proved otherwise: the robots still froze when perception and intent drifted apart. That gap turned into a
-              question—what if retrieval keyed off the motions a robot should take instead of the pixels it currently sees?
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>Spark.</strong>
+            I arrived thinking manipulation with vision-language-action models was already saturated. A week of sifting through
+            demos proved otherwise: the robots still froze when perception and intent drifted apart. That gap turned into a
+            question—what if retrieval keyed off the motions a robot should take instead of the pixels it currently sees?
+          </p>
 
-          <section class="research-article__section">
-            <h2>Idea</h2>
-            <p>
-              I tokenise short trajectory windows into latent action snippets using an InfoNCE contrastive setup so phases like
-              approach, grasp, and lift cluster tightly. Each rollout gets sliced, aligned with DTW to normalise timing, and
-              indexed in FAISS. During control the policy fetches the nearest motion exemplars, not the nearest frames, and keeps
-              the snippets around as structured context.
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>Idea.</strong>
+            I tokenise short trajectory windows into latent action snippets using an InfoNCE contrastive setup so phases like
+            approach, grasp, and lift cluster tightly. Each rollout gets sliced, aligned with DTW to normalise timing, and
+            indexed in FAISS. During control the policy fetches the nearest motion exemplars, not the nearest frames, and keeps
+            the snippets around as structured context.
+          </p>
 
-          <section class="research-article__section">
-            <h2>First look</h2>
-            <p>
-              The first versions nudged success rates upward, but only slightly. The positives were too loose—clips that looked
-              alike were not always in the same phase. Tightening phase alignment, mining harder negatives, and sharpening the
-              token boundaries made the embedding space more meaningful, yet there was still an image/action mismatch at inference
-              time.
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>First look.</strong>
+            The first versions nudged success rates upward, but only slightly. The positives were too loose—clips that looked
+            alike were not always in the same phase. Tightening phase alignment, mining harder negatives, and sharpening the token
+            boundaries made the embedding space more meaningful, yet there was still an image/action mismatch at inference time.
+          </p>
 
-          <section class="research-article__section">
-            <h2>Closing the gap</h2>
-            <p>
-              The fix was to give the policy the same latent actions at test time that trained it. For each step I retrieve the
-              top-k snippets and feed them into an in-context memory that the transformer can attend to. Suddenly the controller
-              knew when to close the gripper, how long to linger on contact, and when to transition phases.
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>Closing the gap.</strong>
+            The fix was to give the policy the same latent actions at test time that trained it. For each step I retrieve the
+            top-k snippets and feed them into an in-context memory that the transformer can attend to. Suddenly the controller knew
+            when to close the gripper, how long to linger on contact, and when to transition phases.
+          </p>
 
-          <section class="research-article__section">
-            <h2>Engineering the system</h2>
-            <p>
-              Most of the effort went into the glue: enforcing a strict [B, T, D] contract through the pipeline, chunking FAISS
-              queries to stay memory-safe, caching neighbours across timesteps, and sliding heavy operations into mixed precision.
-              Those pieces turned a “works in two demos” prototype into something that survives nightly training runs.
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>Engineering the system.</strong>
+            Most of the effort went into the glue: enforcing a strict [B, T, D] contract through the pipeline, chunking FAISS
+            queries to stay memory-safe, caching neighbours across timesteps, and sliding heavy operations into mixed precision.
+            Those pieces turned a “works in two demos” prototype into something that survives nightly training runs.
+          </p>
 
-          <section class="research-article__section">
-            <h2>Why it matters</h2>
-            <p>
-              Blending appearance with intent is where generalist VLAs still stumble. Latent-action retrieval nudges the policy
-              toward the tempo of a motion, not just the pose that resembles the current frame. When it succeeds you can see it in
-              the contact timing and in how confidently the robot chains sub-tasks.
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>Why it matters.</strong>
+            Blending appearance with intent is where generalist VLAs still stumble. Latent-action retrieval nudges the policy
+            toward the tempo of a motion, not just the pose that resembles the current frame. When it succeeds you can see it in
+            the contact timing and in how confidently the robot chains sub-tasks.
+          </p>
 
-          <section class="research-article__section">
-            <h2>Status &amp; next steps</h2>
-            <p>
-              The tokenizer, FAISS index, and in-context cache now run reliably on our sim bench. Failure cases are clear: clutter
-              or lighting shifts still pull the wrong neighbours. I am tuning window length, DTW slack, distance metrics, and K
-              before porting to a physical xArm to study the sim-to-real breakpoints.
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>Status &amp; next steps.</strong>
+            The tokenizer, FAISS index, and in-context cache now run reliably on our sim bench. Failure cases are clear: clutter or
+            lighting shifts still pull the wrong neighbours. I am tuning window length, DTW slack, distance metrics, and K before
+            porting to a physical xArm to study the sim-to-real breakpoints.
+          </p>
 
-          <section id="insights" class="research-article__section">
-            <h2>Key insights</h2>
-            <ul>
-              <li>Retrieving motion snippets keeps the controller aware of intent even when visual cues drift.</li>
-              <li>Phase-aligned positives and hard negatives are essential for a usable latent-action space.</li>
-              <li>A small in-context memory is enough to close the train/test gap without bloating inference latency.</li>
-              <li>Operational discipline—shape contracts, caching, and mixed precision—matters as much as the modelling idea.</li>
-            </ul>
-          </section>
-
-          <section class="research-article__section">
-            <p class="research-article__closing">
-              The real goal is to condition a robot on what to do next, not merely what looks familiar.
-            </p>
-          </section>
+          <p class="research-article__closing">
+            The real goal is to condition a robot on what to do next, not merely what looks familiar.
+          </p>
         </div>
       </article>
 

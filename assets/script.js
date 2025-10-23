@@ -211,7 +211,6 @@ const researchExperiences = [
       alt: 'NTU Singapore logo',
     },
     storyUrl: 'research/ntu-latent-action.html',
-    insightsUrl: 'research/ntu-latent-action.html#insights',
   },
   {
     title: 'Task & Motion Planning Intern',
@@ -224,7 +223,6 @@ const researchExperiences = [
       alt: 'IIIT Hyderabad logo',
     },
     storyUrl: 'research/iiith-contracts.html',
-    insightsUrl: 'research/iiith-contracts.html#insights',
   },
   {
     title: 'Assistive Robotics Intern',
@@ -237,7 +235,6 @@ const researchExperiences = [
       alt: 'Monash University logo',
     },
     storyUrl: 'research/monash-assistive.html',
-    insightsUrl: 'research/monash-assistive.html#insights',
   },
   {
     title: 'Robotic Perception Intern',
@@ -250,7 +247,6 @@ const researchExperiences = [
       alt: 'IIT Bombay logo',
     },
     storyUrl: 'research/iitb-auraseg.html',
-    insightsUrl: 'research/iitb-auraseg.html#insights',
   },
 ];
 
@@ -305,16 +301,6 @@ if (researchTimeline) {
       primaryLink.setAttribute('aria-label', `${experience.title} full story`);
 
       actions.appendChild(primaryLink);
-
-      if (experience.insightsUrl) {
-        const insightsLink = document.createElement('a');
-        insightsLink.className = 'timeline-link';
-        insightsLink.href = experience.insightsUrl;
-        insightsLink.textContent = experience.secondaryCta || 'Insights';
-        insightsLink.setAttribute('aria-label', `${experience.title} insights`);
-        actions.appendChild(insightsLink);
-      }
-
       body.appendChild(actions);
     }
 
