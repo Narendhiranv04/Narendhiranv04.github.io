@@ -21,7 +21,16 @@
     <div class="research-page__inner">
       <header class="research-page__masthead">
         <a class="research-page__back" href="../index.html#research">← Back to research timeline</a>
-        <span></span>
+        <button
+          class="theme-toggle"
+          type="button"
+          data-js="theme-toggle"
+          aria-label="Switch to light theme"
+          title="Switch to light theme"
+        >
+          <span class="theme-toggle__icon" aria-hidden="true">☀️</span>
+          <span class="theme-toggle__text">Light Mode</span>
+        </button>
       </header>
 
       <article class="research-article">
@@ -41,61 +50,39 @@
         </header>
 
         <div class="research-article__content">
-          <section class="research-article__section">
-            <h2>Problem space</h2>
-            <p>
-              Dense, reflective roads are brutal on standard segmentation baselines. Puddles, tar patches, and headlight glare all
-              masquerade as “safe” space and pull controllers into danger zones.
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>Problem space.</strong>
+            Dense, reflective roads are brutal on standard segmentation baselines. Puddles, tar patches, and headlight glare all
+            masquerade as “safe” space and pull controllers into danger zones.
+          </p>
 
-          <section class="research-article__section">
-            <h2>Solution</h2>
-            <p>
-              AURASeg couples attention-guided upsampling with residual boundary refinements so the decoder tracks both texture and
-              geometry. A lightweight auxiliary edge detector feeds the decoder to keep curbs crisp while staying real-time.
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>Solution.</strong>
+            AURASeg couples attention-guided upsampling with residual boundary refinements so the decoder tracks both texture and
+            geometry. A lightweight auxiliary edge detector feeds the decoder to keep curbs crisp while staying real-time.
+          </p>
 
-          <section class="research-article__section">
-            <h2>Moments</h2>
-            <p>
-              Hitting better mIoU and F1 than YOLOP was satisfying, but the real moment was a wet-night sequence where AURASeg kept
-              the drivable ribbon tight instead of drifting into oncoming headlights.
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>Moments.</strong>
+            Hitting better mIoU and F1 than YOLOP was satisfying, but the real moment was a wet-night sequence where AURASeg kept the
+            drivable ribbon tight instead of drifting into oncoming headlights.
+          </p>
 
-          <section class="research-article__section">
-            <h2>Deployment</h2>
-            <p>
-              We pruned and quantised the network for a Jetson Xavier, then wrapped it in a ROS 2 node that streams masks with a
-              12 ms budget. On-board latency stayed flat even with additional diagnostics switched on.
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>Deployment.</strong>
+            We pruned and quantised the network for a Jetson Xavier, then wrapped it in a ROS 2 node that streams masks with a 12 ms
+            budget. On-board latency stayed flat even with additional diagnostics switched on.
+          </p>
 
-          <section class="research-article__section">
-            <h2>Outlook</h2>
-            <p>
-              Next up is domain-adaptive fine-tuning so fog, dust, and rain stop feeling like edge cases. The goal is to keep the
-              model honest when the scenery shifts.
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>Outlook.</strong>
+            Next up is domain-adaptive fine-tuning so fog, dust, and rain stop feeling like edge cases. The goal is to keep the model
+            honest when the scenery shifts.
+          </p>
 
-          <section id="insights" class="research-article__section">
-            <h2>Key insights</h2>
-            <ul>
-              <li>Urban driving demands segmentation models that respect texture and geometry simultaneously.</li>
-              <li>Auxiliary edge supervision is a low-cost way to keep boundaries sharp on embedded hardware.</li>
-              <li>Quantisation plus ROS 2 integration made deployment viable on a Jetson Xavier without losing throughput.</li>
-              <li>True robustness is measured on messy night sequences, not just benchmark scores.</li>
-            </ul>
-          </section>
-
-          <section class="research-article__section">
-            <p class="research-article__closing">
-              Robust perception is the quiet confidence behind autonomous navigation.
-            </p>
-          </section>
+          <p class="research-article__closing">
+            Robust perception is the quiet confidence behind autonomous navigation.
+          </p>
         </div>
       </article>
 

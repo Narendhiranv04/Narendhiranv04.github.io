@@ -21,7 +21,16 @@
     <div class="research-page__inner">
       <header class="research-page__masthead">
         <a class="research-page__back" href="../index.html#research">← Back to research timeline</a>
-        <span></span>
+        <button
+          class="theme-toggle"
+          type="button"
+          data-js="theme-toggle"
+          aria-label="Switch to light theme"
+          title="Switch to light theme"
+        >
+          <span class="theme-toggle__icon" aria-hidden="true">☀️</span>
+          <span class="theme-toggle__text">Light Mode</span>
+        </button>
       </header>
 
       <article class="research-article">
@@ -41,73 +50,49 @@
         </header>
 
         <div class="research-article__content">
-          <section class="research-article__section">
-            <h2>Why contracts</h2>
-            <p>
-              Long-horizon policies crumble when a sub-skill drifts outside its safe set. Encoding LTL-style contracts around each
-              option forces the controller to certify that prerequisites hold and that post-conditions are achieved before handing
-              control back to the planner.
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>Why contracts.</strong>
+            Long-horizon policies crumble when a sub-skill drifts outside its safe set. Encoding LTL-style contracts around each
+            option forces the controller to certify that prerequisites hold and that post-conditions are achieved before handing
+            control back to the planner.
+          </p>
 
-          <section class="research-article__section">
-            <h2>Stack</h2>
-            <p>
-              A SmolVLA encoder supplies visual tokens, a Mixture-of-Experts actor scores options, and a symbolic monitor vetoes
-              unsafe transitions. When the MoE hesitates or violates timing bounds, a low-latency MPC fallback steps in to keep
-              the arm moving.
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>Stack.</strong>
+            A SmolVLA encoder supplies visual tokens, a Mixture-of-Experts actor scores options, and a symbolic monitor vetoes
+            unsafe transitions. When the MoE hesitates or violates timing bounds, a low-latency MPC fallback steps in to keep the
+            arm moving.
+          </p>
 
-          <section class="research-article__section">
-            <h2>Breakthrough</h2>
-            <p>
-              The “contract buffer” made the architecture usable. It carries risk scores and satisfaction margins between stages so
-              the planner can stay adventurous without tripping the monitor. Latency stayed inside budget and we finally had a
-              dial for trading off caution versus exploration.
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>Breakthrough.</strong>
+            The “contract buffer” made the architecture usable. It carries risk scores and satisfaction margins between stages so the
+            planner can stay adventurous without tripping the monitor. Latency stayed inside budget and we finally had a dial for
+            trading off caution versus exploration.
+          </p>
 
-          <section class="research-article__section">
-            <h2>System view</h2>
-            <p>
-              Simulation traces stream into dashboards for trajectory slack, LTL violations, and MoE gating entropy. Watching those
-              signals live highlights the moment an option begins hallucinating or when perception noise knocks an invariant off
-              the rails.
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>System view.</strong>
+            Simulation traces stream into dashboards for trajectory slack, LTL violations, and MoE gating entropy. Watching those
+            signals live highlights the moment an option begins hallucinating or when perception noise knocks an invariant off the
+            rails.
+          </p>
 
-          <section class="research-article__section">
-            <h2>Current benchmarks</h2>
-            <p>
-              We are midway through cluttered-shelf manipulation suites. The monitor is holding up under occlusions, but we are
-              still tuning how aggressively the MoE explores when perception confidence dips.
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>Current benchmarks.</strong>
+            We are midway through cluttered-shelf manipulation suites. The monitor is holding up under occlusions, but we are still
+            tuning how aggressively the MoE explores when perception confidence dips.
+          </p>
 
-          <section class="research-article__section">
-            <h2>Next steps</h2>
-            <p>
-              The next milestone is a hybrid rollout on a Franka arm inside a reset-free tabletop scene. The contracts need to hold
-              at 20 Hz without inflating latency, so we are profiling the monitor’s C++ bindings and pruning redundant checks.
-            </p>
-          </section>
+          <p class="research-article__text">
+            <strong>Next steps.</strong>
+            The next milestone is a hybrid rollout on a Franka arm inside a reset-free tabletop scene. The contracts need to hold at
+            20 Hz without inflating latency, so we are profiling the monitor’s C++ bindings and pruning redundant checks.
+          </p>
 
-          <section id="insights" class="research-article__section">
-            <h2>Key insights</h2>
-            <ul>
-              <li>Contracts turn long-horizon execution into a provable handshake between planner and low-level skills.</li>
-              <li>A Mixture-of-Experts actor stays reliable when a symbolic monitor can veto options in real time.</li>
-              <li>Risk buffers preserve exploration by quantifying how close each option runs to contract boundaries.</li>
-              <li>Instrumenting entropy, slack, and violations is the fastest way to spot a failing option before it derails the run.</li>
-            </ul>
-          </section>
-
-          <section class="research-article__section">
-            <p class="research-article__closing">
-              Reliability is the feature—not the afterthought.
-            </p>
-          </section>
+          <p class="research-article__closing">
+            Reliability is the feature—not the afterthought.
+          </p>
         </div>
       </article>
 
