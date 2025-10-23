@@ -339,33 +339,27 @@ button.publication-card__action[disabled]{cursor:not-allowed;border-style:dashed
   mix-blend-mode:soft-light;opacity:.55;pointer-events:none;
 }
 .project-case__media-grid{
-  position:relative;z-index:1;display:grid;height:100%;
-  grid-template-columns:minmax(0,1.35fr) minmax(0,.85fr);
-  grid-template-rows:repeat(2,minmax(0,1fr));
+  position:relative;z-index:1;display:flex;height:100%;
+  flex-direction:column;
   gap:clamp(.6rem,2vw,1rem);
 }
 .project-case__media-main,
-.project-case__media-placeholder{
+.project-case__media-secondary{
   position:relative;border-radius:calc(var(--radius-lg) - 14px);
   overflow:hidden;display:flex;align-items:center;justify-content:center;
   background:color-mix(in srgb,var(--color-surface) 72%, rgba(12,18,36,.4));
   box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--color-border) 45%, transparent);
+  min-height:220px;
 }
-.project-case__media-main{grid-column:1 / 2;grid-row:1 / span 2;}
-.project-case__media-main img{
+.project-case__media-main img,
+.project-case__media-secondary img{
   width:100%;height:100%;object-fit:contain;object-position:center;display:block;
 }
-.project-case__media-placeholder{color:var(--color-muted);text-transform:uppercase;letter-spacing:.12em;font-size:.75rem;}
-.project-case__media-placeholder span{padding:0 1.2rem;text-align:center;position:relative;z-index:1;}
-.project-case__media-placeholder::before{
-  content:'';position:absolute;inset:0;border-radius:inherit;
-  background:repeating-linear-gradient(135deg,rgba(123,131,255,.18) 0 18px,rgba(123,131,255,.05) 18px 36px);
-  mix-blend-mode:soft-light;
-}
+.project-case__media-secondary{display:none;}
+.project-case.is-expanded .project-case__media-secondary{display:flex;}
 @media (max-width:720px){
-  .project-case__media-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:auto auto auto;}
-  .project-case__media-main{grid-column:1 / -1;grid-row:1;min-height:220px;}
-  .project-case__media-placeholder{grid-column:span 1;min-height:120px;}
+  .project-case__media-main,
+  .project-case__media-secondary{min-height:200px;}
 }
 
 .project-case__content{display:grid;gap:clamp(1.5rem,4vw,2.35rem);align-content:stretch;}

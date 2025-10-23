@@ -551,7 +551,16 @@ const flagshipProjects = [
       src: 'uav.jpg',
       alt: 'Autonomous quadcopter at the SAE AeroTHON',
     },
-    placeholders: ['Payload bay mockup', 'Failsafe wiring map'],
+    gallery: [
+      {
+        src: 'aerothon.jpg',
+        alt: 'Autonomous quadcopter team showcasing the airframe at AeroTHON',
+      },
+      {
+        src: 'synergy.jpg',
+        alt: 'Flight control systems check taking place beside the quadcopter',
+      },
+    ],
     technologies: ['ROS 2', 'PX4 Autopilot', 'OpenCV', 'Raspberry Pi'],
     outcome:
       'Top-15 national finish for autonomous flight across endurance, payload drop, and navigation tasks.',
@@ -584,7 +593,16 @@ const flagshipProjects = [
       src: 'pixelbot.jpg',
       alt: 'PixelBot multimodal assistant interface mockup',
     },
-    placeholders: ['UI mood board', 'Inference timeline'],
+    gallery: [
+      {
+        src: 'maximus.jpg',
+        alt: 'Storyboarding sketches pinned beside the PixelBot interface',
+      },
+      {
+        src: 'blah.png',
+        alt: 'UI explorations for the PixelBot workspace layout',
+      },
+    ],
     technologies: ['Python', 'PyTorch','FastAPI'],
     outcome:
       'Secured 2nd place in the national qualifier while open-sourcing reusable evaluation utilities.',
@@ -617,7 +635,16 @@ const flagshipProjects = [
       src: 'mathworks.jpg',
       alt: 'Parrot Mambo drone on display at the MathWorks challenge',
     },
-    placeholders: ['Simulink snapshot', 'Diagnostics HUD'],
+    gallery: [
+      {
+        src: 'ignitte.jpg',
+        alt: 'Competition booth showcasing the Parrot Mambo autonomous system',
+      },
+      {
+        src: '3d.jpg',
+        alt: '3D visualisation of the drone race track used during testing',
+      },
+    ],
     technologies: ['MATLAB', 'Simulink', 'Stateflow'],
     outcome:
       'Achieved fully autonomous line-following with reliable gate traversal in final demos.',
@@ -650,7 +677,16 @@ const flagshipProjects = [
       src: 'randomized_triangle_2.jpeg',
       alt: 'Occlusion-aware navigation heatmap visualization',
     },
-    placeholders: ['Visibility heatmap', 'Frontier notes'],
+    gallery: [
+      {
+        src: 'ntu.png',
+        alt: 'Path planning overlays annotated on a grid-based lab environment',
+      },
+      {
+        src: 'iitb.png',
+        alt: 'Research team badge illustrating the occlusion planning study',
+      },
+    ],
     technologies: ['Python', 'NumPy', 'Matplotlib'],
     outcome:
       'Independent Assignment Project',
@@ -683,6 +719,8 @@ if (projectShowcase) {
     article.className = 'project-case';
     article.style.setProperty('--animation-index', index.toString());
 
+    const galleryFrames = [];
+
     if (project.image?.src) {
       const media = document.createElement('figure');
       media.className = 'project-case__media';
@@ -701,25 +739,25 @@ if (projectShowcase) {
       mainFrame.appendChild(img);
       mediaGrid.appendChild(mainFrame);
 
-      const placeholderLabels = Array.isArray(project.placeholders)
-        ? project.placeholders.slice(0, 2)
-        : [];
+      if (Array.isArray(project.gallery)) {
+        project.gallery.slice(0, 2).forEach((mediaItem, galleryIdx) => {
+          if (!mediaItem?.src) return;
+          const secondaryFrame = document.createElement('div');
+          secondaryFrame.className = `project-case__media-secondary project-case__media-secondary--${galleryIdx + 1}`;
+          secondaryFrame.hidden = true;
+          secondaryFrame.setAttribute('aria-hidden', 'true');
 
-      while (placeholderLabels.length < 2) {
-        placeholderLabels.push('Image placeholder');
+          const secondaryImg = document.createElement('img');
+          secondaryImg.src = mediaItem.src;
+          secondaryImg.alt =
+            mediaItem.alt || `${project.title} supporting visual ${galleryIdx + 1}`;
+          secondaryImg.loading = 'lazy';
+
+          secondaryFrame.appendChild(secondaryImg);
+          mediaGrid.appendChild(secondaryFrame);
+          galleryFrames.push(secondaryFrame);
+        });
       }
-
-      placeholderLabels.forEach((label, idx) => {
-        const placeholder = document.createElement('div');
-        placeholder.className = `project-case__media-placeholder project-case__media-placeholder--${idx + 1}`;
-        placeholder.setAttribute('aria-hidden', 'true');
-
-        const span = document.createElement('span');
-        span.textContent = label;
-
-        placeholder.appendChild(span);
-        mediaGrid.appendChild(placeholder);
-      });
 
       media.appendChild(mediaGrid);
       article.appendChild(media);
@@ -839,6 +877,13 @@ if (projectShowcase) {
         ctaLabel.textContent = expanded ? closeLabel : openLabel;
       };
 
+      const toggleGallery = (expanded) => {
+        galleryFrames.forEach((frame) => {
+          frame.hidden = !expanded;
+          frame.setAttribute('aria-hidden', expanded ? 'false' : 'true');
+        });
+      };
+
       const syncHeight = () => {
         if (!article.classList.contains('is-expanded')) return;
         storyPanel.style.maxHeight = `${storyPanel.scrollHeight}px`;
@@ -853,6 +898,7 @@ if (projectShowcase) {
           cta.setAttribute('aria-expanded', 'true');
           cta.classList.add('is-active');
           updateLabels(true);
+          toggleGallery(true);
         } else {
           storyPanel.style.maxHeight = `${storyPanel.scrollHeight}px`;
           storyPanel.offsetHeight; // force reflow for transition
@@ -861,9 +907,11 @@ if (projectShowcase) {
           cta.setAttribute('aria-expanded', 'false');
           cta.classList.remove('is-active');
           updateLabels(false);
+          toggleGallery(false);
         }
       });
 
+      toggleGallery(false);
       window.addEventListener('resize', syncHeight);
     }
 

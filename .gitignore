@@ -1,3 +1,5 @@
 # Ignore raster hero placeholders to avoid binary assets in PRs
 assets/images/research/iiith-contracts-hero.jpg
 assets/images/research/ntu-latent-action-hero.png
+# Ignore ad-hoc gallery placeholders to prevent binary assets in commits
+assets/gallery/
