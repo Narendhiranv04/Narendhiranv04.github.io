@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 720" role="img" aria-labelledby="title desc">
+  <title id="title">Assistive torque prediction illustration</title>
+  <desc id="desc">Diagram showing recurrent model, biosignal streams, and exoskeleton assistance profile.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f1a33" />
+      <stop offset="70%" stop-color="#15254a" />
+      <stop offset="100%" stop-color="#081124" />
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="rgba(96,114,255,0.22)" />
+      <stop offset="100%" stop-color="rgba(64,210,255,0.24)" />
+    </linearGradient>
+    <linearGradient id="wave1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#63f5ff" />
+      <stop offset="100%" stop-color="#2dc7ff" />
+    </linearGradient>
+    <linearGradient id="wave2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#c38bff" />
+      <stop offset="100%" stop-color="#7d7bff" />
+    </linearGradient>
+    <linearGradient id="torque" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4fffd4" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#2fb6ff" stop-opacity="0.8" />
+    </linearGradient>
+    <filter id="softGlow" x="-15%" y="-15%" width="130%" height="130%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="16" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="720" fill="url(#bg)" />
+  <g opacity="0.3">
+    <circle cx="220" cy="180" r="140" fill="#213463" />
+    <circle cx="1220" cy="120" r="120" fill="#1f2e55" />
+    <circle cx="960" cy="620" r="160" fill="#1b2c55" />
+  </g>
+  <g transform="translate(160 160)">
+    <rect x="0" y="0" width="520" height="320" rx="28" fill="rgba(10,18,40,0.82)" stroke="rgba(120,140,255,0.45)" stroke-width="2" />
+    <text x="40" y="70" font-family="'DM Sans','Segoe UI',sans-serif" font-size="28" fill="#e9efff" font-weight="600">Embedded GRU stack</text>
+    <text x="40" y="120" font-family="'DM Sans','Segoe UI',sans-serif" font-size="24" fill="#c7d6ff">68k params · INT8 / FP16 kernels</text>
+    <text x="40" y="170" font-family="'DM Sans','Segoe UI',sans-serif" font-size="24" fill="#aebcff">Latency &lt; 20 ms @ Jetson Orin</text>
+    <path d="M60 210 h320" stroke="#6b7cff" stroke-width="3" stroke-linecap="round" stroke-dasharray="10 14" />
+    <text x="40" y="260" font-family="'DM Sans','Segoe UI',sans-serif" font-size="22" fill="#94a6ff">Fuzzy supervisor gates assistance</text>
+  </g>
+  <g transform="translate(720 110)">
+    <rect x="0" y="0" width="560" height="360" rx="32" fill="rgba(12,22,44,0.78)" stroke="rgba(80,180,255,0.5)" stroke-width="2" />
+    <rect x="60" y="70" width="440" height="200" rx="18" fill="url(#panel)" stroke="rgba(120,200,255,0.45)" stroke-width="1.5" />
+    <path d="M100 150 C160 120 200 120 260 150 C320 180 360 180 420 150" fill="none" stroke="url(#wave1)" stroke-width="6" stroke-linecap="round" filter="url(#softGlow)" />
+    <path d="M100 210 C150 250 220 250 280 210 C340 170 400 170 460 210" fill="none" stroke="url(#wave2)" stroke-width="6" stroke-linecap="round" opacity="0.8" />
+    <text x="90" y="120" font-family="'DM Sans','Segoe UI',sans-serif" font-size="20" fill="#e4f9ff">Filtered EMG · IMU streams</text>
+    <rect x="60" y="300" width="140" height="60" rx="16" fill="#63f5ff" opacity="0.18" />
+    <text x="80" y="340" font-family="'DM Sans','Segoe UI',sans-serif" font-size="22" fill="#a7f5ff">Confidence = 0.92</text>
+  </g>
+  <g transform="translate(160 500)">
+    <text x="0" y="0" font-family="'DM Sans','Segoe UI',sans-serif" font-size="24" fill="#9eb1ff">Assistance profile</text>
+    <path d="M0 40 H560" stroke="#243a6e" stroke-width="2" />
+    <path d="M0 40 C120 -20 220 -30 320 30 C420 90 520 70 560 10" fill="none" stroke="url(#torque)" stroke-width="10" stroke-linecap="round" filter="url(#softGlow)" />
+    <g transform="translate(320,18)">
+      <rect x="-70" y="-70" width="240" height="120" rx="24" fill="rgba(8,18,40,0.85)" stroke="rgba(99,245,255,0.5)" stroke-width="2" />
+      <text x="20" y="-25" font-family="'DM Sans','Segoe UI',sans-serif" font-size="22" fill="#d3f8ff">Phase = sit-to-walk</text>
+      <text x="20" y="10" font-family="'DM Sans','Segoe UI',sans-serif" font-size="20" fill="#9ee7ff">Torque lag: 14 ms</text>
+      <text x="20" y="45" font-family="'DM Sans','Segoe UI',sans-serif" font-size="20" fill="#9ee7ff">Assist blend: 0.68</text>
+    </g>
+  </g>
+  <g transform="translate(1120 520)">
+    <rect x="0" y="0" width="220" height="120" rx="26" fill="rgba(9,20,44,0.82)" stroke="rgba(120,140,255,0.45)" stroke-width="1.5" />
+    <text x="30" y="50" font-family="'DM Sans','Segoe UI',sans-serif" font-size="22" fill="#d9e7ff">Wearer feedback</text>
+    <text x="30" y="85" font-family="'DM Sans','Segoe UI',sans-serif" font-size="20" fill="#9cb6ff">Feels invisible ✔︎</text>
+  </g>
+</svg>

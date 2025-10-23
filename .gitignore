@@ -1,0 +1,3 @@
+# Ignore raster hero placeholders to avoid binary assets in PRs
+assets/images/research/iiith-contracts-hero.jpg
+assets/images/research/ntu-latent-action-hero.png
