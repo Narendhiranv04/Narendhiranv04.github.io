@@ -571,10 +571,10 @@ const flagshipProjects = [
         <div class="project-story">
           <div class="project-story__window">
             <p class="project-story__tag">IMPLEMENTATION DETAILS</p>
-            <h4 class="project-story__title">Autonomy stack tuned for live competition sorties</h4>
+            <h4 class="project-story__title">Onboard stack</h4>
             <div class="project-story__body">
-              <p><strong>Onboard stack.</strong> Raspberry Pi 5 runs vision and the route planner. SSD-MobileNet-v2 was converted to NCNN, delivering ~20&nbsp;ms per frame. ROS 2 over uXRCE-DDS links the Pi to PX4 on a Pixhawk 6C via a 921&nbsp;kbit/s serial connection; a micro-agent publishes <code>/roi_array</code>, and PX4’s XRCE-DDS client maps it to the uORB <code>vehicle_trajectory_waypoint</code> for low-latency updates. Telemetry (<code>vehicle_gps_position</code>, <code>battery_status</code>) streams to QGroundControl for live monitoring.</p>
-              <p><strong>Hybrid routing.</strong> SWEEP coverage alternates with SERVICE nearest-neighbour updates, inserting fresh ROIs immediately so the path reshapes in flight. Safety layers include GPS geofence → return-to-home, RF-loss → return-to-home after ~10&nbsp;s, and battery thresholds that warn at 20% and auto-land at 15%.</p>
+              <p>Raspberry Pi 5 runs vision and the route planner. SSD-MobileNet-v2 was converted to NCNN, delivering ~20&nbsp;ms per frame. ROS 2 over uXRCE-DDS links the Pi to PX4 on a Pixhawk 6C via a 921&nbsp;kbit/s serial connection; a micro-agent publishes <code>/roi_array</code>, and PX4’s XRCE-DDS client maps it to the uORB <code>vehicle_trajectory_waypoint</code> for low-latency updates. Telemetry (<code>vehicle_gps_position</code>, <code>battery_status</code>) streams to QGroundControl for live monitoring.</p>
+              <p>SWEEP coverage alternates with SERVICE nearest-neighbour updates, inserting fresh ROIs immediately so the path reshapes in flight. Safety layers include GPS geofence → return-to-home, RF-loss → return-to-home after ~10&nbsp;s, and battery thresholds that warn at 20% and auto-land at 15%.</p>
             </div>
             <p class="project-story__closing">Every sortie ran the full stack—vision, planning, and safety—without skipping a heartbeat.</p>
           </div>
