@@ -746,6 +746,7 @@ if (projectShowcase) {
           secondaryFrame.className = `project-case__media-secondary project-case__media-secondary--${galleryIdx + 1}`;
           secondaryFrame.hidden = true;
           secondaryFrame.setAttribute('aria-hidden', 'true');
+          secondaryFrame.style.setProperty('--media-reveal-delay', `${(galleryIdx + 1) * 0.1}s`);
 
           const secondaryImg = document.createElement('img');
           secondaryImg.src = mediaItem.src;
