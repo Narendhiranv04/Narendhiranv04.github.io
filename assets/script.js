@@ -539,14 +539,14 @@ if (publicationContainer) {
   }
 }
 
-// --- FLAGSHIP PROJECTS ---
+// --- COMPETITION PROJECTS ---
 const flagshipProjects = [
   {
     title: 'Autonomous UAS',
     focus: 'Aerial Robotics · Systems Lead',
     timeframe: 'SAE AeroTHON · 2024',
     description:
-      'Led the systems team delivering a competition-ready quadcopter with full autonomy stack, resilient perception, and safety interlocks.',
+      'Led the systems team delivering a competition-ready quadcopter with onboard vision and dynamic replanning.',
     image: {
       src: 'uav.jpg',
       alt: 'Autonomous quadcopter at the SAE AeroTHON',
@@ -561,23 +561,22 @@ const flagshipProjects = [
         alt: 'Flight control systems check taking place beside the quadcopter',
       },
     ],
-    technologies: ['ROS 2', 'PX4 Autopilot', 'OpenCV', 'Raspberry Pi'],
+    technologies: ['ROS 2', 'uXRCE-DDS', 'PX4', 'Raspberry Pi 5', 'OpenCV', 'QGroundControl'],
     outcome:
-      'Top-15 national finish for autonomous flight across endurance, payload drop, and navigation tasks.',
+      'Top-15 national finish across endurance, payload-drop, and navigation.',
     story: {
-      openLabel: 'Read the flight log',
-      closeLabel: 'Hide flight log',
+      openLabel: 'Read more',
+      closeLabel: 'Less',
       body: `
         <div class="project-story">
           <div class="project-story__window">
-            <p class="project-story__tag">Flight deck memo</p>
-            <h4 class="project-story__title">From wind-tunnel scribbles to a self-reliant sortie</h4>
+            <p class="project-story__tag">IMPLEMENTATION DETAILS</p>
+            <h4 class="project-story__title">Autonomy stack tuned for live competition sorties</h4>
             <div class="project-story__body">
-              <p>We rebuilt the composite arms around airflow simulations so the battery sled stayed cool while technicians could reroute harnesses during frantic pit windows.</p>
-              <p>Night-long integration runs replayed PX4 HITL logs while we toggled every safety interlock; only when the ROS 2 watchdogs stayed silent did we let the quad hover untethered.</p>
-              <p>The acceptance sortie started before sunrise, logging crisp AprilTag relocalisation plots that convinced judges the autonomy stack could rescue itself from GPS dropouts.</p>
+              <p><strong>Onboard stack.</strong> Raspberry Pi 5 runs vision and the route planner. SSD-MobileNet-v2 was converted to NCNN, delivering ~20&nbsp;ms per frame. ROS 2 over uXRCE-DDS links the Pi to PX4 on a Pixhawk 6C via a 921&nbsp;kbit/s serial connection; a micro-agent publishes <code>/roi_array</code>, and PX4’s XRCE-DDS client maps it to the uORB <code>vehicle_trajectory_waypoint</code> for low-latency updates. Telemetry (<code>vehicle_gps_position</code>, <code>battery_status</code>) streams to QGroundControl for live monitoring.</p>
+              <p><strong>Hybrid routing.</strong> SWEEP coverage alternates with SERVICE nearest-neighbour updates, inserting fresh ROIs immediately so the path reshapes in flight. Safety layers include GPS geofence → return-to-home, RF-loss → return-to-home after ~10&nbsp;s, and battery thresholds that warn at 20% and auto-land at 15%.</p>
             </div>
-            <p class="project-story__closing">Every safe landing was a systems engineering love letter.</p>
+            <p class="project-story__closing">Every sortie ran the full stack—vision, planning, and safety—without skipping a heartbeat.</p>
           </div>
         </div>
       `,
@@ -607,12 +606,12 @@ const flagshipProjects = [
     outcome:
       'Secured 2nd place in the national qualifier while open-sourcing reusable evaluation utilities.',
     story: {
-      openLabel: 'Open the build diary',
-      closeLabel: 'Hide the build diary',
+      openLabel: 'Read more',
+      closeLabel: 'Less',
       body: `
         <div class="project-story">
           <div class="project-story__window">
-            <p class="project-story__tag">Studio log</p>
+            <p class="project-story__tag">IMPLEMENTATION DETAILS</p>
             <h4 class="project-story__title">Designing a multimodal co-pilot that feels like a creative partner</h4>
             <div class="project-story__body">
               <p>User interviews pushed us to write copy that sounded like a senior designer, so every suggestion read like a colleague whispering over Figma instead of a generic chatbot.</p>
@@ -649,12 +648,12 @@ const flagshipProjects = [
     outcome:
       'Achieved fully autonomous line-following with reliable gate traversal in final demos.',
     story: {
-      openLabel: 'Peek into the control room',
-      closeLabel: 'Close the control room',
+      openLabel: 'Read more',
+      closeLabel: 'Less',
       body: `
         <div class="project-story">
           <div class="project-story__window">
-            <p class="project-story__tag">Lab note</p>
+            <p class="project-story__tag">IMPLEMENTATION DETAILS</p>
             <h4 class="project-story__title">Taming the Parrot Mambo with model-based wizardry</h4>
             <div class="project-story__body">
               <p>Simulink models digested every prop wash log we collected, letting us reparameterise the plant before breakfast scrubs so the quad always matched reality.</p>
@@ -691,12 +690,12 @@ const flagshipProjects = [
     outcome:
       'Independent Assignment Project',
     story: {
-      openLabel: 'Unpack the research notes',
-      closeLabel: 'Hide the research notes',
+      openLabel: 'Read more',
+      closeLabel: 'Less',
       body: `
         <div class="project-story">
           <div class="project-story__window">
-            <p class="project-story__tag">Notebook excerpt</p>
+            <p class="project-story__tag">IMPLEMENTATION DETAILS</p>
             <h4 class="project-story__title">Rewriting shortest paths when the map lies</h4>
             <div class="project-story__body">
               <p>Classic grid planners treat unknown space like empty air; I wanted the toolkit to treat every blind corner as a hypothesis instead.</p>
@@ -847,7 +846,7 @@ if (projectShowcase) {
       cta.type = 'button';
       cta.className = 'project-case__cta';
       const openLabel = project.story.openLabel || 'Read more';
-      const closeLabel = project.story.closeLabel || 'Close';
+      const closeLabel = project.story.closeLabel || 'Less';
       cta.setAttribute('aria-expanded', 'false');
 
       const ctaIcon = document.createElement('span');
