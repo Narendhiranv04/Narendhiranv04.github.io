@@ -523,6 +523,12 @@ if (publicationContainer) {
         const actions = document.createElement('div');
         actions.className = 'publication-card__actions';
 
+        const linkIcons = {
+          'arxiv': '📄',
+          'arxiv (soon)': '📄',
+          'project page': '🌐',
+        };
+
         item.links.forEach((link) => {
           let action;
 
@@ -541,7 +547,25 @@ if (publicationContainer) {
           }
 
           action.className = 'publication-card__action';
-          action.textContent = link.label;
+
+          const labelKey = link.label.trim().toLowerCase();
+          const iconGlyph = linkIcons[labelKey];
+
+          if (iconGlyph) {
+            const icon = document.createElement('span');
+            icon.className = 'publication-card__action-icon';
+            icon.setAttribute('aria-hidden', 'true');
+            icon.textContent = iconGlyph;
+
+            const text = document.createElement('span');
+            text.className = 'publication-card__action-text';
+            text.textContent = link.label;
+
+            action.append(icon, text);
+          } else {
+            action.textContent = link.label;
+          }
+
           actions.appendChild(action);
         });
 
