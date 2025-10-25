@@ -318,6 +318,8 @@ button.publication-card__action[disabled]{cursor:not-allowed;border-style:dashed
   background:color-mix(in srgb,var(--color-surface) 72%,rgba(255,255,255,.58));box-shadow:var(--shadow-sm);
   transform:translateY(48px);opacity:0;transition:transform .6s cubic-bezier(.21,.78,.35,1),opacity .6s ease;
   transition-delay:calc(var(--animation-index,0)*110ms);
+  --project-media-outer-radius:calc(var(--radius-lg) - 8px);
+  --project-media-inner-radius:calc(var(--radius-lg) - 12px);
 }
 .project-case::before{
   content:'';position:absolute;inset:-20% 15% 55% -25%;
@@ -330,7 +332,8 @@ button.publication-card__action[disabled]{cursor:not-allowed;border-style:dashed
 
 /* PROJECT IMAGES — show full image (no zoom/crop) */
 .project-case__media{
-  position:relative;border-radius:calc(var(--radius-lg) - 8px);
+  position:relative;border-radius:var(--project-media-outer-radius);
+  overflow:hidden;
   padding:0;
   background:transparent;
   box-shadow:none;
@@ -344,7 +347,7 @@ button.publication-card__action[disabled]{cursor:not-allowed;border-style:dashed
 }
 .project-case__media-main,
 .project-case__media-secondary{
-  position:relative;border-radius:calc(var(--radius-lg) - 12px);
+  position:relative;border-radius:var(--project-media-inner-radius);
   overflow:hidden;display:flex;align-items:center;justify-content:center;
   background:transparent;
   box-shadow:none;
@@ -357,6 +360,12 @@ button.publication-card__action[disabled]{cursor:not-allowed;border-style:dashed
   border-radius:inherit;
 }
 .project-case__media-secondary{display:none;opacity:0;transform:translateY(18px) scale(.98);}
+.project-case.is-expanded .project-case__media{border-radius:var(--project-media-outer-radius);}
+.project-case.is-expanded .project-case__media-grid{border-radius:inherit;overflow:hidden;}
+.project-case.is-expanded .project-case__media-main,
+.project-case.is-expanded .project-case__media-secondary{border-radius:var(--project-media-inner-radius);}
+.project-case.is-expanded .project-case__media-main img,
+.project-case.is-expanded .project-case__media-secondary img{border-radius:inherit;}
 .project-case.is-expanded .project-case__media{min-height:100vh;}
 .project-case.is-expanded .project-case__media-grid{justify-content:stretch;height:100%;}
 .project-case.is-expanded .project-case__media-main,

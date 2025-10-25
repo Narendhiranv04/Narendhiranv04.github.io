@@ -621,7 +621,7 @@ const flagshipProjects = [
         alt: 'Autonomous UAS systems team preparing the quadcopter before flight',
       },
       {
-        src: 'assets/images/extracurriculars/aerothon.jpg',
+        src: 'aerothon.jpg',
         alt: 'Autonomous quadcopter ready on the launch pad at SAE AeroTHON',
       },
     ],
