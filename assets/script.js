@@ -381,20 +381,6 @@ const publicationGroups = [
     items: [
       {
         title:
-          'Fuzzy Logic–GRU Framework for Real-Time Sit-to-Walk Joint Torque Estimation',
-        authors: 'C. Perera, N. Vijayakumar, A. Agape*',
-        venue: 'IEEE TNNLS · 2025 (under review)',
-        status: 'Submitted',
-        links: [
-          { label: 'arXiv (soon)', href: null },
-          {
-            label: 'Project Page',
-            href: 'research/monash-assistive.html',
-          },
-        ],
-      },
-      {
-        title:
           'AURASeg: Attention Guided Upsampling with Residual Boundary-Assistive Refinement',
         authors: 'N. Vijayakumar*, M. Sridevi',
         venue: 'Signal, Image and Video Processing · 2025 (under review)',
