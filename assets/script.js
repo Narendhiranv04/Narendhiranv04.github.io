@@ -593,7 +593,7 @@ const flagshipProjects = [
     focus: 'Multimodal AI · Team Lead',
     timeframe: 'Smart India Hackathon · 2024',
     description:
-      'Built a co-pilot for image-centric workflows that blends grounded visual question answering with controllable generative edits.',
+      'Developed a multimodal conversational image recognition chatbot for segmentation, inpainting, and generation',
     image: {
       src: 'pixelbot.jpg',
       alt: 'PixelBot multimodal assistant interface mockup',
@@ -608,7 +608,7 @@ const flagshipProjects = [
         alt: 'UI explorations for the PixelBot workspace layout',
       },
     ],
-    technologies: ['Python', 'PyTorch','FastAPI'],
+    technologies: ['Python', 'PyTorch', 'React', 'TypeScript'],
     outcome:
       'Secured 2nd place in the national qualifier while open-sourcing reusable evaluation utilities.',
     codeUrl:
@@ -620,13 +620,13 @@ const flagshipProjects = [
         <div class="project-story">
           <div class="project-story__window">
             <p class="project-story__tag">IMPLEMENTATION DETAILS</p>
-            <h4 class="project-story__title">Designing a multimodal co-pilot that feels like a creative partner</h4>
+            <h4 class="project-story__title">Multimodal pipeline for conversational image editing</h4>
             <div class="project-story__body">
-              <p>User interviews pushed us to write copy that sounded like a senior designer, so every suggestion read like a colleague whispering over Figma instead of a generic chatbot.</p>
-              <p>CLIP heatmaps anchored the right pixels while a trimmed diffusion loop executed edits, keeping answers grounded in the canvas rather than hallucinated from thin air.</p>
-              <p>Session transcripts streamed into a feedback dashboard that highlighted hesitation points, letting us retune tooltips and default masks hours before the final pitch.</p>
+              <p>The chatbot fuses LLaVA Interactive, SAM2, and Stable Diffusion/GLIGEN into a single multimodal pipeline capable of describe–segment–inpaint–generate interactions through dialogue.</p>
+              <p>An LSTM memory buffer maintains conversational continuity, enabling keyword refinement and contextual recall across turns.</p>
+              <p>Frontend runs on React + TypeScript + Tailwind, while a Flask–MongoDB backend orchestrates PyTorch models through REST APIs.</p>
+              <p>Image queries are parsed using RAKE/YAKE/TextRank for iterative keyword extraction, feeding downstream visual modules for region-based responses.</p>
             </div>
-            <p class="project-story__closing">AI feels magical when it makes the designer braver, not redundant.</p>
           </div>
         </div>
       `,
