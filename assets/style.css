@@ -632,8 +632,8 @@ body[data-theme='light'] .project-case__cta--code{background:linear-gradient(120
 .timeline-item:nth-child(even){
   left:50%;justify-content:flex-start;padding-left:clamp(2.25rem,5vw,3rem);padding-right:clamp(1rem,3vw,1.75rem);
 }
-.timeline-item:nth-child(odd) .timeline-image,.timeline-item:nth-child(odd) .timeline-content{margin-right:clamp(.75rem,2vw,1.25rem);}
-.timeline-item:nth-child(even) .timeline-image,.timeline-item:nth-child(even) .timeline-content{margin-left:clamp(.75rem,2vw,1.25rem);}
+.timeline-item:nth-child(odd) .timeline-image,.timeline-item:nth-child(odd) .timeline-content{margin-right:clamp(1.25rem,3vw,2.25rem);}
+.timeline-item:nth-child(even) .timeline-image,.timeline-item:nth-child(even) .timeline-content{margin-left:clamp(1.25rem,3vw,2.25rem);}
 
 .timeline-item::before{
   content:'';position:absolute;top:24px;width:16px;height:16px;border-radius:50%;border:3px solid var(--color-accent);
