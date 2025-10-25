@@ -211,6 +211,20 @@ const researchExperiences = [
       alt: 'NTU Singapore logo',
     },
     storyUrl: 'research/ntu-latent-action.html',
+    links: [
+      {
+        label: 'arXiv',
+        icon: '📄',
+        href: null,
+        title: 'arXiv link coming soon',
+      },
+      {
+        label: 'Project Page',
+        icon: '🔗',
+        href: 'research/ntu-latent-action.html',
+        primary: true,
+      },
+    ],
   },
   {
     title: 'Task & Motion Planning Intern',
@@ -223,6 +237,20 @@ const researchExperiences = [
       alt: 'IIIT Hyderabad logo',
     },
     storyUrl: 'research/iiith-contracts.html',
+    links: [
+      {
+        label: 'arXiv',
+        icon: '📄',
+        href: null,
+        title: 'arXiv link coming soon',
+      },
+      {
+        label: 'Project Page',
+        icon: '🔗',
+        href: 'research/iiith-contracts.html',
+        primary: true,
+      },
+    ],
   },
   {
     title: 'Assistive Robotics Intern',
@@ -235,6 +263,20 @@ const researchExperiences = [
       alt: 'Monash University logo',
     },
     storyUrl: 'research/monash-assistive.html',
+    links: [
+      {
+        label: 'arXiv',
+        icon: '📄',
+        href: null,
+        title: 'arXiv link coming soon',
+      },
+      {
+        label: 'Project Page',
+        icon: '🔗',
+        href: 'research/monash-assistive.html',
+        primary: true,
+      },
+    ],
   },
   {
     title: 'Robotic Perception Intern',
@@ -247,6 +289,20 @@ const researchExperiences = [
       alt: 'IIT Bombay logo',
     },
     storyUrl: 'research/iitb-auraseg.html',
+    links: [
+      {
+        label: 'arXiv',
+        icon: '📄',
+        href: null,
+        title: 'arXiv link coming soon',
+      },
+      {
+        label: 'Project Page',
+        icon: '🔗',
+        href: 'research/iitb-auraseg.html',
+        primary: true,
+      },
+    ],
   },
 ];
 
@@ -290,7 +346,54 @@ if (researchTimeline) {
     body.className = 'timeline-body';
     body.append(meta, heading, description);
 
-    if (experience.storyUrl) {
+    const links = Array.isArray(experience.links) ? experience.links : null;
+
+    if (links && links.length) {
+      const actions = document.createElement('div');
+      actions.className = 'timeline-actions';
+
+      links.forEach((link) => {
+        const isInteractive = Boolean(link.href);
+        const action = document.createElement(isInteractive ? 'a' : 'button');
+        action.className = 'timeline-link';
+
+        if (link.primary) {
+          action.classList.add('timeline-link--primary');
+        }
+
+        if (isInteractive) {
+          action.href = link.href;
+          if (/^https?:\/\//.test(link.href)) {
+            action.target = '_blank';
+            action.rel = 'noopener noreferrer';
+          }
+          action.setAttribute('aria-label', `${experience.title} – ${link.label}`);
+        } else {
+          action.classList.add('timeline-link--disabled');
+          action.setAttribute('aria-disabled', 'true');
+          action.type = 'button';
+          action.disabled = true;
+          action.setAttribute('title', link.title || `${link.label} coming soon`);
+        }
+
+        if (link.icon) {
+          const icon = document.createElement('span');
+          icon.className = 'timeline-link__icon';
+          icon.setAttribute('aria-hidden', 'true');
+          icon.textContent = link.icon;
+          action.appendChild(icon);
+        }
+
+        const label = document.createElement('span');
+        label.className = 'timeline-link__label';
+        label.textContent = link.label;
+        action.appendChild(label);
+
+        actions.appendChild(action);
+      });
+
+      body.appendChild(actions);
+    } else if (experience.storyUrl) {
       const actions = document.createElement('div');
       actions.className = 'timeline-actions';
 
