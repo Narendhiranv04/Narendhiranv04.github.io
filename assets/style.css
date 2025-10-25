@@ -43,11 +43,7 @@ body[data-theme="dark"] {
     rgba(18, 26, 54, 0.92)
   );
   --timeline-card-border: rgba(130, 138, 255, 0.35);
-  --timeline-image-bg: linear-gradient(
-    135deg,
-    rgba(241, 244, 255, 0.94),
-    rgba(211, 218, 255, 0.85)
-  );
+  --timeline-image-bg: #ffffff;
   --color-hero-gradient: radial-gradient(circle at 10% 10%, #25356d 0%, #0c142a 46%, #050913 100%);
   --color-header: rgba(6, 12, 26, 0.85);
   --color-outline: rgba(123, 131, 255, 0.28);
@@ -77,11 +73,7 @@ body[data-theme="light"] {
     rgba(255, 255, 255, 0.92)
   );
   --timeline-card-border: rgba(55, 65, 146, 0.22);
-  --timeline-image-bg: linear-gradient(
-    135deg,
-    rgba(246, 247, 255, 0.96),
-    rgba(234, 238, 255, 0.92)
-  );
+  --timeline-image-bg: #ffffff;
   --color-hero-gradient: radial-gradient(circle at 5% 25%, #ffffff 0%, #eef2ff 48%, #e0e7ff 100%);
   --color-header: rgba(255, 255, 255, 0.88);
   --color-outline: rgba(76, 81, 191, 0.28);
