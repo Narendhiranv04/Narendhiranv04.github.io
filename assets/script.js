@@ -156,6 +156,36 @@ navLinks.forEach((link) => {
   });
 });
 
+// --- BACK TO TOP LINK ---
+const backToTopLinks = Array.from(document.querySelectorAll('.back-to-top'));
+
+backToTopLinks.forEach((link) => {
+  link.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    const topTarget = document.getElementById('top');
+    if (topTarget) {
+      const hadTabIndex = topTarget.hasAttribute('tabindex');
+      if (!hadTabIndex) {
+        topTarget.setAttribute('tabindex', '-1');
+      }
+
+      topTarget.focus({ preventScroll: true });
+
+      if (!hadTabIndex) {
+        topTarget.addEventListener(
+          'blur',
+          () => {
+            topTarget.removeAttribute('tabindex');
+          },
+          { once: true }
+        );
+      }
+    }
+  });
+});
+
 // --- ACTIVE SECTION HIGHLIGHTING ---
 /**
  * Prefer sections that nav links point to.
