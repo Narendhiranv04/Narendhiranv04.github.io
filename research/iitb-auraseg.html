@@ -43,44 +43,68 @@
           <p class="research-article__meta">IIT Bombay · Drivable area segmentation for Indian roads</p>
           <p class="research-article__lead">
             I built AURASeg—Attention-guided Upsampling with Residual boundary refinements—to map drivable space on chaotic Indian
-            roads. The model outperformed YOLOP on mIoU and F1, but the real win was how it held the lane under rain, glare, and
-            reflective puddles.
+            roads. It was the first time I owned every part of a perception stack, from idea to embedded deployment, and it had to
+            run on a Jetson-class robot without flinching.
           </p>
         </header>
 
         <div class="research-article__content">
           <p class="research-article__text">
-            <strong>Problem space.</strong>
-            Dense, reflective roads are brutal on standard segmentation baselines. Puddles, tar patches, and headlight glare all
-            masquerade as “safe” space and pull controllers into danger zones.
+            <strong>Kickoff.</strong>
+            This was the first project that actually felt like “real research” to me. It also forced me to figure things out mostly
+            on my own. The professor was always busy, there was no grad student hand-holding, and I was basically the only person on
+            the project. That ended up being useful. I got time, hardware, and space to think. I had a Kobuki Turtlebot I could run
+            experiments on, and I could pick any direction under “autonomous navigation.” I could’ve gone into planning/navigation or
+            perception. I chose perception — partly because I was new to robotics and it felt easier to enter, and partly because I
+            was just curious about how robots see.
           </p>
 
           <p class="research-article__text">
-            <strong>Solution.</strong>
-            AURASeg couples attention-guided upsampling with residual boundary refinements so the decoder tracks both texture and
-            geometry. A lightweight auxiliary edge detector feeds the decoder to keep curbs crisp while staying real-time.
+            <strong>Direction.</strong>
+            I started diving into the perception stack for mobile robots and autonomous driving: lane detection, drivable-area
+            segmentation, object detection — the full panoptic story. Very quickly it became clear that off-the-shelf robots like the
+            Kobuki don’t have the luxury of big GPUs. I had to make something that could actually run on an NVIDIA Jetson Nano, which
+            meant caring about both latency and accuracy, not just one. I focused on drivable area segmentation and began with
+            YOLOP, but instead of treating it as a full multitask setup I really went deep into that one head <em>(just dove into it,
+            because that seemed interesting if I am being honest)</em>. I added an attention block that mixed spatial attention and
+            squeeze-and-excitation (SE) attention, and I backed it with ablation to prove it wasn’t just a random tweak. On both my
+            custom Gazebo indoor dataset and the GMRP (Ground Mobile Robot Perception) dataset, that change gave a measurable boost.
           </p>
 
           <p class="research-article__text">
-            <strong>Moments.</strong>
-            Hitting better mIoU and F1 than YOLOP was satisfying, but the real moment was a wet-night sequence where AURASeg kept the
-            drivable ribbon tight instead of drifting into oncoming headlights.
+            <strong>First pass.</strong>
+            Even with those improvements, the results still weren’t where they needed to be. The segmentation was especially weak
+            around borders. The robot could kind of tell “floor vs not floor,” but the boundary between drivable and not-drivable was
+            noisy, basically useless if you care about not scraping along walls or furniture. So I went hunting for ways people
+            sharpen boundaries. A lot of work tries to repair edges using extra convolutional branches or refinement heads. I tried a
+            few versions of that idea: should I explicitly feed a boundary mask back into the network at the end, under supervision?
+            Or is it better to just let the model learn from full labels and refine internally?
           </p>
 
           <p class="research-article__text">
-            <strong>Deployment.</strong>
-            We pruned and quantised the network for a Jetson Xavier, then wrapped it in a ROS 2 node that streams masks with a 12 ms
-            budget. On-board latency stayed flat even with additional diagnostics switched on.
+            <strong>Tightening the edges.</strong>
+            This part was the hardest. Once I started stacking more modules, the loss balancing became annoying. Which output do I
+            care about more: clean borders, or broad-region consistency? Overweight the borders and you overfit on thin outlines.
+            Underweight them and you’re back to mushy masks. After ablation, I ended up settling on a combo of focal loss and dice
+            loss. Focal helped with underrepresented, thin regions and tricky textures, and dice helped keep overall region shape
+            consistent. That pairing made the boundary quality noticeably better.
           </p>
 
           <p class="research-article__text">
-            <strong>Outlook.</strong>
-            Next up is domain-adaptive fine-tuning so fog, dust, and rain stop feeling like edge cases. The goal is to keep the model
-            honest when the scenery shifts.
+            <strong>Finally.</strong>
+            The final model — AURASeg, as legally declared by… me (occupational hazard of being the only person on the project)— beat
+            YOLOP’s drivable-area head and other baseline models on F1 score for drivable region, when tested on GMRP and my Gazebo
+            dataset, and it did it with only a small hit to runtime. That trade was important: I didn’t build a giant offline network
+            that only looks good on a laptop GPU. I built something a cheap robot can actually run in real time and trust for
+            navigation. This is the core point: for a robot that’s just trying not to crash into stuff indoors, getting the boundary
+            right matters way more than impressing people with pretty global masks.
           </p>
 
           <p class="research-article__closing">
-            Robust perception is the quiet confidence behind autonomous navigation.
+            <strong>On a personal level.</strong>
+            This project is what pulled me into deep learning for robotics. Not from the theory side, but from the “will it run on
+            the robot sitting on my desk?” side. I had to care about perception, embedded inference, model design, and evaluation. I
+            fell in love with the liberty I got, to work on different, exciting stuffs!
           </p>
         </div>
       </article>
