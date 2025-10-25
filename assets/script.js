@@ -617,12 +617,12 @@ const flagshipProjects = [
     },
     gallery: [
       {
-        src: 'aerothon.jpg',
-        alt: 'Autonomous quadcopter team showcasing the airframe at AeroTHON',
+        src: 'assets/images/extracurriculars/unnamed.jpg',
+        alt: 'Autonomous UAS systems team preparing the quadcopter before flight',
       },
       {
-        src: 'synergy.jpg',
-        alt: 'Flight control systems check taking place beside the quadcopter',
+        src: 'assets/images/extracurriculars/aerothon.jpg',
+        alt: 'Autonomous quadcopter ready on the launch pad at SAE AeroTHON',
       },
     ],
     technologies: ['ROS 2', 'uXRCE-DDS', 'PX4', 'Raspberry Pi 5', 'OpenCV', 'QGroundControl'],
@@ -660,12 +660,12 @@ const flagshipProjects = [
     },
     gallery: [
       {
-        src: 'maximus.jpg',
-        alt: 'Storyboarding sketches pinned beside the PixelBot interface',
+        src: 'assets/images/extracurriculars/sih_chatbot.png',
+        alt: 'PixelBot multimodal assistant interface answering a user prompt',
       },
       {
-        src: 'blah.png',
-        alt: 'UI explorations for the PixelBot workspace layout',
+        src: 'assets/images/extracurriculars/sih_interface.png',
+        alt: 'PixelBot chatbot workflow showing multimodal editing tools',
       },
     ],
     technologies: ['Python', 'PyTorch', 'React', 'TypeScript'],
@@ -705,12 +705,12 @@ const flagshipProjects = [
     },
     gallery: [
       {
-        src: 'ignitte.jpg',
-        alt: 'Competition booth showcasing the Parrot Mambo autonomous system',
+        src: 'assets/images/extracurriculars/mathworks_real.png',
+        alt: 'MathWorks Minidrone competition arena with the Parrot Mambo on track',
       },
       {
-        src: '3d.jpg',
-        alt: '3D visualisation of the drone race track used during testing',
+        src: 'assets/images/extracurriculars/mathworks_simulink.png',
+        alt: 'Simulink environment visualising the Parrot Mambo autonomy stack',
       },
     ],
     technologies: ['MATLAB', 'Simulink', 'Stateflow'],
@@ -766,6 +766,7 @@ if (projectShowcase) {
       img.src = project.image.src;
       img.alt = project.image.alt || `${project.title} illustration`;
       img.loading = 'lazy';
+      img.decoding = 'async';
 
       mainFrame.appendChild(img);
       mediaGrid.appendChild(mainFrame);
@@ -784,6 +785,7 @@ if (projectShowcase) {
           secondaryImg.alt =
             mediaItem.alt || `${project.title} supporting visual ${galleryIdx + 1}`;
           secondaryImg.loading = 'lazy';
+          secondaryImg.decoding = 'async';
 
           secondaryFrame.appendChild(secondaryImg);
           mediaGrid.appendChild(secondaryFrame);
