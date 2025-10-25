@@ -581,7 +581,6 @@ const flagshipProjects = [
               <p>Raspberry Pi 5 runs vision and the route planner. SSD-MobileNet-v2 was converted to NCNN, delivering ~20&nbsp;ms per frame. ROS 2 over uXRCE-DDS links the Pi to PX4 on a Pixhawk 6C via a 921&nbsp;kbit/s serial connection; a micro-agent publishes <code>/roi_array</code>, and PX4’s XRCE-DDS client maps it to the uORB <code>vehicle_trajectory_waypoint</code> for low-latency updates. Telemetry (<code>vehicle_gps_position</code>, <code>battery_status</code>) streams to QGroundControl for live monitoring.</p>
               <p>SWEEP coverage alternates with SERVICE nearest-neighbour updates, inserting fresh ROIs immediately so the path reshapes in flight. Safety layers include GPS geofence → return-to-home, RF-loss → return-to-home after ~10&nbsp;s, and battery thresholds that warn at 20% and auto-land at 15%.</p>
             </div>
-            <p class="project-story__closing">Every sortie ran the full stack—vision, planning, and safety—without skipping a heartbeat.</p>
           </div>
         </div>
       `,
@@ -671,52 +670,6 @@ const flagshipProjects = [
               <p>A Stateflow path-planner in Simulink drives cascaded PID loops for roll, pitch, and yaw, enabling Virtual Target Point (VTP) tracking and marker-based navigation on the Parrot Mambo micro-drone.</p>
               <p>The system achieves stable line following and autonomous course correction under varying lighting and path curvature.</p>
             </div>
-            <p class="project-story__closing">Model-based design turned a tiny drone into a disciplined racer.</p>
-          </div>
-        </div>
-      `,
-    },
-  },
-  {
-    title: 'Occlusion-Aware Avoidance Toolkit',
-    slug: 'project-occlusion-aware-toolkit',
-    focus: 'Motion Planning',
-    timeframe: 'March 2024',
-    description:
-      'Developed a Python toolkit for navigation on dense occupancy grids with occlusion-aware path reasoning.',
-    image: {
-      src: 'randomized_triangle_2.jpeg',
-      alt: 'Occlusion-aware navigation heatmap visualization',
-    },
-    gallery: [
-      {
-        src: 'ntu.png',
-        alt: 'Path planning overlays annotated on a grid-based lab environment',
-      },
-      {
-        src: 'iitb.png',
-        alt: 'Research team badge illustrating the occlusion planning study',
-      },
-    ],
-    technologies: ['Python', 'NumPy', 'Matplotlib'],
-    outcome:
-      'Independent Assignment Project',
-    codeUrl:
-      'https://drive.google.com/drive/folders/16G9y9LijUwDukh7nrMo0nLFA_H18BnX0?usp=sharing',
-    story: {
-      openLabel: 'Read more',
-      closeLabel: 'Less',
-      body: `
-        <div class="project-story">
-          <div class="project-story__window">
-            <p class="project-story__tag">IMPLEMENTATION DETAILS</p>
-            <h4 class="project-story__title">Rewriting shortest paths when the map lies</h4>
-            <div class="project-story__body">
-              <p>Classic grid planners treat unknown space like empty air; I wanted the toolkit to treat every blind corner as a hypothesis instead.</p>
-              <p>Visibility cones blended with traversal history to assign speculative costs, pulling the robot toward gentle reconnaissance sweeps rather than reckless shortcuts.</p>
-              <p>Synthetic mazes with collapsing corridors proved the point—trajectories stayed smooth and the planner stopped thrashing when the world changed mid-run.</p>
-            </div>
-            <p class="project-story__closing">Path planners should be curious, not just cautious.</p>
           </div>
         </div>
       `,
