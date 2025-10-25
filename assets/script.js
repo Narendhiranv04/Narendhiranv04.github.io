@@ -211,20 +211,7 @@ const researchExperiences = [
       alt: 'NTU Singapore logo',
     },
     storyUrl: 'research/ntu-latent-action.html',
-    links: [
-      {
-        label: 'arXiv',
-        icon: '📄',
-        href: null,
-        title: 'arXiv link coming soon',
-      },
-      {
-        label: 'Project Page',
-        icon: '🔗',
-        href: 'research/ntu-latent-action.html',
-        primary: true,
-      },
-    ],
+    primaryCta: 'Read more',
   },
   {
     title: 'Task & Motion Planning Intern',
@@ -237,20 +224,7 @@ const researchExperiences = [
       alt: 'IIIT Hyderabad logo',
     },
     storyUrl: 'research/iiith-contracts.html',
-    links: [
-      {
-        label: 'arXiv',
-        icon: '📄',
-        href: null,
-        title: 'arXiv link coming soon',
-      },
-      {
-        label: 'Project Page',
-        icon: '🔗',
-        href: 'research/iiith-contracts.html',
-        primary: true,
-      },
-    ],
+    primaryCta: 'Read more',
   },
   {
     title: 'Assistive Robotics Intern',
@@ -263,20 +237,7 @@ const researchExperiences = [
       alt: 'Monash University logo',
     },
     storyUrl: 'research/monash-assistive.html',
-    links: [
-      {
-        label: 'arXiv',
-        icon: '📄',
-        href: null,
-        title: 'arXiv link coming soon',
-      },
-      {
-        label: 'Project Page',
-        icon: '🔗',
-        href: 'research/monash-assistive.html',
-        primary: true,
-      },
-    ],
+    primaryCta: 'Read more',
   },
   {
     title: 'Robotic Perception Intern',
@@ -289,20 +250,7 @@ const researchExperiences = [
       alt: 'IIT Bombay logo',
     },
     storyUrl: 'research/iitb-auraseg.html',
-    links: [
-      {
-        label: 'arXiv',
-        icon: '📄',
-        href: null,
-        title: 'arXiv link coming soon',
-      },
-      {
-        label: 'Project Page',
-        icon: '🔗',
-        href: 'research/iitb-auraseg.html',
-        primary: true,
-      },
-    ],
+    primaryCta: 'Read more',
   },
 ];
 
