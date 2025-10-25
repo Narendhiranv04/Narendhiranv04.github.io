@@ -638,7 +638,7 @@ const flagshipProjects = [
     focus: 'Embedded Autonomy · Controls Engineer',
     timeframe: 'MathWorks Minidrone Challenge · 2024',
     description:
-      'Engineered a lightweight autonomy stack for the Parrot Mambo microdrone using MATLAB/Simulink for rapid iteration.',
+      'a lightweight autonomy stack for the Parrot Mambo minidrone using MATLAB/Simulink',
     image: {
       src: 'mathworks.jpg',
       alt: 'Parrot Mambo drone on display at the MathWorks challenge',
@@ -665,11 +665,11 @@ const flagshipProjects = [
         <div class="project-story">
           <div class="project-story__window">
             <p class="project-story__tag">IMPLEMENTATION DETAILS</p>
-            <h4 class="project-story__title">Taming the Parrot Mambo with model-based wizardry</h4>
+            <h4 class="project-story__title">Framework details</h4>
             <div class="project-story__body">
-              <p>Simulink models digested every prop wash log we collected, letting us reparameterise the plant before breakfast scrubs so the quad always matched reality.</p>
-              <p>A Stateflow supervisor orchestrated PID loops and gate events, keeping pivots razor sharp even when battery voltage sagged mid-heat.</p>
-              <p>Bench runs with neon diagnostics spelled out motor duty cycles and error cones, helping us shave milliseconds off lap times by the final showdown.</p>
+              <p>A custom image-processing pipeline performs path detection via channel filtering, binarization, and morphological erosion, extracting clean contours for trajectory estimation.</p>
+              <p>A Stateflow path-planner in Simulink drives cascaded PID loops for roll, pitch, and yaw, enabling Virtual Target Point (VTP) tracking and marker-based navigation on the Parrot Mambo micro-drone.</p>
+              <p>The system achieves stable line following and autonomous course correction under varying lighting and path curvature.</p>
             </div>
             <p class="project-story__closing">Model-based design turned a tiny drone into a disciplined racer.</p>
           </div>
