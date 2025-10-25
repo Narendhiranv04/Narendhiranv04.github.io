@@ -650,22 +650,17 @@ body[data-theme='light'] .project-case__cta--code{background:linear-gradient(120
 }
 .timeline-image{
   width:100%;height:clamp(95px,16vw,125px);
-  margin:0;padding:0;border-bottom:1px solid var(--color-border);background:var(--color-section);
+  margin:0;padding:clamp(.75rem,2vw,1.25rem);border-bottom:1px solid var(--color-border);background:#fff;
   display:flex;align-items:center;justify-content:center;border-top-left-radius:inherit;border-top-right-radius:inherit;overflow:hidden;isolation:isolate;
   position:relative;z-index:1;transition:filter .45s ease,opacity .45s ease;
 }
 .timeline-image img{
-  display:block;object-fit:contain;max-width:86%;max-height:78%;width:auto;height:auto;background:transparent;
-  mix-blend-mode:multiply;image-rendering:-webkit-optimize-contrast;
+  display:block;object-fit:contain;max-width:100%;max-height:100%;width:auto;height:auto;background:transparent;
+  mix-blend-mode:normal;image-rendering:-webkit-optimize-contrast;
 }
 
 body[data-theme="dark"] .timeline-image{
-  background:#f5f7ff;
-}
-
-body[data-theme="dark"] .timeline-image img{
-  mix-blend-mode:normal;
-  filter:none;
+  background:#fff;
 }
 
 .timeline-body{
