@@ -36,7 +36,6 @@
       <article class="research-article">
         <header class="research-article__header">
           <div class="research-article__badge">
-            <img src="../ntu.png" alt="NTU Singapore logo" />
             <span>Embodied AI · Manipulation</span>
           </div>
           <p class="research-article__eyebrow">Embodied AI Intern · May 2025 – Present</p>
@@ -48,97 +47,6 @@
             actions instead of appearance.
           </p>
         </header>
-
-        <figure class="research-article__hero">
-          <svg
-            viewBox="0 0 1200 520"
-            role="img"
-            aria-labelledby="ntu-latent-action-hero-title ntu-latent-action-hero-desc"
-          >
-            <title id="ntu-latent-action-hero-title">
-              Latent action retrieval guiding Moto-VLA policy decisions
-            </title>
-            <desc id="ntu-latent-action-hero-desc">
-              A wide illustration showing latent action snippets, FAISS neighbours, and policy attention over time.
-            </desc>
-            <defs>
-              <linearGradient id="ntu-hero-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#2a3f7f" />
-                <stop offset="45%" stop-color="#1a2750" />
-                <stop offset="100%" stop-color="#070c1d" />
-              </linearGradient>
-              <linearGradient id="ntu-hero-timeline" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#7dd3fc" />
-                <stop offset="50%" stop-color="#a855f7" />
-                <stop offset="100%" stop-color="#f472b6" />
-              </linearGradient>
-              <linearGradient id="ntu-hero-memory" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#c4b5fd" stop-opacity="0.95" />
-                <stop offset="100%" stop-color="#312e81" stop-opacity="0.6" />
-              </linearGradient>
-              <clipPath id="ntu-hero-clip">
-                <rect x="40" y="40" width="1120" height="360" rx="32" />
-              </clipPath>
-            </defs>
-            <rect width="1200" height="520" fill="url(#ntu-hero-bg)" rx="36" />
-            <g clip-path="url(#ntu-hero-clip)" opacity="0.88">
-              <rect x="40" y="40" width="1120" height="360" fill="#0f172a" opacity="0.65" />
-              <g stroke="#475569" stroke-width="1" opacity="0.32">
-                <line x1="40" y1="96" x2="1160" y2="96" />
-                <line x1="40" y1="168" x2="1160" y2="168" />
-                <line x1="40" y1="240" x2="1160" y2="240" />
-                <line x1="40" y1="312" x2="1160" y2="312" />
-                <line x1="40" y1="384" x2="1160" y2="384" />
-              </g>
-              <g opacity="0.8">
-                <rect x="96" y="128" width="220" height="156" rx="20" fill="url(#ntu-hero-memory)" />
-                <rect x="366" y="108" width="220" height="176" rx="20" fill="url(#ntu-hero-memory)" opacity="0.9" />
-                <rect x="636" y="148" width="220" height="136" rx="20" fill="url(#ntu-hero-memory)" opacity="0.75" />
-                <rect x="906" y="120" width="220" height="164" rx="20" fill="url(#ntu-hero-memory)" opacity="0.68" />
-              </g>
-              <g fill="#0f172a" stroke="#cbd5f5" stroke-width="2" opacity="0.85">
-                <rect x="116" y="148" width="180" height="84" rx="14" />
-                <rect x="386" y="128" width="180" height="84" rx="14" />
-                <rect x="656" y="168" width="180" height="84" rx="14" />
-                <rect x="926" y="140" width="180" height="84" rx="14" />
-              </g>
-              <g fill="#f9fafb" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="20" font-weight="600">
-                <text x="136" y="198">approach</text>
-                <text x="406" y="178">close gripper</text>
-                <text x="676" y="218">lift &amp; align</text>
-                <text x="946" y="190">handoff cue</text>
-              </g>
-              <g fill="#94a3b8" font-family="'DM Mono', 'Fira Code', monospace" font-size="15" opacity="0.82">
-                <text x="120" y="244">latent snippet t-2</text>
-                <text x="390" y="224">latent snippet t-1</text>
-                <text x="660" y="264">latent snippet t</text>
-                <text x="930" y="236">latent snippet t+1</text>
-              </g>
-              <g stroke="url(#ntu-hero-timeline)" stroke-width="6" stroke-linecap="round" opacity="0.9">
-                <line x1="120" y1="320" x2="1080" y2="320" />
-              </g>
-              <g fill="#0ea5e9" opacity="0.95">
-                <circle cx="200" cy="320" r="12" />
-                <circle cx="470" cy="320" r="12" />
-                <circle cx="740" cy="320" r="12" />
-                <circle cx="1010" cy="320" r="12" />
-              </g>
-              <g fill="#f8fafc" font-family="'DM Mono', 'Fira Code', monospace" font-size="14" opacity="0.82">
-                <text x="172" y="356">DTW align</text>
-                <text x="444" y="356">FAISS K</text>
-                <text x="712" y="356">cosine</text>
-                <text x="988" y="356">policy attn</text>
-              </g>
-            </g>
-            <g fill="#e2e8f0" font-family="'DM Sans', 'Segoe UI', sans-serif">
-              <text x="60" y="440" font-size="26" font-weight="700">Latent action memory</text>
-              <text x="60" y="472" font-size="18" opacity="0.75">
-                Retrieve by intent-aligned motion slices, not by appearance alone.
-              </text>
-            </g>
-          </svg>
-          <figcaption>Retrieval conditioned on action snippets rather than raw image frames.</figcaption>
-        </figure>
 
         <div class="research-article__content">
           <p class="research-article__text">
