@@ -354,7 +354,7 @@ const publicationGroups = [
           { label: 'arXiv (soon)', href: null },
           {
             label: 'Project Page',
-            href: 'https://narendhiranv04.github.io/#projects',
+            href: 'research/ntu-latent-action.html',
           },
         ],
       },
@@ -368,7 +368,7 @@ const publicationGroups = [
           { label: 'arXiv (soon)', href: null },
           {
             label: 'Project Page',
-            href: 'https://narendhiranv04.github.io/#projects',
+            href: 'research/iiith-contracts.html',
           },
         ],
       },
@@ -389,7 +389,7 @@ const publicationGroups = [
           { label: 'arXiv (soon)', href: null },
           {
             label: 'Project Page',
-            href: 'https://narendhiranv04.github.io/#projects',
+            href: 'research/monash-assistive.html',
           },
         ],
       },
@@ -403,7 +403,7 @@ const publicationGroups = [
           { label: 'arXiv (soon)', href: null },
           {
             label: 'Project Page',
-            href: 'https://narendhiranv04.github.io/#projects',
+            href: 'research/iitb-auraseg.html',
           },
         ],
       },
@@ -416,7 +416,7 @@ const publicationGroups = [
           { label: 'arXiv (soon)', href: null },
           {
             label: 'Project Page',
-            href: 'https://narendhiranv04.github.io/#projects',
+            href: '#project-autonomous-uas',
           },
         ],
       },
@@ -492,8 +492,10 @@ if (publicationContainer) {
           if (link.href) {
             action = document.createElement('a');
             action.href = link.href;
-            action.target = '_blank';
-            action.rel = 'noopener';
+            if (/^https?:\/\//.test(link.href)) {
+              action.target = '_blank';
+              action.rel = 'noopener noreferrer';
+            }
           } else {
             action = document.createElement('button');
             action.type = 'button';
@@ -543,6 +545,7 @@ if (publicationContainer) {
 const flagshipProjects = [
   {
     title: 'Autonomous UAS',
+    slug: 'project-autonomous-uas',
     focus: 'Aerial Robotics · Systems Lead',
     timeframe: 'SAE AeroTHON · 2024',
     description:
@@ -564,6 +567,8 @@ const flagshipProjects = [
     technologies: ['ROS 2', 'uXRCE-DDS', 'PX4', 'Raspberry Pi 5', 'OpenCV', 'QGroundControl'],
     outcome:
       'Top-15 national finish across endurance, payload-drop, and navigation.',
+    codeUrl:
+      'https://drive.google.com/drive/folders/1kKaMLSFk3kYxo7mgzinFKQgGFMAoyrcK?usp=sharing',
     story: {
       openLabel: 'Read more',
       closeLabel: 'Less',
@@ -584,6 +589,7 @@ const flagshipProjects = [
   },
   {
     title: 'PixelBot Multimodal Assistant',
+    slug: 'project-pixelbot-multimodal-assistant',
     focus: 'Multimodal AI · Team Lead',
     timeframe: 'Smart India Hackathon · 2024',
     description:
@@ -605,6 +611,8 @@ const flagshipProjects = [
     technologies: ['Python', 'PyTorch','FastAPI'],
     outcome:
       'Secured 2nd place in the national qualifier while open-sourcing reusable evaluation utilities.',
+    codeUrl:
+      'https://github.com/Narendhiranv04/Multimodal-Conversational-Image-Recognition-Chatbot.git',
     story: {
       openLabel: 'Read more',
       closeLabel: 'Less',
@@ -626,6 +634,7 @@ const flagshipProjects = [
   },
   {
     title: 'Parrot Mambo Autonomy Challenge',
+    slug: 'project-parrot-mambo-autonomy',
     focus: 'Embedded Autonomy · Controls Engineer',
     timeframe: 'MathWorks Minidrone Challenge · 2024',
     description:
@@ -647,6 +656,8 @@ const flagshipProjects = [
     technologies: ['MATLAB', 'Simulink', 'Stateflow'],
     outcome:
       'Achieved fully autonomous line-following with reliable gate traversal in final demos.',
+    codeUrl:
+      'https://drive.google.com/drive/folders/1aYSyzn0AptxgAfXk2vBQw_lc9TUsJ8UO?usp=sharing',
     story: {
       openLabel: 'Read more',
       closeLabel: 'Less',
@@ -668,6 +679,7 @@ const flagshipProjects = [
   },
   {
     title: 'Occlusion-Aware Avoidance Toolkit',
+    slug: 'project-occlusion-aware-toolkit',
     focus: 'Motion Planning',
     timeframe: 'March 2024',
     description:
@@ -689,6 +701,8 @@ const flagshipProjects = [
     technologies: ['Python', 'NumPy', 'Matplotlib'],
     outcome:
       'Independent Assignment Project',
+    codeUrl:
+      'https://drive.google.com/drive/folders/16G9y9LijUwDukh7nrMo0nLFA_H18BnX0?usp=sharing',
     story: {
       openLabel: 'Read more',
       closeLabel: 'Less',
@@ -717,6 +731,10 @@ if (projectShowcase) {
     const article = document.createElement('article');
     article.className = 'project-case';
     article.style.setProperty('--animation-index', index.toString());
+
+    if (project.slug) {
+      article.id = project.slug;
+    }
 
     const galleryFrames = [];
 
@@ -842,6 +860,9 @@ if (projectShowcase) {
       const footnote = document.createElement('div');
       footnote.className = 'project-case__footnote';
 
+      const actions = document.createElement('div');
+      actions.className = 'project-case__actions';
+
       const cta = document.createElement('button');
       cta.type = 'button';
       cta.className = 'project-case__cta';
@@ -860,6 +881,32 @@ if (projectShowcase) {
 
       cta.append(ctaIcon, ctaLabel);
 
+      actions.appendChild(cta);
+
+      if (project.codeUrl) {
+        const codeLink = document.createElement('a');
+        codeLink.className = 'project-case__cta project-case__cta--code';
+        codeLink.href = project.codeUrl;
+        codeLink.target = '_blank';
+        codeLink.rel = 'noopener noreferrer';
+        codeLink.setAttribute(
+          'aria-label',
+          `${project.title} code and artefacts (opens in a new tab)`
+        );
+
+        const codeIcon = document.createElement('span');
+        codeIcon.className = 'project-case__cta-icon';
+        codeIcon.setAttribute('aria-hidden', 'true');
+        codeIcon.textContent = '💻';
+
+        const codeLabel = document.createElement('span');
+        codeLabel.className = 'project-case__cta-label';
+        codeLabel.textContent = 'Code';
+
+        codeLink.append(codeIcon, codeLabel);
+        actions.appendChild(codeLink);
+      }
+
       const storyPanel = document.createElement('div');
       storyPanel.className = 'project-case__story';
       const storyId = `project-story-${index}`;
@@ -870,7 +917,7 @@ if (projectShowcase) {
 
       cta.setAttribute('aria-controls', storyId);
 
-      footnote.append(cta, storyPanel);
+      footnote.append(actions, storyPanel);
       content.appendChild(footnote);
 
       const updateLabels = (expanded) => {
