@@ -725,6 +725,8 @@ body.research-page{background:var(--color-bg);color:var(--color-text);min-height
 .research-article__lead{margin:0;color:var(--color-text);font-size:1.08rem;line-height:1.7;max-width:65ch;}
 .project-webpage-notice{display:block;margin-top:.75rem;color:#ff4d4f;font-weight:600;letter-spacing:.01em;}
 .research-article__note{margin:0;margin-top:1rem;color:var(--color-muted);font-size:1rem;line-height:1.65;max-width:65ch;}
+.research-article__note-link{display:inline-flex;align-items:center;gap:.35rem;margin-left:.5rem;padding:.25rem .6rem;border-radius:999px;background:var(--color-accent-soft);color:var(--color-accent);font-weight:600;text-decoration:none;transition:color .2s ease,background .2s ease,transform .2s ease;}
+.research-article__note-link:hover,.research-article__note-link:focus-visible{color:var(--color-button-text);background:var(--color-accent);transform:translateY(-1px);}
 .research-article__badge{margin:0;display:flex;gap:1rem;align-items:center;}
 .research-article__badge img{width:64px;height:64px;object-fit:contain;border-radius:18px;padding:.65rem;background:var(--color-surface);border:1px solid var(--color-border);box-shadow:var(--shadow-soft);}
 .research-article__badge span{font-size:.85rem;color:var(--color-muted);text-transform:uppercase;letter-spacing:.14em;font-weight:600;}
