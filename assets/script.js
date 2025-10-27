@@ -467,7 +467,7 @@ const publicationGroups = [
         venue: 'Signal, Image and Video Processing · 2025 (under review)',
         status: 'Initial Review Cycle',
         links: [
-          { label: 'arXiv (soon)', href: null },
+          { label: 'arXiv', href: 'https://arxiv.org/abs/2510.21536' },
           {
             label: 'Project Page',
             href: 'research/iitb-auraseg.html',
@@ -480,7 +480,7 @@ const publicationGroups = [
         venue: 'ICMRAE · 2025 (Accepted)',
         status: 'Camera-ready pending',
         links: [
-          { label: 'arXiv (soon)', href: null },
+          { label: 'arXiv', href: 'https://arxiv.org/abs/2510.21648' },
           {
             label: 'Project Page',
             href: '#project-autonomous-uas',
