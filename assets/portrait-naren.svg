@@ -1,0 +1,42 @@
+<svg width="900" height="1080" viewBox="0 0 900 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="1080" rx="48" fill="#111111"/>
+  <rect x="30" y="30" width="840" height="1020" rx="34" fill="url(#paint0_linear)"/>
+  <circle cx="456" cy="412" r="178" fill="url(#paint1_radial)"/>
+  <path d="M283 417C283 313.201 367.201 229 471 229C574.799 229 659 313.201 659 417V533C659 636.799 574.799 721 471 721C367.201 721 283 636.799 283 533V417Z" fill="#2C2C2C"/>
+  <path d="M391 324C432.6 286.8 486.667 275.833 509.5 275C601.1 302.2 620 381.667 616 418.5L612 454.5C570.4 408.5 525.667 379.333 509.5 370.5C446.3 357.7 405.5 394.5 393 414L345 461L339 385C342.5 365.333 349.4 361.2 391 324Z" fill="#191919"/>
+  <ellipse cx="420.5" cy="451" rx="32.5" ry="42" fill="#575757"/>
+  <ellipse cx="534.5" cy="451" rx="32.5" ry="42" fill="#575757"/>
+  <rect x="379" y="429" width="197" height="49" rx="24.5" stroke="#AFAFAF" stroke-width="16"/>
+  <path d="M446 525C462.667 540 492 540.5 506 525" stroke="#8A8A8A" stroke-width="12" stroke-linecap="round"/>
+  <path d="M435 398C452.333 390.667 483.6 390.2 503 398" stroke="#686868" stroke-width="12" stroke-linecap="round"/>
+  <path d="M365 800C418.6 745.6 521.333 732.333 566 735C634.4 742.2 693.833 781 715 800V1036H196V800C217 778.5 272.8 741.6 365 800Z" fill="url(#paint2_linear)"/>
+  <path opacity="0.65" d="M250 162C352.5 95 561.5 65 742.5 198" stroke="url(#paint3_linear)" stroke-width="10" stroke-linecap="round"/>
+  <g opacity="0.18" filter="url(#filter0_f)">
+    <circle cx="469" cy="652" r="218" fill="#E0E0E0"/>
+  </g>
+  <rect x="58" y="58" width="784" height="964" rx="26" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+  <defs>
+    <filter id="filter0_f" x="111" y="294" width="716" height="716" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="70" result="effect1_foregroundBlur"/>
+    </filter>
+    <linearGradient id="paint0_linear" x1="450" y1="30" x2="450" y2="1050" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2F2F2F"/>
+      <stop offset="1" stop-color="#121212"/>
+    </linearGradient>
+    <radialGradient id="paint1_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(463 401) rotate(90) scale(233 215.171)">
+      <stop stop-color="#575757"/>
+      <stop offset="1" stop-color="#1B1B1B"/>
+    </radialGradient>
+    <linearGradient id="paint2_linear" x1="456" y1="735" x2="456" y2="1036" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#373737"/>
+      <stop offset="1" stop-color="#1A1A1A"/>
+    </linearGradient>
+    <linearGradient id="paint3_linear" x1="250" y1="162" x2="742" y2="198" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#BEBEBE" stop-opacity="0"/>
+      <stop offset="0.476798" stop-color="#F5F5F5"/>
+      <stop offset="1" stop-color="#BEBEBE" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>
