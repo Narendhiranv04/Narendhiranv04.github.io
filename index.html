@@ -7,304 +7,138 @@
   <meta name="theme-color" content="#ffffff" />
   <title>Narendhiran Vijayakumar</title>
   <style>
-    :root {
-      --text: #1f2933;
-      --muted: #5d6875;
-      --link: #1772d0;
-      --rule: #e5e7eb;
-      --paper: #ffffff;
-      --soft: #f7f8fa;
-    }
-
-    * { box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      background: var(--paper);
-      color: var(--text);
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 15px;
-      line-height: 1.55;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    a {
-      color: var(--link);
-      text-decoration: none;
-    }
-
-    a:hover { text-decoration: underline; }
-
-    .page {
-      width: min(920px, calc(100% - 36px));
-      margin: 0 auto;
-      padding: 56px 0 42px;
-    }
-
-    .intro {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 180px;
-      gap: 42px;
-      align-items: center;
-      margin-bottom: 42px;
-    }
-
-    h1 {
-      margin: 0 0 18px;
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 34px;
-      font-weight: 500;
-      letter-spacing: -0.02em;
-      color: #111827;
-    }
-
-    h2 {
-      margin: 40px 0 18px;
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 22px;
-      font-weight: 500;
-      color: #111827;
-    }
-
-    p { margin: 0 0 13px; }
-
-    .links {
-      margin-top: 17px;
-      line-height: 1.9;
-    }
-
-    .links a + a::before {
-      content: ' / ';
-      color: #9ca3af;
-      text-decoration: none;
-    }
-
-    .portrait-wrap {
-      display: flex;
-      justify-content: center;
-    }
-
-    .portrait {
-      width: 170px;
-      height: 170px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1px solid var(--rule);
-      background: var(--soft);
-    }
-
-    .section { margin-top: 8px; }
-
-    .work {
-      display: grid;
-      grid-template-columns: 150px minmax(0, 1fr);
-      gap: 22px;
-      padding: 18px 0;
-      border-top: 1px solid var(--rule);
-    }
-
-    .work:first-of-type { border-top: 0; padding-top: 2px; }
-
-    .thumb {
-      width: 150px;
-      height: 100px;
-      border-radius: 4px;
-      border: 1px solid var(--rule);
-      background: var(--soft);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #6b7280;
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 13px;
-      line-height: 1.3;
-      padding: 14px;
-    }
-
-    .work-title {
-      font-weight: 700;
-      font-size: 15px;
-      margin-bottom: 3px;
-    }
-
-    .authors, .venue, .desc {
-      margin-bottom: 4px;
-    }
-
-    .venue { color: var(--muted); }
-    .desc { color: #374151; }
-
-    .compact-list {
-      margin: 0;
-      padding-left: 19px;
-    }
-
-    .compact-list li { margin: 7px 0; }
-
-    footer {
-      margin-top: 48px;
-      padding-top: 18px;
-      border-top: 1px solid var(--rule);
-      color: #8a94a3;
-      font-size: 12px;
-      text-align: center;
-    }
-
-    @media (max-width: 680px) {
-      .page {
-        width: min(100% - 28px, 920px);
-        padding-top: 34px;
-      }
-
-      .intro {
-        grid-template-columns: 1fr;
-        gap: 24px;
-      }
-
-      .portrait-wrap {
-        grid-row: 1;
-        justify-content: flex-start;
-      }
-
-      .portrait {
-        width: 126px;
-        height: 126px;
-      }
-
-      h1 { font-size: 30px; }
-
-      .work {
-        grid-template-columns: 1fr;
-        gap: 10px;
-      }
-
-      .thumb {
-        width: 100%;
-        height: 88px;
-      }
+    :root { --text:#222; --muted:#666; --link:#1772d0; --rule:#e8e8e8; --paper:#fff; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--paper); color:var(--text); font-family:Arial,Helvetica,sans-serif; font-size:14px; line-height:1.5; -webkit-font-smoothing:antialiased; }
+    a { color:var(--link); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    .page { width:min(860px,calc(100% - 36px)); margin:0 auto; padding:54px 0 36px; }
+    .intro { display:grid; grid-template-columns:minmax(0,1fr) 190px; gap:42px; align-items:center; margin-bottom:38px; }
+    h1 { margin:0 0 18px; font-family:Georgia,'Times New Roman',serif; font-size:34px; font-weight:400; letter-spacing:-.02em; color:#111; }
+    h2 { margin:36px 0 16px; font-family:Georgia,'Times New Roman',serif; font-size:22px; font-weight:400; color:#111; }
+    p { margin:0 0 12px; }
+    .links { margin-top:14px; line-height:1.9; }
+    .links a + a::before { content:' / '; color:#999; text-decoration:none; }
+    .portrait-wrap { display:flex; justify-content:center; }
+    .portrait { width:178px; height:178px; border-radius:50%; object-fit:cover; border:1px solid #eee; }
+    .work { display:grid; grid-template-columns:170px minmax(0,1fr); gap:22px; padding:17px 0; border-top:1px solid var(--rule); align-items:center; }
+    .work:first-of-type { border-top:0; padding-top:2px; }
+    .thumb { width:170px; height:112px; object-fit:cover; border-radius:4px; border:1px solid #eee; background:#f7f7f7; }
+    .fallback { display:flex; align-items:center; justify-content:center; text-align:center; color:#777; font-family:Georgia,'Times New Roman',serif; padding:14px; }
+    .work-title { font-weight:700; font-size:14px; margin-bottom:3px; }
+    .authors,.venue,.desc { margin-bottom:4px; }
+    .venue { color:var(--muted); }
+    .desc { color:#444; }
+    .project-list,.compact-list { margin:0; padding-left:19px; }
+    .project-list li,.compact-list li { margin:8px 0; }
+    footer { margin-top:44px; padding-top:16px; border-top:1px solid var(--rule); color:#999; font-size:11px; text-align:center; }
+    @media (max-width:680px) {
+      .page { width:min(100% - 28px,860px); padding-top:32px; }
+      .intro { grid-template-columns:1fr; gap:22px; }
+      .portrait-wrap { grid-row:1; justify-content:flex-start; }
+      .portrait { width:128px; height:128px; }
+      h1 { font-size:30px; }
+      .work { grid-template-columns:1fr; gap:10px; }
+      .thumb { width:100%; height:auto; max-height:210px; object-fit:contain; }
+      .fallback { min-height:88px; }
     }
   </style>
 </head>
 <body>
-  <main class="page">
-    <section class="intro" aria-labelledby="name">
+<main class="page">
+  <section class="intro">
+    <div>
+      <h1>Narendhiran Vijayakumar</h1>
+      <p>
+        I'm a research assistant at <a href="https://www.iiit.ac.in/" target="_blank" rel="noreferrer">IIIT Hyderabad</a>.
+        I completed my B.Tech. in Mechanical Engineering with a minor in Computer Science at
+        <a href="https://www.nitt.edu/" target="_blank" rel="noreferrer">NIT Tiruchirappalli</a>.
+      </p>
+      <p>
+        My research interests lie in robotics and embodied AI, particularly long-horizon manipulation,
+        task and motion planning, robot learning, and visual perception. I am interested in systems that
+        connect perception and reasoning to reliable robot behavior under changing scenes and partial observability.
+      </p>
+      <div class="links" aria-label="Profile links">
+        <a href="mailto:narendhiranv.nitt@gmail.com">Email</a>
+        <a href="https://github.com/Narendhiranv04" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="https://scholar.google.com/citations?user=ge9liYgAAAAJ&hl=en" target="_blank" rel="noreferrer">Google Scholar</a>
+        <a href="https://www.linkedin.com/in/narendhiranv/" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a href="https://x.com/narendhiranv04" target="_blank" rel="noreferrer">X</a>
+        <a href="https://drive.google.com/file/d/1YmHWeGVPjrDUXH3FvxaLoqsFc2yfGTDT/view?usp=sharing" target="_blank" rel="noreferrer">CV</a>
+      </div>
+    </div>
+    <div class="portrait-wrap">
+      <img class="portrait" src="./assets/naren-portrait-card.jpg" alt="Portrait of Narendhiran Vijayakumar" />
+    </div>
+  </section>
+
+  <section id="research">
+    <h2>Research</h2>
+
+    <article class="work">
+      <img class="thumb" src="./assets/research-concept-2.jpg" alt="Task and motion planning research overview" />
       <div>
-        <h1 id="name">Narendhiran Vijayakumar</h1>
-        <p>
-          I recently completed my B.Tech. in Mechanical Engineering with a minor in Computer Science at
-          <a href="https://www.nitt.edu/" target="_blank" rel="noreferrer">NIT Tiruchirappalli</a>.
-          My research interests lie broadly in robotics and embodied AI, with a focus on robot learning,
-          long-horizon manipulation, task and motion planning, and visual perception.
-        </p>
-        <p>
-          I enjoy building systems that connect perception and reasoning to real robot behavior, especially
-          in settings where robots must adapt to changing scenes, incomplete observations, and long-horizon tasks.
-        </p>
-        <div class="links" aria-label="Profile links">
-          <a href="mailto:narendhiranv.nitt@gmail.com">Email</a>
-          <a href="https://github.com/Narendhiranv04" target="_blank" rel="noreferrer">GitHub</a>
-          <a href="https://scholar.google.com/citations?hl=en&user=ge9liYgAAAAJ" target="_blank" rel="noreferrer">Google Scholar</a>
-          <a href="https://www.linkedin.com/in/narendhiranv/" target="_blank" rel="noreferrer">LinkedIn</a>
-          <a href="https://drive.google.com/file/d/1yzZZaOiZ-Dtg6vdpvddDcF9lQlLkrCFK/view?usp=sharing" target="_blank" rel="noreferrer">CV</a>
-        </div>
+        <div class="work-title">Plan Along the Way: Event-Triggered Foundation-Model Planning for TAMP Execution in Partially Observable Manipulation</div>
+        <div class="authors">P. Ojha*, <strong>Narendhiran Vijayakumar</strong>, Nav Singhal, G. Varma, A. Thomas*</div>
+        <div class="venue">RA-L, 2026 · IIIT Hyderabad</div>
+        <div class="desc">Foundation-model planning for task-and-motion execution under partial observability.</div>
       </div>
-      <div class="portrait-wrap">
-        <img class="portrait" src="https://avatars.githubusercontent.com/u/127112785?v=4" alt="Narendhiran Vijayakumar" />
+    </article>
+
+    <article class="work">
+      <img class="thumb" src="./assets/research-rpx-overview.png" alt="RPX robot perception benchmark overview" />
+      <div>
+        <div class="work-title">Same Scene, Different Story: Evaluating Robot Perception Across Scene Phases in the Wild</div>
+        <div class="authors">I. Kadosh*, Jishnu P*, <strong>Narendhiran Vijayakumar</strong>, S. Haneesh, J. Wang, Y. Xiang</div>
+        <div class="venue">In preparation · ICRA 2027 target · University of Texas at Dallas</div>
+        <div class="desc">A real-world benchmark for evaluating robot perception across changing phases of a scene.</div>
       </div>
-    </section>
+    </article>
 
-    <section class="section" id="research">
-      <h2>Research</h2>
+    <article class="work">
+      <img class="thumb" src="./assets/architecture-1-preview.png" alt="AURASeg architecture" />
+      <div>
+        <div class="work-title">AURASeg: Attention-Guided Upsampling with Residual Boundary-Assistive Refinement for Drivable-Area Segmentation</div>
+        <div class="authors"><strong>Narendhiran Vijayakumar*</strong>, M. Sridevi</div>
+        <div class="venue">arXiv, 2026 · IIT Bombay &amp; NIT Tiruchirappalli</div>
+        <div class="desc">Boundary-aware drivable-area segmentation with attention-guided decoding for resource-constrained navigation.</div>
+      </div>
+    </article>
 
-      <article class="work">
-        <div class="thumb">Task &amp; Motion<br />Planning</div>
-        <div>
-          <div class="work-title">Plan Along the Way: Event-Triggered Foundation-Model Planning for TAMP Execution in Partially Observable Manipulation</div>
-          <div class="authors">P. Ojha*, <strong>Narendhiran Vijayakumar</strong>, Nav Singhal, G. Varma, A. Thomas*</div>
-          <div class="venue">RA-L, 2026 · IIIT Hyderabad</div>
-          <div class="desc">Foundation-model planning for task-and-motion execution under partial observability.</div>
-        </div>
-      </article>
+    <article class="work">
+      <div class="thumb fallback">Assistive<br />Robotics</div>
+      <div>
+        <div class="work-title">Fuzzy Logic–GRU Framework for Real-Time Sit-to-Walk Joint Torque Estimation in Robotic Exoskeletons</div>
+        <div class="authors"><strong>Narendhiran Vijayakumar*</strong>, C. Perera, A. Agape</div>
+        <div class="venue">In preparation · Monash University Malaysia</div>
+        <div class="desc">Real-time hip and knee torque estimation for robotic exoskeleton assistance using sequence prediction and fuzzy control.</div>
+      </div>
+    </article>
+  </section>
 
-      <article class="work">
-        <div class="thumb">Robot<br />Perception</div>
-        <div>
-          <div class="work-title">Same Scene, Different Story: Evaluating Robot Perception Across Scene Phases in the Wild</div>
-          <div class="authors">I. Kadosh*, Jishnu P*, <strong>Narendhiran Vijayakumar</strong>, S. Haneesh, J. Wang, Y. Xiang</div>
-          <div class="venue">In preparation · ICRA 2027 target · University of Texas at Dallas</div>
-          <div class="desc">A benchmark for studying robot perception across changing phases of real-world scenes.</div>
-        </div>
-      </article>
+  <section id="projects">
+    <h2>Selected Projects</h2>
+    <ul class="project-list">
+      <li><strong>Moto-Memory-VLA</strong> — latent-action retrieval for embodied control using InfoNCE learning, FAISS subtrajectory memory, dynamic time warping, and cosine-similarity retrieval. <span class="venue">NTU Singapore, 2025.</span></li>
+      <li><strong>Autonomous UAS</strong> — autonomous quadcopter with ROS 2 communication, onboard real-time object detection, and dynamic route replanning. <span class="venue">Top 15, SAE AeroTHON 2024.</span></li>
+      <li><strong>PixelBot</strong> — multimodal conversational image system for segmentation, inpainting, and generation using LLaVA, SAM2, and GLIGEN. <span class="venue">Smart India Hackathon 2024 finalist.</span></li>
+    </ul>
+  </section>
 
-      <article class="work">
-        <div class="thumb">Visual<br />Perception</div>
-        <div>
-          <div class="work-title">AURASeg: Attention-Guided Upsampling with Residual Boundary-Assistive Refinement for Drivable-Area Segmentation</div>
-          <div class="authors"><strong>Narendhiran Vijayakumar*</strong>, M. Sridevi</div>
-          <div class="venue">arXiv, 2026 · IIT Bombay &amp; NIT Tiruchirappalli</div>
-          <div class="desc">A lightweight drivable-area segmentation framework emphasizing boundary refinement and attention-guided decoding.</div>
-        </div>
-      </article>
+  <section id="awards">
+    <h2>Awards &amp; Service</h2>
+    <ul class="compact-list">
+      <li>Finalist, Smart India Hackathon 2024.</li>
+      <li>Top 15, SAE AeroTHON — National UAS Design, Build and Fly Contest 2024.</li>
+      <li>Technical Head, Third Dimension Aeromodelling Club.</li>
+      <li>Vice President, Maximus — Math &amp; Physics Society.</li>
+      <li>Physics Manager, IGNITTE Teaching Club; Regional Volunteer, FIRST Robotics.</li>
+    </ul>
+  </section>
 
-      <article class="work">
-        <div class="thumb">Assistive<br />Robotics</div>
-        <div>
-          <div class="work-title">Fuzzy Logic–GRU Framework for Real-Time Sit-to-Walk Joint Torque Estimation in Robotic Exoskeletons</div>
-          <div class="authors"><strong>Narendhiran Vijayakumar*</strong>, C. Perera, A. Agape</div>
-          <div class="venue">In preparation · Monash University Malaysia</div>
-          <div class="desc">Real-time hip and knee torque estimation for robotic exoskeleton assistance using sequence prediction and fuzzy control.</div>
-        </div>
-      </article>
-    </section>
-
-    <section class="section" id="projects">
-      <h2>Selected Projects</h2>
-
-      <article class="work">
-        <div class="thumb">Latent-Action<br />Retrieval</div>
-        <div>
-          <div class="work-title">Moto-Memory-VLA</div>
-          <div class="venue">NTU Singapore · May–Sep 2025</div>
-          <div class="desc">Developed a latent-action retrieval framework using InfoNCE learning, spatiotemporal augmentation, FAISS subtrajectory memory, dynamic time warping, and cosine-similarity retrieval.</div>
-        </div>
-      </article>
-
-      <article class="work">
-        <div class="thumb">Autonomous<br />UAS</div>
-        <div>
-          <div class="work-title">Autonomous UAS · SAE AeroTHON 2024</div>
-          <div class="venue">Top 15 nationally</div>
-          <div class="desc">Led an autonomous quadcopter project integrating ROS 2 communication, real-time onboard object detection, and dynamic route replanning.</div>
-        </div>
-      </article>
-
-      <article class="work">
-        <div class="thumb">Multimodal<br />AI</div>
-        <div>
-          <div class="work-title">PixelBot · Smart India Hackathon 2024</div>
-          <div class="venue">Finalist</div>
-          <div class="desc">Built a multimodal conversational image-recognition system for segmentation, inpainting, and generation using LLaVA, SAM2, and GLIGEN.</div>
-        </div>
-      </article>
-    </section>
-
-    <section class="section" id="awards">
-      <h2>Awards &amp; Service</h2>
-      <ul class="compact-list">
-        <li>Finalist, Smart India Hackathon 2024.</li>
-        <li>Top 15, SAE AeroTHON — National UAS Design, Build and Fly Contest 2024.</li>
-        <li>Technical Head, Third Dimension Aeromodelling Club, NIT Tiruchirappalli.</li>
-        <li>Vice President, Maximus — Math &amp; Physics Society.</li>
-        <li>Physics Manager, IGNITTE Teaching Club; Regional Volunteer, FIRST Robotics.</li>
-      </ul>
-    </section>
-
-    <footer>
-      Last updated August 2026 · Minimal academic layout inspired by Jiahui Zhang's homepage.
-    </footer>
-  </main>
+  <footer>Last updated August 2026</footer>
+</main>
 </body>
 </html>
