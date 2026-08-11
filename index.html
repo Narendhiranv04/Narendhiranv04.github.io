@@ -4,20 +4,23 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Narendhiran Vijayakumar — robotics and embodied AI researcher." />
-  <meta name="theme-color" content="#f7f8fa" />
+  <meta name="theme-color" content="#dfe9ec" />
   <title>Narendhiran Vijayakumar</title>
   <style>
     :root {
-      --text:#20252b;
-      --muted:#66717d;
-      --link:#1464a5;
-      --accent:#16697a;
-      --accent-soft:#eef7f8;
-      --rule:#e6e9ed;
-      --paper:#ffffff;
-      --canvas:#f7f8fa;
-      --soft:#fafbfc;
-      --shadow:0 9px 30px rgba(20,33,45,.055);
+      --text:#20262b;
+      --muted:#66727a;
+      --link:#0f6470;
+      --accent:#ad5338;
+      --accent-deep:#82402f;
+      --accent-soft:#f4e9e2;
+      --teal-soft:#e8f1f2;
+      --rule:#dde5e5;
+      --paper:#fdfbf7;
+      --canvas:#dfe9ec;
+      --panel:#f6f8f7;
+      --panel-strong:#eef4f4;
+      --shadow:0 18px 48px rgba(39,56,61,.10);
     }
 
     * { box-sizing:border-box; }
@@ -31,8 +34,10 @@
       line-height:1.62;
       -webkit-font-smoothing:antialiased;
       background:
-        radial-gradient(circle at 18% 0%, rgba(22,105,122,.055), transparent 24rem),
-        var(--canvas);
+        radial-gradient(circle at 10% 2%, rgba(173,83,56,.13), transparent 25rem),
+        radial-gradient(circle at 90% 16%, rgba(15,100,112,.11), transparent 28rem),
+        linear-gradient(160deg,#d9e5e8 0%,#e8edef 48%,#dfe8e5 100%);
+      background-attachment:fixed;
     }
 
     a {
@@ -44,22 +49,34 @@
     a:hover { text-decoration:underline; }
 
     .page {
-      width:min(930px,calc(100% - 36px));
+      width:min(980px,calc(100% - 36px));
       margin:34px auto;
-      padding:48px 54px 34px;
-      background:rgba(255,255,255,.96);
-      border:1px solid rgba(31,41,55,.07);
-      border-radius:18px;
+      padding:50px 58px 36px;
+      background:rgba(253,251,247,.97);
+      border:1px solid rgba(81,105,108,.16);
+      border-radius:22px;
       box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .page::before {
+      content:"";
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      height:5px;
+      background:linear-gradient(90deg,var(--accent),#d8a06a 42%,#508994 100%);
     }
 
     .intro {
       display:grid;
-      grid-template-columns:minmax(0,1fr) 190px;
-      gap:46px;
+      grid-template-columns:minmax(0,1fr) 194px;
+      gap:48px;
       align-items:center;
       margin-bottom:38px;
-      padding-bottom:30px;
+      padding:5px 0 34px;
       border-bottom:1px solid var(--rule);
     }
 
@@ -68,16 +85,16 @@
       align-items:center;
       gap:8px;
       margin-bottom:9px;
-      color:var(--accent);
+      color:var(--accent-deep);
       font-size:11px;
-      font-weight:700;
-      letter-spacing:.12em;
+      font-weight:750;
+      letter-spacing:.13em;
       text-transform:uppercase;
     }
 
     .eyebrow::before {
       content:"";
-      width:24px;
+      width:26px;
       height:2px;
       border-radius:999px;
       background:var(--accent);
@@ -86,62 +103,62 @@
     h1 {
       margin:0 0 17px;
       font-family:Georgia,"Times New Roman",serif;
-      font-size:37px;
-      line-height:1.15;
+      font-size:38px;
+      line-height:1.14;
       font-weight:400;
-      letter-spacing:-.026em;
-      color:#11161a;
+      letter-spacing:-.027em;
+      color:#171b1e;
     }
 
     h2 {
       display:flex;
       align-items:center;
       gap:13px;
-      margin:38px 0 17px;
+      margin:42px 0 18px;
       font-family:Georgia,"Times New Roman",serif;
-      font-size:23px;
+      font-size:24px;
       line-height:1.2;
       font-weight:400;
-      color:#11161a;
+      color:#171b1e;
     }
 
     h2::after {
       content:"";
       height:1px;
       flex:1;
-      background:linear-gradient(90deg,var(--rule),transparent);
+      background:linear-gradient(90deg,#d4dddd,transparent);
     }
 
     p { margin:0 0 12px; }
 
     .intro p {
-      max-width:620px;
-      color:#313940;
+      max-width:640px;
+      color:#333c41;
     }
 
     .links {
       display:flex;
       flex-wrap:wrap;
       gap:7px;
-      margin-top:17px;
+      margin-top:18px;
     }
 
     .links a {
       display:inline-flex;
       align-items:center;
-      padding:5px 10px;
-      border:1px solid #dfe5ea;
+      padding:5px 11px;
+      border:1px solid #d6dddd;
       border-radius:999px;
-      background:#fff;
-      color:#44505b;
+      background:rgba(255,255,255,.58);
+      color:#405057;
       font-size:12.5px;
-      font-weight:550;
-      transition:border-color .18s ease, color .18s ease, transform .18s ease, background .18s ease;
+      font-weight:600;
+      transition:border-color .18s ease,color .18s ease,transform .18s ease,background .18s ease;
     }
 
     .links a:hover {
-      color:var(--accent);
-      border-color:#b9d5da;
+      color:var(--accent-deep);
+      border-color:#d8b5a9;
       background:var(--accent-soft);
       text-decoration:none;
       transform:translateY(-1px);
@@ -156,49 +173,55 @@
     .portrait-wrap::before {
       content:"";
       position:absolute;
-      inset:10px -4px -4px 10px;
+      inset:10px -5px -5px 11px;
       border-radius:50%;
-      background:var(--accent-soft);
+      background:linear-gradient(145deg,#e9cfc4,#d7e6e7);
       z-index:0;
     }
 
     .portrait {
       position:relative;
       z-index:1;
-      width:178px;
-      height:178px;
+      width:182px;
+      height:182px;
       border-radius:50%;
       object-fit:cover;
-      border:5px solid #fff;
-      box-shadow:0 7px 22px rgba(16,32,44,.11);
+      border:5px solid var(--paper);
+      box-shadow:0 8px 24px rgba(35,52,57,.15);
+    }
+
+    .section-note {
+      margin:-7px 0 17px;
+      color:var(--muted);
+      font-size:13px;
     }
 
     .work {
       display:grid;
-      grid-template-columns:174px minmax(0,1fr);
-      gap:23px;
+      grid-template-columns:176px minmax(0,1fr);
+      gap:24px;
       align-items:center;
       margin:10px 0;
-      padding:15px;
+      padding:16px;
       border:1px solid transparent;
-      border-radius:12px;
-      transition:background .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+      border-radius:14px;
+      transition:background .18s ease,border-color .18s ease,transform .18s ease,box-shadow .18s ease;
     }
 
     .work:hover {
-      background:var(--soft);
-      border-color:#e3e8ec;
+      background:rgba(238,244,244,.7);
+      border-color:#d7e2e2;
       transform:translateY(-1px);
-      box-shadow:0 8px 20px rgba(25,38,50,.04);
+      box-shadow:0 10px 22px rgba(34,56,61,.055);
     }
 
     .thumb {
-      width:174px;
-      height:114px;
+      width:176px;
+      height:116px;
       object-fit:cover;
-      border-radius:8px;
-      border:1px solid #e4e8eb;
-      background:#f7f8f9;
+      border-radius:9px;
+      border:1px solid #dfe5e4;
+      background:#f2f5f4;
     }
 
     .fallback {
@@ -206,51 +229,188 @@
       align-items:center;
       justify-content:center;
       text-align:center;
-      color:#5e6a74;
+      color:#5a6064;
       font-family:Georgia,"Times New Roman",serif;
       font-size:16px;
       line-height:1.25;
       padding:14px;
-      background:linear-gradient(135deg,#f4f8f8,#fafbfc);
+      background:linear-gradient(135deg,#eee5df,#edf3f3);
     }
 
     .work-title {
       margin-bottom:4px;
       color:#171c20;
       font-size:14.5px;
-      font-weight:700;
+      font-weight:720;
       line-height:1.42;
     }
 
     .authors,.venue,.desc { margin-bottom:4px; }
-    .authors { color:#3d474f; }
+    .authors { color:#3d474c; }
     .venue { color:var(--muted); font-size:13px; }
-    .desc { color:#4e5962; }
+    .desc { color:#4d585e; }
 
-    .project-list,.compact-list {
+    .projects-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+    }
+
+    .project-card {
+      min-height:176px;
+      padding:17px 18px 16px;
+      background:linear-gradient(145deg,rgba(255,255,255,.64),rgba(241,246,245,.84));
+      border:1px solid #dbe4e3;
+      border-radius:14px;
+      position:relative;
+      overflow:hidden;
+      transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+    }
+
+    .project-card::after {
+      content:"";
+      position:absolute;
+      width:78px;
+      height:78px;
+      border-radius:50%;
+      right:-30px;
+      top:-30px;
+      background:var(--accent-soft);
+      opacity:.8;
+    }
+
+    .project-card:hover {
+      transform:translateY(-2px);
+      border-color:#c8d8d6;
+      box-shadow:0 12px 26px rgba(39,57,60,.07);
+    }
+
+    .project-top {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:10px;
+      position:relative;
+      z-index:1;
+    }
+
+    .project-mark {
+      width:34px;
+      height:34px;
+      display:grid;
+      place-items:center;
+      border-radius:9px;
+      background:var(--accent-soft);
+      color:var(--accent-deep);
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:18px;
+      font-weight:700;
+    }
+
+    .project-year {
+      color:#7b858a;
+      font-size:11.5px;
+      font-weight:650;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+
+    .project-title {
+      margin:0 0 6px;
+      font-size:15px;
+      font-weight:750;
+      color:#182024;
+    }
+
+    .project-copy {
+      margin:0 0 11px;
+      color:#4d585e;
+      font-size:13.4px;
+      line-height:1.55;
+    }
+
+    .project-link {
+      font-size:12.5px;
+      font-weight:700;
+    }
+
+    .collab-panel {
+      padding:18px;
+      border:1px solid #d6e1e1;
+      border-radius:15px;
+      background:linear-gradient(135deg,#edf4f4 0%,#f6f3ee 100%);
+    }
+
+    .collab-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:10px;
+    }
+
+    .collab {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-height:68px;
+      padding:10px 11px;
+      border:1px solid rgba(96,120,122,.16);
+      border-radius:11px;
+      background:rgba(253,251,247,.75);
+      color:#2e393e;
+      transition:transform .18s ease,border-color .18s ease,background .18s ease;
+    }
+
+    .collab:hover {
+      transform:translateY(-1px);
+      border-color:#c9a99d;
+      background:#fffaf5;
+      text-decoration:none;
+    }
+
+    .collab-badge {
+      flex:0 0 40px;
+      width:40px;
+      height:40px;
+      display:grid;
+      place-items:center;
+      border-radius:10px;
+      background:linear-gradient(145deg,#dcebec,#efe3dc);
+      color:#5c4a45;
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:.04em;
+      text-align:center;
+      line-height:1.05;
+    }
+
+    .collab-name {
+      font-size:12.5px;
+      font-weight:700;
+      line-height:1.25;
+    }
+
+    .compact-list {
       margin:0;
       padding:4px 20px 6px 38px;
-      border:1px solid #e6eaed;
-      border-radius:12px;
-      background:linear-gradient(180deg,#fff,#fbfcfd);
+      border:1px solid #dbe3e2;
+      border-radius:13px;
+      background:linear-gradient(180deg,rgba(255,255,255,.62),rgba(242,246,245,.78));
     }
 
-    .project-list li,.compact-list li {
+    .compact-list li {
       margin:0;
-      padding:12px 4px;
+      padding:11px 4px;
     }
 
-    .project-list li + li,.compact-list li + li {
-      border-top:1px solid #edf0f2;
-    }
-
-    .project-list li::marker,.compact-list li::marker { color:var(--accent); }
+    .compact-list li + li { border-top:1px solid #e5eae9; }
+    .compact-list li::marker { color:var(--accent); }
 
     footer {
-      margin-top:44px;
-      padding-top:16px;
+      margin-top:46px;
+      padding-top:17px;
       border-top:1px solid var(--rule);
-      color:#9aa1a8;
+      color:#919a9e;
       font-size:11px;
       text-align:center;
     }
@@ -259,34 +419,30 @@
       * { scroll-behavior:auto !important; transition:none !important; }
     }
 
-    @media (max-width:680px) {
-      body { font-size:14px; }
+    @media (max-width:760px) {
       .page {
-        width:min(100% - 20px,930px);
+        width:min(100% - 20px,980px);
         margin:10px auto;
-        padding:30px 20px 26px;
-        border-radius:14px;
+        padding:31px 20px 27px;
+        border-radius:15px;
       }
       .intro {
         grid-template-columns:1fr;
         gap:22px;
-        padding-bottom:26px;
+        padding-bottom:27px;
       }
       .portrait-wrap {
         grid-row:1;
         justify-content:flex-start;
         width:max-content;
       }
-      .portrait {
-        width:130px;
-        height:130px;
-      }
+      .portrait { width:132px; height:132px; }
       h1 { font-size:31px; }
-      h2 { margin-top:32px; font-size:22px; }
+      h2 { margin-top:34px; font-size:22px; }
       .work {
         grid-template-columns:1fr;
         gap:11px;
-        padding:12px 0;
+        padding:13px 0;
         border-width:0 0 1px;
         border-radius:0;
       }
@@ -298,11 +454,16 @@
       .thumb {
         width:100%;
         height:auto;
-        max-height:215px;
+        max-height:220px;
         object-fit:contain;
       }
-      .fallback { min-height:96px; }
-      .project-list,.compact-list { padding-left:32px; }
+      .fallback { min-height:98px; }
+      .projects-grid { grid-template-columns:1fr; }
+      .collab-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    }
+
+    @media (max-width:460px) {
+      .collab-grid { grid-template-columns:1fr; }
     }
   </style>
 </head>
@@ -338,6 +499,7 @@
 
   <section id="research">
     <h2>Research</h2>
+    <p class="section-note">Selected research across task and motion planning, robot perception, navigation, and assistive robotics.</p>
 
     <article class="work">
       <img class="thumb" src="./assets/research-concept-2.jpg" alt="Task and motion planning research overview" />
@@ -382,11 +544,66 @@
 
   <section id="projects">
     <h2>Selected Projects</h2>
-    <ul class="project-list">
-      <li><strong>Moto-Memory-VLA</strong> — latent-action retrieval for embodied control using InfoNCE learning, FAISS subtrajectory memory, dynamic time warping, and cosine-similarity retrieval. <span class="venue">NTU Singapore, 2025.</span></li>
-      <li><strong>Autonomous UAS</strong> — autonomous quadcopter with ROS 2 communication, onboard real-time object detection, and dynamic route replanning. <span class="venue">Top 15, SAE AeroTHON 2024.</span></li>
-      <li><strong>PixelBot</strong> — multimodal conversational image system for segmentation, inpainting, and generation using LLaVA, SAM2, and GLIGEN. <span class="venue">Smart India Hackathon 2024 finalist.</span></li>
-    </ul>
+    <p class="section-note">Research prototypes, embodied-learning systems, and autonomous robotics projects.</p>
+
+    <div class="projects-grid">
+      <article class="project-card">
+        <div class="project-top"><div class="project-mark">G</div><span class="project-year">Current</span></div>
+        <h3 class="project-title">GeoClean-3D</h3>
+        <p class="project-copy">Perception-to-planning for cleaning irregular 3D basin surfaces through geometric reconstruction, surface parameterization, and geometry-aware action generation.</p>
+        <span class="project-link">Currently working</span>
+      </article>
+
+      <article class="project-card">
+        <div class="project-top"><div class="project-mark">M</div><span class="project-year">NTU · 2025</span></div>
+        <h3 class="project-title">Moto-Memory-VLA</h3>
+        <p class="project-copy">Latent-action retrieval with InfoNCE learning, FAISS subtrajectory memory, dynamic-time-warping alignment, and cosine-similarity retrieval for embodied control.</p>
+        <a class="project-link" href="https://github.com/Narendhiranv04/Moto" target="_blank" rel="noreferrer">View project ↗</a>
+      </article>
+
+      <article class="project-card">
+        <div class="project-top"><div class="project-mark">F</div><span class="project-year">Monash</span></div>
+        <h3 class="project-title">Fuzzy-GRU Exoskeleton</h3>
+        <p class="project-copy">A lightweight encoder-decoder GRU with a Mamdani fuzzy inference system for real-time sit-to-walk torque estimation in robotic exoskeletons.</p>
+        <a class="project-link" href="https://github.com/Narendhiranv04/gru_fis_framework" target="_blank" rel="noreferrer">View project ↗</a>
+      </article>
+
+      <article class="project-card">
+        <div class="project-top"><div class="project-mark">U</div><span class="project-year">SAE · 2024</span></div>
+        <h3 class="project-title">Autonomous UAS</h3>
+        <p class="project-copy">Competition-ready autonomous quadcopter with ROS 2 communication, onboard real-time vision, and dynamic SWEEP/SERVICE route replanning.</p>
+        <a class="project-link" href="https://drive.google.com/drive/folders/1kKaMLSFk3kYxo7mgzinFKQgGFMAoyrcK?usp=sharing" target="_blank" rel="noreferrer">View project ↗</a>
+      </article>
+
+      <article class="project-card">
+        <div class="project-top"><div class="project-mark">P</div><span class="project-year">MathWorks · 2024</span></div>
+        <h3 class="project-title">Parrot Mambo Autonomy</h3>
+        <p class="project-copy">Image-processing, Stateflow planning, and cascaded PID control for autonomous line-following and virtual target-point tracking on a Parrot Mambo.</p>
+        <a class="project-link" href="https://drive.google.com/drive/folders/1aYSyzn0AptxgAfXk2vBQw_lc9TUsJ8UO?usp=sharing" target="_blank" rel="noreferrer">View project ↗</a>
+      </article>
+
+      <article class="project-card">
+        <div class="project-top"><div class="project-mark">P</div><span class="project-year">SIH · 2024</span></div>
+        <h3 class="project-title">PixelBot</h3>
+        <p class="project-copy">Multimodal conversational image assistant for segmentation, inpainting, and generation using LLaVA, SAM2, GLIGEN, and conversational memory.</p>
+        <a class="project-link" href="https://github.com/Narendhiranv04/Multimodal-Conversational-Image-Recognition-Chatbot.git" target="_blank" rel="noreferrer">View project ↗</a>
+      </article>
+    </div>
+  </section>
+
+  <section id="collaborations">
+    <h2>Collaborations</h2>
+    <p class="section-note">Institutions I have worked with across robotics, perception, embodied AI, and assistive systems.</p>
+    <div class="collab-panel">
+      <div class="collab-grid">
+        <a class="collab" href="https://utdallas.edu/" target="_blank" rel="noreferrer"><span class="collab-badge">UTD</span><span class="collab-name">University of Texas at Dallas</span></a>
+        <a class="collab" href="https://www.ntu.edu.sg/" target="_blank" rel="noreferrer"><span class="collab-badge">NTU</span><span class="collab-name">Nanyang Technological University</span></a>
+        <a class="collab" href="https://www.iiit.ac.in/" target="_blank" rel="noreferrer"><span class="collab-badge">IIIT-H</span><span class="collab-name">IIIT Hyderabad</span></a>
+        <a class="collab" href="https://www.monash.edu/" target="_blank" rel="noreferrer"><span class="collab-badge">MU</span><span class="collab-name">Monash University</span></a>
+        <a class="collab" href="https://www.iitb.ac.in/" target="_blank" rel="noreferrer"><span class="collab-badge">IITB</span><span class="collab-name">IIT Bombay</span></a>
+        <a class="collab" href="https://www.nitt.edu/" target="_blank" rel="noreferrer"><span class="collab-badge">NITT</span><span class="collab-name">NIT Tiruchirappalli</span></a>
+      </div>
+    </div>
   </section>
 
   <section id="awards">
