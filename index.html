@@ -3,13 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Narendhiran Vijayakumar — robotics and embodied AI researcher." />
+  <meta name="description" content="Narendhiran Vijayakumar — robotics, embodied AI, task and motion planning, and robot learning." />
   <meta name="theme-color" content="#d9e4e5" />
   <title>Narendhiran Vijayakumar</title>
   <style>
     :root {
       --ink:#1f292b;
-      --muted:#697374;
+      --ink-soft:#394546;
+      --muted:#687373;
       --teal:#0f6870;
       --teal-dark:#0b5056;
       --rust:#a95237;
@@ -17,9 +18,9 @@
       --paper:#f6f0e5;
       --paper-deep:#ece3d4;
       --canvas:#d9e4e5;
-      --rule:#b9c5c3;
-      --rule-dark:#8f9d9b;
-      --faint:#e6ecea;
+      --rule:#b8c3c1;
+      --rule-dark:#879795;
+      --faint:#e5ebe8;
       --mono:"Courier New",Courier,monospace;
       --serif:Georgia,"Times New Roman",serif;
       --sans:Arial,Helvetica,sans-serif;
@@ -52,11 +53,11 @@
     a:hover { text-decoration:underline; }
 
     .page {
-      width:min(980px,calc(100% - 34px));
+      width:min(1020px,calc(100% - 34px));
       margin:30px auto 42px;
-      padding:0 54px 34px;
+      padding:0 58px 36px;
       background:
-        repeating-linear-gradient(0deg,rgba(72,82,79,.018) 0,rgba(72,82,79,.018) 1px,transparent 1px,transparent 4px),
+        repeating-linear-gradient(0deg,rgba(72,82,79,.017) 0,rgba(72,82,79,.017) 1px,transparent 1px,transparent 4px),
         var(--paper);
       border:1px solid var(--rule-dark);
       box-shadow:10px 10px 0 rgba(52,70,70,.10);
@@ -65,14 +66,14 @@
 
     .topline {
       height:34px;
-      margin:0 -54px 40px;
+      margin:0 -58px 39px;
       padding:0 18px;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:20px;
       border-bottom:1px solid var(--rule-dark);
-      background:rgba(236,227,212,.74);
+      background:rgba(236,227,212,.78);
       color:#5f6867;
       font-family:var(--mono);
       font-size:10px;
@@ -80,17 +81,13 @@
       text-transform:uppercase;
     }
 
-    .topline strong {
-      color:var(--rust-dark);
-      font-weight:700;
-    }
+    .topline strong { color:var(--rust-dark); font-weight:700; }
 
     .intro {
       display:grid;
-      grid-template-columns:minmax(0,1fr) 178px;
-      gap:46px;
+      grid-template-columns:minmax(0,1fr) 180px;
+      gap:44px;
       align-items:start;
-      padding-bottom:24px;
     }
 
     .eyebrow {
@@ -107,19 +104,43 @@
       margin:0 0 16px;
       color:#172022;
       font-family:var(--serif);
-      font-size:39px;
-      line-height:1.06;
+      font-size:40px;
+      line-height:1.05;
       font-weight:400;
-      letter-spacing:-.025em;
+      letter-spacing:-.026em;
     }
 
     .intro p {
-      max-width:650px;
-      margin:0 0 11px;
+      max-width:690px;
+      margin:0 0 10px;
       color:#313b3d;
     }
 
+    .intro .research-line {
+      color:#4d5a5a;
+      font-size:13.5px;
+    }
+
+    .profile-links {
+      display:flex;
+      flex-wrap:wrap;
+      gap:0;
+      margin-top:16px;
+      font-family:var(--mono);
+      font-size:11px;
+      letter-spacing:.01em;
+    }
+
+    .profile-links a { color:#435253; }
+    .profile-links a + a::before {
+      content:" / ";
+      margin:0 6px;
+      color:#9a8378;
+      text-decoration:none;
+    }
+
     .portrait-frame {
+      width:172px;
       margin:2px 0 0;
       position:relative;
     }
@@ -137,12 +158,12 @@
       position:relative;
       z-index:1;
       display:block;
-      width:170px;
-      height:184px;
+      width:172px;
+      height:172px;
       object-fit:cover;
-      object-position:center;
+      object-position:center center;
       border:1px solid #6f7977;
-      filter:saturate(.76) contrast(1.03);
+      filter:saturate(.78) contrast(1.03);
       background:#ddd;
     }
 
@@ -153,17 +174,18 @@
       color:#6f7674;
       font-family:var(--mono);
       font-size:9px;
-      letter-spacing:.08em;
+      letter-spacing:.07em;
       text-transform:uppercase;
     }
 
     .collab-strip {
       grid-column:1 / -1;
-      margin-top:10px;
-      padding:16px 0 14px;
+      margin-top:23px;
+      padding:13px 0 12px;
       display:grid;
       grid-template-columns:repeat(6,minmax(0,1fr));
-      gap:14px;
+      column-gap:18px;
+      row-gap:12px;
       align-items:center;
       border-top:1px solid var(--rule);
       border-bottom:1px solid var(--rule);
@@ -174,13 +196,15 @@
       display:flex;
       align-items:center;
       justify-content:flex-start;
-      color:#66706e;
-      transition:color .15s ease,transform .15s ease;
+      color:#6b7471;
+      opacity:.88;
+      transition:color .15s ease,opacity .15s ease,transform .15s ease;
     }
 
     .logo-lockup:hover,
     .logo-lockup:focus-visible {
       color:var(--ink);
+      opacity:1;
       text-decoration:none;
       transform:translateY(-1px);
     }
@@ -202,51 +226,61 @@
     }
 
     .logo-major {
-      font-size:20px;
+      font-size:18px;
       font-weight:800;
-      letter-spacing:-.07em;
+      letter-spacing:-.065em;
     }
 
     .logo-minor {
-      font-size:10px;
+      font-size:9px;
       font-weight:700;
-      letter-spacing:-.02em;
+      letter-spacing:-.015em;
     }
 
-    .logo-lockup--utd .logo-major { letter-spacing:-.09em; }
-    .logo-lockup--monash .logo-major { font-size:17px; }
+    .logo-lockup--utd .logo-major { letter-spacing:-.08em; }
+    .logo-lockup--monash .logo-major { font-size:16px; }
 
-    .profile-links {
-      display:flex;
-      flex-wrap:wrap;
-      gap:0;
-      margin-top:17px;
+    .profile-register {
+      grid-column:1 / -1;
+      display:grid;
+      grid-template-columns:1.15fr 1.1fr 1.35fr 1.4fr;
+      border-bottom:1px solid var(--rule-dark);
+    }
+
+    .register-cell {
+      min-width:0;
+      padding:13px 18px 14px 0;
+      border-right:1px solid var(--rule);
+    }
+
+    .register-cell + .register-cell { padding-left:18px; }
+    .register-cell:last-child { border-right:0; padding-right:0; }
+
+    .register-label {
+      display:block;
+      margin-bottom:5px;
+      color:var(--rust-dark);
       font-family:var(--mono);
-      font-size:11px;
-      letter-spacing:.01em;
+      font-size:9px;
+      font-weight:700;
+      letter-spacing:.1em;
+      text-transform:uppercase;
     }
 
-    .profile-links a {
-      color:#435253;
+    .register-value {
+      color:#465253;
+      font-size:12px;
+      line-height:1.45;
     }
 
-    .profile-links a + a::before {
-      content:" / ";
-      margin:0 6px;
-      color:#9a8378;
-      text-decoration:none;
-    }
-
-    section.content-section {
-      margin-top:34px;
-    }
+    section.content-section { margin-top:36px; }
 
     .section-head {
       display:grid;
-      grid-template-columns:auto 1fr auto;
+      grid-template-columns:auto auto 1fr;
       gap:12px;
       align-items:center;
-      margin:0 0 16px;
+      margin:0 0 15px;
     }
 
     .section-no,
@@ -265,20 +299,23 @@
       font-size:24px;
       line-height:1;
       font-weight:400;
+      white-space:nowrap;
     }
 
-    .section-rule {
-      height:1px;
-      background:var(--rule-dark);
+    .section-rule { height:1px; background:var(--rule-dark); }
+
+    .section-intro {
+      max-width:720px;
+      margin:-3px 0 16px 41px;
+      color:#667170;
+      font-size:12.5px;
     }
 
-    .research-list {
-      border-top:1px solid var(--rule-dark);
-    }
+    .research-list { border-top:1px solid var(--rule-dark); }
 
     .work {
       display:grid;
-      grid-template-columns:174px minmax(0,1fr);
+      grid-template-columns:178px minmax(0,1fr);
       gap:24px;
       align-items:center;
       padding:18px 0;
@@ -287,9 +324,9 @@
 
     .thumb-wrap {
       position:relative;
-      width:166px;
-      height:110px;
-      margin-left:5px;
+      width:170px;
+      aspect-ratio:3 / 2;
+      margin-left:4px;
     }
 
     .thumb-wrap::after {
@@ -301,26 +338,31 @@
     }
 
     .thumb {
-      position:relative;
+      position:absolute;
+      inset:0;
       z-index:1;
-      width:166px;
-      height:110px;
-      object-fit:cover;
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      padding:4px;
       border:1px solid #8d9895;
-      background:#e7e5dd;
+      background:#eee9df;
     }
+
+    .thumb.photo { object-fit:cover; padding:0; filter:saturate(.78); }
 
     .fallback {
       display:flex;
       align-items:center;
       justify-content:center;
+      padding:14px;
       text-align:center;
       background:
         linear-gradient(135deg,rgba(169,82,55,.12),transparent 55%),
         #e7ece8;
       color:#595f5d;
       font-family:var(--mono);
-      font-size:11px;
+      font-size:10px;
       letter-spacing:.08em;
       text-transform:uppercase;
     }
@@ -334,12 +376,7 @@
       font-weight:700;
     }
 
-    .authors {
-      margin-bottom:3px;
-      color:#3e4849;
-      font-size:13px;
-    }
-
+    .authors { margin-bottom:3px; color:#3e4849; font-size:13px; }
     .venue {
       margin-bottom:5px;
       color:var(--rust-dark);
@@ -348,10 +385,17 @@
       letter-spacing:.015em;
     }
 
-    .desc {
-      color:#536061;
-      font-size:13px;
+    .desc { color:#536061; font-size:13px; }
+
+    .work-links {
+      margin-top:6px;
+      font-family:var(--mono);
+      font-size:9.5px;
+      text-transform:uppercase;
+      letter-spacing:.035em;
     }
+
+    .work-links a + a::before { content:" · "; color:#8f8880; margin:0 5px; }
 
     .projects-table {
       display:grid;
@@ -361,7 +405,7 @@
     }
 
     .project-item {
-      min-height:150px;
+      min-height:156px;
       padding:17px 18px 16px 0;
       border-bottom:1px solid var(--rule);
       position:relative;
@@ -372,10 +416,7 @@
       border-right:1px solid var(--rule-dark);
     }
 
-    .project-item:nth-child(even) {
-      padding-left:28px;
-    }
-
+    .project-item:nth-child(even) { padding-left:28px; }
     .project-item:nth-last-child(-n+2) { border-bottom:0; }
 
     .project-index {
@@ -395,13 +436,7 @@
       font-weight:700;
     }
 
-    .project-copy {
-      margin:0 0 8px;
-      color:#536061;
-      font-size:13px;
-      line-height:1.5;
-    }
-
+    .project-copy { margin:0 0 8px; color:#536061; font-size:13px; line-height:1.5; }
     .project-meta {
       color:#6b7574;
       font-family:var(--mono);
@@ -410,11 +445,32 @@
       text-transform:uppercase;
     }
 
-    .project-link {
-      margin-left:8px;
-      color:var(--teal-dark);
-      font-weight:700;
+    .project-link { margin-left:8px; color:var(--teal-dark); font-weight:700; }
+
+    .toolbox {
+      border-top:1px solid var(--rule-dark);
+      border-bottom:1px solid var(--rule-dark);
     }
+
+    .tool-row {
+      display:grid;
+      grid-template-columns:150px 1fr;
+      gap:22px;
+      padding:10px 0;
+      border-bottom:1px solid var(--rule);
+    }
+
+    .tool-row:last-child { border-bottom:0; }
+    .tool-label {
+      color:var(--rust-dark);
+      font-family:var(--mono);
+      font-size:9px;
+      font-weight:700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .tool-value { color:#4e5a5b; font-size:12.5px; }
 
     .service-list {
       margin:0;
@@ -425,10 +481,11 @@
 
     .service-list li {
       display:grid;
-      grid-template-columns:34px 1fr;
+      grid-template-columns:34px 230px 1fr;
       gap:10px;
-      padding:9px 0;
+      padding:10px 0;
       border-bottom:1px solid var(--rule);
+      align-items:start;
     }
 
     .service-list li::before {
@@ -440,8 +497,11 @@
       padding-top:2px;
     }
 
+    .service-title { color:#313c3d; font-weight:700; }
+    .service-note { color:#687272; font-size:12.5px; }
+
     footer {
-      margin-top:38px;
+      margin-top:39px;
       padding-top:14px;
       border-top:1px solid var(--rule-dark);
       display:flex;
@@ -458,34 +518,50 @@
       * { scroll-behavior:auto !important; transition:none !important; }
     }
 
-    @media (max-width:820px) {
+    @media (max-width:860px) {
       .page {
-        width:min(100% - 20px,980px);
+        width:min(100% - 20px,1020px);
         margin:10px auto 26px;
-        padding:0 24px 28px;
+        padding:0 26px 28px;
         box-shadow:6px 6px 0 rgba(52,70,70,.09);
       }
-      .topline { margin:0 -24px 30px; }
-      .intro { grid-template-columns:1fr 145px; gap:28px; }
-      .portrait { width:140px; height:152px; }
-      .collab-strip { grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px 20px; }
-      .logo-major { font-size:18px; }
+      .topline { margin:0 -26px 30px; }
+      .intro { grid-template-columns:1fr 150px; gap:28px; }
+      .portrait-frame,.portrait { width:144px; }
+      .portrait { height:144px; }
+      .collab-strip { grid-template-columns:repeat(3,minmax(0,1fr)); gap:13px 24px; }
+      .profile-register { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .register-cell:nth-child(2) { border-right:0; padding-right:0; }
+      .register-cell:nth-child(3),.register-cell:nth-child(4) { border-top:1px solid var(--rule); }
+      .register-cell:nth-child(3) { padding-left:0; }
+      .logo-major { font-size:17px; }
+      .service-list li { grid-template-columns:32px 200px 1fr; }
     }
 
-    @media (max-width:620px) {
+    @media (max-width:640px) {
       body { font-size:13.5px; }
       .topline span:last-child { display:none; }
       .intro { grid-template-columns:1fr; }
-      .portrait-frame { grid-row:1; width:max-content; }
-      .portrait { width:126px; height:136px; }
-      h1 { font-size:33px; }
+      .portrait-frame { grid-row:1; width:130px; }
+      .portrait { width:130px; height:130px; }
+      h1 { font-size:34px; }
       .collab-strip { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .profile-register { grid-template-columns:1fr; }
+      .register-cell,
+      .register-cell + .register-cell,
+      .register-cell:nth-child(2),
+      .register-cell:nth-child(3),
+      .register-cell:nth-child(4) {
+        padding:10px 0;
+        border-right:0;
+        border-top:1px solid var(--rule);
+      }
+      .register-cell:first-child { border-top:0; }
       .profile-links { line-height:2; }
-      .work { grid-template-columns:1fr; gap:14px; }
-      .thumb-wrap,.thumb { width:100%; height:auto; max-height:215px; }
-      .thumb-wrap { min-height:118px; }
-      .thumb { min-height:118px; object-fit:contain; }
-      .fallback { height:118px; }
+      .section-head { grid-template-columns:auto auto 1fr; }
+      .section-intro { margin-left:0; }
+      .work { grid-template-columns:1fr; gap:15px; }
+      .thumb-wrap { width:calc(100% - 8px); max-width:440px; margin-left:0; }
       .projects-table { grid-template-columns:1fr; }
       .project-item,
       .project-item:nth-child(odd),
@@ -496,6 +572,9 @@
         border-bottom:1px solid var(--rule);
       }
       .project-item:last-child { border-bottom:0; }
+      .tool-row { grid-template-columns:1fr; gap:3px; }
+      .service-list li { grid-template-columns:28px 1fr; gap:8px; }
+      .service-note { grid-column:2; }
       footer { flex-direction:column; gap:4px; }
     }
   </style>
@@ -516,10 +595,8 @@
         I completed my B.Tech. in Mechanical Engineering with a minor in Computer Science at
         <a href="https://www.nitt.edu/" target="_blank" rel="noreferrer">NIT Tiruchirappalli</a>.
       </p>
-      <p>
-        My research interests lie in robotics and embodied AI, particularly long-horizon manipulation,
-        task and motion planning, robot learning, and visual perception. I am interested in systems that
-        connect perception and reasoning to reliable robot behavior under changing scenes and partial observability.
+      <p class="research-line">
+        I work at the intersection of long-horizon manipulation, task and motion planning, robot learning, and embodied perception. My current work spans foundation-model planning under partial observability, latent-action retrieval for embodied control, and evaluating perception systems as robot scenes evolve over time.
       </p>
 
       <div class="profile-links" aria-label="Profile links">
@@ -534,7 +611,7 @@
 
     <figure class="portrait-frame">
       <img class="portrait" src="./assets/naren-portrait-card.jpg" alt="Portrait of Narendhiran Vijayakumar" />
-      <figcaption class="portrait-caption">Narendhiran V. / 2026</figcaption>
+      <figcaption class="portrait-caption">Narendhiran V. / profile 01</figcaption>
     </figure>
 
     <div class="collab-strip" aria-label="Research affiliations and collaborations">
@@ -557,14 +634,34 @@
         <span class="logo-stack"><span class="logo-major">NIT</span><span class="logo-minor">Trichy</span></span>
       </a>
     </div>
+
+    <div class="profile-register" aria-label="Profile summary">
+      <div class="register-cell">
+        <span class="register-label">Current</span>
+        <div class="register-value">Research Assistant<br />IIIT Hyderabad</div>
+      </div>
+      <div class="register-cell">
+        <span class="register-label">Education</span>
+        <div class="register-value">B.Tech. Mechanical Engineering<br />Minor in Computer Science · NIT Trichy</div>
+      </div>
+      <div class="register-cell">
+        <span class="register-label">Research</span>
+        <div class="register-value">TAMP · long-horizon manipulation · robot learning · embodied perception</div>
+      </div>
+      <div class="register-cell">
+        <span class="register-label">Systems</span>
+        <div class="register-value">Python · C++ · PyTorch · ROS 2 · Docker · Linux</div>
+      </div>
+    </div>
   </section>
 
   <section class="content-section" id="research">
     <div class="section-head">
       <span class="section-no">01</span>
+      <h2>Research &amp; Publications</h2>
       <div class="section-rule"></div>
-      <h2>Research</h2>
     </div>
+    <p class="section-intro">Selected work across planning, robot perception, autonomous systems, and assistive robotics.</p>
 
     <div class="research-list">
       <article class="work">
@@ -573,7 +670,7 @@
           <div class="work-title">Plan Along the Way: Event-Triggered Foundation-Model Planning for TAMP Execution in Partially Observable Manipulation</div>
           <div class="authors">P. Ojha*, <strong>Narendhiran Vijayakumar</strong>, Nav Singhal, G. Varma, A. Thomas*</div>
           <div class="venue">RA-L · 2026 · IIIT Hyderabad</div>
-          <div class="desc">Foundation-model planning for task-and-motion execution under partial observability.</div>
+          <div class="desc">Foundation-model planning for task-and-motion execution under partial observability, with event-triggered reasoning during long-horizon manipulation.</div>
         </div>
       </article>
 
@@ -583,7 +680,8 @@
           <div class="work-title">Same Scene, Different Story: Evaluating Robot Perception Across Scene Phases in the Wild</div>
           <div class="authors">I. Kadosh*, Jishnu P*, <strong>Narendhiran Vijayakumar</strong>, S. Haneesh, J. Wang, Y. Xiang</div>
           <div class="venue">In preparation · ICRA 2027 target · University of Texas at Dallas</div>
-          <div class="desc">A real-world benchmark for evaluating robot perception across changing phases of a scene.</div>
+          <div class="desc">A real-world benchmark for evaluating robot perception as the same physical scene changes across static and dynamic phases.</div>
+          <div class="work-links"><a href="https://huggingface.co/IRVLUTD" target="_blank" rel="noreferrer">project</a></div>
         </div>
       </article>
 
@@ -593,17 +691,30 @@
           <div class="work-title">AURASeg: Attention-Guided Upsampling with Residual Boundary-Assistive Refinement for Drivable-Area Segmentation</div>
           <div class="authors"><strong>Narendhiran Vijayakumar*</strong>, M. Sridevi</div>
           <div class="venue">arXiv · 2026 · IIT Bombay &amp; NIT Tiruchirappalli</div>
-          <div class="desc">Boundary-aware drivable-area segmentation with attention-guided decoding for resource-constrained navigation.</div>
+          <div class="desc">Boundary-aware drivable-area segmentation using attention-guided decoding and residual boundary refinement for resource-constrained navigation.</div>
+          <div class="work-links"><a href="https://github.com/Narendhiranv04/AURASeg" target="_blank" rel="noreferrer">repository</a></div>
         </div>
       </article>
 
       <article class="work">
-        <div class="thumb-wrap"><div class="thumb fallback">Assistive Robotics</div></div>
+        <div class="thumb-wrap"><div class="thumb fallback">Assistive Robotics<br />STW Torque</div></div>
         <div>
           <div class="work-title">Fuzzy Logic–GRU Framework for Real-Time Sit-to-Walk Joint Torque Estimation in Robotic Exoskeletons</div>
           <div class="authors"><strong>Narendhiran Vijayakumar*</strong>, C. Perera, A. Agape</div>
           <div class="venue">In preparation · Monash University Malaysia</div>
-          <div class="desc">Real-time hip and knee torque estimation for robotic exoskeleton assistance using sequence prediction and fuzzy control.</div>
+          <div class="desc">Encoder-decoder GRU torque forecasting paired with Mamdani fuzzy inference for real-time hip and knee assistance during sit-to-walk transitions.</div>
+          <div class="work-links"><a href="https://github.com/Narendhiranv04/gru_fis_framework" target="_blank" rel="noreferrer">repository</a></div>
+        </div>
+      </article>
+
+      <article class="work">
+        <div class="thumb-wrap"><img class="thumb photo" src="./assets/competition/uas-main.jpg" alt="Autonomous UAS project" /></div>
+        <div>
+          <div class="work-title">Design and Structural Validation of a Micro-UAV with On-Board Dynamic Route Planning</div>
+          <div class="authors"><strong>Narendhiran Vijayakumar*</strong>, I. Ravikumar, R. Sundhar</div>
+          <div class="venue">Springer International Conference on MRAE · 2025 · SAE AeroTHON-24</div>
+          <div class="desc">Micro-UAV design and validation with onboard perception, ROS 2 communication, and dynamic route planning for autonomous aerial tasks.</div>
+          <div class="work-links"><a href="https://drive.google.com/drive/folders/1kKaMLSFk3kYxo7mgzinFKQgGFMAoyrcK?usp=sharing" target="_blank" rel="noreferrer">project material</a></div>
         </div>
       </article>
     </div>
@@ -612,9 +723,10 @@
   <section class="content-section" id="projects">
     <div class="section-head">
       <span class="section-no">02</span>
+      <h2>Selected Projects</h2>
       <div class="section-rule"></div>
-      <h2>Projects</h2>
     </div>
+    <p class="section-intro">Robotics and embodied-AI systems spanning latent action learning, 3D perception, aerial autonomy, controls, and multimodal interaction.</p>
 
     <div class="projects-table">
       <article class="project-item">
@@ -625,7 +737,7 @@
       </article>
 
       <article class="project-item">
-        <span class="project-index">P-02 / 2025</span>
+        <span class="project-index">P-02 / MAY–SEP 2025</span>
         <h3 class="project-title">Moto-Memory-VLA</h3>
         <p class="project-copy">Latent-action retrieval with InfoNCE learning, FAISS subtrajectory memory, dynamic time warping, and cosine-similarity retrieval for embodied control.</p>
         <div class="project-meta">NTU Singapore <a class="project-link" href="https://github.com/Narendhiranv04/Moto" target="_blank" rel="noreferrer">↗ repository</a></div>
@@ -641,7 +753,7 @@
       <article class="project-item">
         <span class="project-index">P-04 / 2024</span>
         <h3 class="project-title">Autonomous UAS</h3>
-        <p class="project-copy">Competition quadcopter with ROS 2 communication, onboard object detection, PX4 integration, and dynamic SWEEP / SERVICE route replanning.</p>
+        <p class="project-copy">Competition quadcopter with ROS 2 communication, onboard SSD-MobileNet-v2 inference, PX4 integration, and dynamic SWEEP / SERVICE route replanning.</p>
         <div class="project-meta">SAE AeroTHON · Top 15 nationally <a class="project-link" href="https://drive.google.com/drive/folders/1kKaMLSFk3kYxo7mgzinFKQgGFMAoyrcK?usp=sharing" target="_blank" rel="noreferrer">↗ project</a></div>
       </article>
 
@@ -661,24 +773,40 @@
     </div>
   </section>
 
-  <section class="content-section" id="awards">
+  <section class="content-section" id="toolbox">
     <div class="section-head">
       <span class="section-no">03</span>
+      <h2>Technical Toolbox</h2>
       <div class="section-rule"></div>
+    </div>
+
+    <div class="toolbox">
+      <div class="tool-row"><span class="tool-label">Languages</span><span class="tool-value">Python · C++ · MATLAB · LaTeX</span></div>
+      <div class="tool-row"><span class="tool-label">ML / Vision</span><span class="tool-value">PyTorch · TensorFlow · Keras · OpenCV · scikit-learn · MediaPipe</span></div>
+      <div class="tool-row"><span class="tool-label">Robotics / Systems</span><span class="tool-value">ROS 2 · Git · Docker · Linux · Jupyter · SciPy</span></div>
+      <div class="tool-row"><span class="tool-label">Deployment</span><span class="tool-value">Jetson Nano · Raspberry Pi · Arduino · PX4 / embedded autonomy workflows</span></div>
+    </div>
+  </section>
+
+  <section class="content-section" id="awards">
+    <div class="section-head">
+      <span class="section-no">04</span>
       <h2>Awards &amp; Service</h2>
+      <div class="section-rule"></div>
     </div>
 
     <ul class="service-list">
-      <li data-no="01">Finalist, Smart India Hackathon 2024.</li>
-      <li data-no="02">Top 15, SAE AeroTHON — National UAS Design, Build and Fly Contest 2024.</li>
-      <li data-no="03">Technical Head, Third Dimension Aeromodelling Club.</li>
-      <li data-no="04">Vice President, Maximus — Math &amp; Physics Society.</li>
-      <li data-no="05">Physics Manager, IGNITTE Teaching Club; Regional Volunteer, FIRST Robotics.</li>
+      <li data-no="01"><span class="service-title">Smart India Hackathon 2024 — Finalist</span><span class="service-note">Built PixelBot, a multimodal conversational image system; placed second in the first stage.</span></li>
+      <li data-no="02"><span class="service-title">SAE AeroTHON 2024 — Top 15</span><span class="service-note">Led autonomous UAS development in a national design, build, and fly competition.</span></li>
+      <li data-no="03"><span class="service-title">Third Dimension — Technical Head</span><span class="service-note">Developed autonomous drones, led workshops, and represented NIT Trichy.</span></li>
+      <li data-no="04"><span class="service-title">Maximus — Vice President</span><span class="service-note">Designed the induction pipeline, curated machine-learning projects, and mentored juniors.</span></li>
+      <li data-no="05"><span class="service-title">Synergy — Head of Workshops</span><span class="service-note">Organized a robotics workshop and managed speakers, logistics, and audience setup.</span></li>
+      <li data-no="06"><span class="service-title">IGNITTE / FIRST Robotics</span><span class="service-note">Led free JEE physics training for rural students and volunteered in middle-school robotics outreach.</span></li>
     </ul>
   </section>
 
   <footer>
-    <span>Narendhiran Vijayakumar</span>
+    <span>Narendhiran Vijayakumar · Robotics / Embodied AI</span>
     <span>Last updated August 2026</span>
   </footer>
 </main>
