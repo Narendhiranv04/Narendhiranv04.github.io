@@ -2,38 +2,41 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Naren | Personal Webpage</title>
-    <meta
-      name="description"
-      content="A Kuldar-inspired personal one-pager for Naren with a visible grid, animated signature, scribble portrait, experiments rail, and project cards."
-    />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Narendhiran Vijayakumar · Robotics &amp; Embodied AI</title>
+    <meta name="description" content="Narendhiran Vijayakumar — research assistant at IIIT Hyderabad. Exploring robotic manipulation, embodied AI, and robot perception." />
+    <meta name="theme-color" content="#faf9f6" />
+    <meta name="color-scheme" content="light dark" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Narendhiran Vijayakumar · Robotics &amp; Embodied AI" />
+    <meta property="og:description" content="Research, robots, and a little curiosity. Selected work in robotic manipulation, embodied AI, and perception." />
+    <meta property="og:image" content="https://narendhiranv04.github.io/assets/images/portrait.webp" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+    <link rel="preload" href="./assets/fonts/dm-mono-regular.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="./assets/fonts/space-grotesk-bold.ttf" as="font" type="font/ttf" crossorigin />
     <script>
       (() => {
-        try {
-          const storedTheme = localStorage.getItem("naren-theme");
-          const theme = storedTheme === "dark" || storedTheme === "light" ? storedTheme : "light";
-          document.documentElement.dataset.theme = theme;
-        } catch (error) {
-          document.documentElement.dataset.theme = "light";
-        }
+        let theme;
+        try { theme = localStorage.getItem("naren-theme"); } catch {}
+        const dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = theme === "light" || theme === "dark" ? theme : dark ? "dark" : "light";
+        document.querySelector('meta[name="theme-color"]').content = document.documentElement.dataset.theme === "dark" ? "#191a1c" : "#faf9f6";
       })();
     </script>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <main id="app" aria-live="polite"></main>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div id="app"></div>
     <noscript>
-      <div class="noscript-shell">
-        <h1>JavaScript is required to view this page.</h1>
-        <p>
-          This one-pager renders from a content module and powers the intro,
-          signature, scratch portrait, research previews, and project motion in the browser.
-        </p>
-      </div>
+      <main id="main" class="noscript-shell" tabindex="-1">
+        <h1>Hi! I'm Narendhiran Vijayakumar.</h1>
+        <p>I'm a research assistant at IIIT Hyderabad, working on robotic manipulation, embodied AI, and robot perception. I completed my bachelor's at NIT Trichy.</p>
+        <p>Please enable JavaScript to explore my research and projects.</p>
+        <a href="mailto:narendhiranv.nitt@gmail.com">Get in touch</a> · <a href="./cv_4.pdf">Read my CV</a> · <a href="https://github.com/Narendhiranv04">GitHub</a>
+      </main>
     </noscript>
-    <script src="./assets/signature-reveal-paths.js"></script>
     <script type="module" src="./script.js"></script>
   </body>
 </html>
