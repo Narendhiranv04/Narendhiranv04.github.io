@@ -32,76 +32,42 @@ function biography(text) {
   return html;
 }
 
-function robotMark() {
-  return `<svg class="robot-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 8v6" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="6" r="3" fill="currentColor"/><rect x="9" y="15" width="30" height="24" rx="8" stroke="currentColor" stroke-width="2"/><path d="M5 23v8m38-8v8M18 33h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="18" cy="24" r="2.5" fill="currentColor"/><circle cx="30" cy="24" r="2.5" fill="currentColor"/></svg>`;
+function sectionHead(id, symbol, title, note = "") {
+  return `<div class="section-heading"><h2 id="${id}">${icon(symbol)}${escape(title)}</h2>${note}</div>`;
 }
-function sectionHead(id, symbol, title, accent, note = "") {
-  return `<div class="section-heading"><h2 id="${id}">${icon(symbol)}<span>${title} <em>${accent}</em></span></h2>${note ? `<span class="section-note">${note}</span>` : ""}</div>`;
+function publicationLinks(item, includePdf = false) {
+  return `${external(item.href, "Paper", "paper-link")}${includePdf ? external(item.pdfUrl, "PDF", "publication-resource") : ""}${item.links.map(link => external(link.href, escape(link.label), "publication-resource")).join("")}`;
 }
-function researchRow(item, index) {
-  return `<article class="research-row">
-    <button class="research-image image-button" data-research="${index}" aria-label="Enlarge ${escape(item.title)} overview">
-      <img src="${escape(item.image)}" alt="${escape(item.imageAlt)}" width="240" height="150" loading="lazy" /><span class="zoom-hint">${icon("zoom")}</span>
-    </button>
-    <div class="research-copy">
-      <div class="item-meta"><span class="badge">${escape(item.label)}</span><span>${escape(item.category)}</span></div>
-      <h3>${external(item.href, escape(item.title))}</h3>
-      <p class="research-subtitle">${escape(item.subtitle)}</p><p>${escape(item.description)}</p>
-      <div class="research-bottom"><div class="topic-list">${item.tags.map(tag => `<span>${escape(tag)}</span>`).join("")}</div>${external(item.href, `Project ${icon("arrow")}`, "text-link")}</div>
+function publicationRow(item, index) {
+  const authors = item.authors.map(author => author === content.profile.name ? `<strong>${escape(author)}</strong>` : escape(author)).join(", ");
+  return `<article class="publication-row">
+    <button class="publication-image image-button" data-publication="${index}" aria-label="Enlarge architecture diagram for ${escape(item.title)}"><img src="${escape(item.thumbnail)}" alt="${escape(item.imageAlt)}" width="280" height="210" loading="lazy" /><span class="zoom-hint">${icon("zoom")}</span></button>
+    <div class="publication-copy"><div class="publication-meta">${publicationLinks(item)}<span class="venue">${escape(item.type)} ${escape(item.year)}</span></div>
+      <h3>${external(item.href, escape(item.title))}</h3><p class="authors">${authors}</p><p class="publication-description">${escape(item.description)}</p>
     </div></article>`;
 }
-function projectCard(item, index) {
-  return `<article class="project-card project-card--${item.theme}">
-    <div class="project-card-top"><span class="project-number">0${index + 1}</span><span class="project-category">${escape(item.category)}</span></div>
-    <h3>${escape(item.title)}</h3><p>${escape(item.description)}</p>
-    ${item.href ? external(item.href, `Repository ${icon("arrow")}`, "text-link") : '<span class="work-status"><span class="status-dot"></span> Work in progress</span>'}
-  </article>`;
+function projectRow(item) {
+  return `<article class="project-row"><p class="project-category">${escape(item.category)}</p><div><h3>${item.href ? external(item.href, escape(item.title)) : escape(item.title)}</h3><p>${escape(item.description)}</p>${item.href ? external(item.href, `Project ${icon("arrow")}`, "text-link") : '<span class="work-status">Work in progress</span>'}</div></article>`;
 }
 function competitionRow(item, index) {
-  return `<article class="competition-row">
-    <button class="competition-image image-button" data-competition="${index}" aria-label="Explore ${escape(item.projectTitle)}"><img src="${escape(item.thumbnail.src)}" alt="${escape(item.thumbnail.alt)}" width="200" height="140" loading="lazy" /><span class="zoom-hint">${icon("arrow")}</span></button>
-    <div class="competition-copy"><div class="item-meta"><span>${escape(item.competitionLabel)}</span><span class="meta-separator">/</span><span>${escape(item.timeframe)}</span></div>
-      <h3><button class="title-button" data-competition="${index}">${escape(item.projectTitle)} ${icon("arrow")}</button></h3><p>${escape(item.summary)}</p>
-      <div class="competition-bottom"><span class="outcome">${escape(item.outcome)}</span><button class="text-link" data-competition="${index}">Explore project ${icon("arrow")}</button></div>
-    </div></article>`;
+  return `<article class="competition-row"><button class="competition-image image-button" data-competition="${index}" aria-label="Explore ${escape(item.projectTitle)}"><img src="${escape(item.thumbnail.src)}" alt="${escape(item.thumbnail.alt)}" width="280" height="210" loading="lazy" /><span class="zoom-hint">${icon("arrow")}</span></button><div class="competition-copy"><p class="item-meta">${escape(item.competitionLabel)} · ${escape(item.timeframe)}</p><h3><button class="title-button" data-competition="${index}">${escape(item.projectTitle)}</button></h3><p>${escape(item.summary)}</p><p class="outcome">${escape(item.outcome)}</p><button class="text-link" data-competition="${index}">Details ${icon("arrow")}</button></div></article>`;
 }
 function communityRow(item) {
-  return `<article class="community-row"><img src="${escape(item.image)}" alt="${escape(item.imageAlt)}" width="112" height="92" loading="lazy" /><div><p class="community-role">${escape(item.role)}</p><h3>${escape(item.title)}</h3><p>${escape(item.description)}</p></div></article>`;
+  return `<article class="community-row"><img src="${escape(item.image)}" alt="${escape(item.imageAlt)}" width="280" height="210" loading="lazy" /><div><h3>${escape(item.title)}</h3><p class="community-role">${escape(item.role)}</p><p>${escape(item.description)}</p></div></article>`;
 }
 
 document.querySelector("#app").innerHTML = `
-  <div class="site-shell" id="top">
-    <header class="site-header">
-      <a href="#top" class="brand" aria-label="${escape(content.profile.name)}, back to top"><span class="brand-mark">${robotMark()}</span><span class="brand-name">naren<span>.</span><small>robots & a little curiosity</small></span></a>
-      <div class="header-actions">${external(content.footerCta.href, `Say hello ${icon("arrow")}`, "hello-link")}<span class="header-divider"></span><button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">${icon("sun", "theme-sun")}${icon("moon", "theme-moon")}</button></div>
-    </header>
-    <main id="main" tabindex="-1">
-      <section class="hero" aria-labelledby="intro-title">
-        <div class="hero-copy">
-          <h1 id="intro-title">Hi! I'm <span>${escape(content.profile.greetingName)}.</span></h1><p class="hero-pronunciation">${escape(content.profile.nickname)}</p>
-          <div class="bio">${content.profile.paragraphs.map(p => `<p>${biography(p)}</p>`).join("")}</div>
-          <div class="social-links" aria-label="Find me online">${content.socialLinks.map(link => external(link.href, `${icon(link.icon === "email" ? "mail" : link.icon)}${escape(link.label)}`, "social-link")).join("")}</div>
-        </div>
-        <figure class="portrait">
-          <svg class="portrait-spark" viewBox="0 0 90 75" fill="none" aria-hidden="true"><path d="m10 35 14 6M25 13l9 18M49 5l-2 22M72 15 60 32M85 39l-18 5" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/></svg>
-          <div class="portrait-frame"><img src="${escape(content.portraitCard.image)}" alt="${escape(content.portraitCard.alt)}" width="900" height="900" fetchpriority="high" /></div>
-          <figcaption><span class="status-dot"></span> ${escape(content.profile.caption)} <svg viewBox="0 0 40 25" fill="none" aria-hidden="true"><path d="M2 19C13 21 29 17 33 4m-8 3 9-5 4 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></figcaption>
-        </figure>
-      </section>
-      <nav class="section-nav" aria-label="On this page"><a href="#research" class="is-active">Research</a><a href="#projects">Projects</a><a href="#competitions">Competitions</a><a href="#community">Community</a><a href="#contact">Contact ${icon("arrow")}</a></nav>
-      <section class="content-section research-section" aria-labelledby="research" data-section>${sectionHead("research", "research", "Selected", "research", "Perception, planning & everything between")}<div class="research-list">${content.experiments.items.map(researchRow).join("")}</div></section>
-      <aside class="affiliations" aria-label="Research collaborations"><p>Learning & building<br />with people at</p><div>${content.companyLogos.logos.map(logo => external(logo.href, escape(logo.shortName), "affiliation-link")).join("")}</div></aside>
-      <section class="content-section" aria-labelledby="projects" data-section>${sectionHead("projects", "code", "Things I'm", "building", "A few ongoing explorations")}<div class="projects-grid">${content.projects.items.map(projectCard).join("")}</div></section>
-      <section class="content-section" aria-labelledby="competitions" data-section>
-        ${sectionHead("competitions", "plane", "From idea to", "flight", "Competition projects")}<div class="competition-list">${content.competitions.items.map(competitionRow).join("")}</div>
-        <div class="recognition">${content.recognition.map((item, index) => `${index ? '<span class="recognition-divider"></span>' : ""}<div>${icon("trophy")}<p><strong>${escape(item.title)}</strong><span>${escape(item.event)}</span></p></div>`).join("")}</div>
-      </section>
-      <section class="content-section community-section" aria-labelledby="community" data-section>${sectionHead("community", "people", "Beyond the", "lab", "Clubs, classrooms & good company")}<div class="community-grid">${content.extracurriculars.items.map(communityRow).join("")}</div></section>
-      <section class="contact-section" aria-labelledby="contact" data-section><span class="contact-kicker">THERE'S ALWAYS MORE TO EXPLORE</span><h2 id="contact">Good ideas start with<br />a <em>conversation.</em></h2><p>${escape(content.footerCta.text)}</p>${external(content.footerCta.href, `Let's talk ${icon("arrow")}`, "contact-link")}<span class="contact-email">narendhiranv.nitt@gmail.com</span></section>
-    </main>
-    <footer class="site-footer"><div><a href="#top" class="footer-brand">naren<span>.</span></a><p>Thanks for stopping by. Stay curious.</p></div><a href="#top" class="back-top">Back to top ${icon("arrow")}</a></footer>
-  </div>
-  <dialog class="detail-dialog" aria-labelledby="dialog-title"><div class="dialog-header"><h2 id="dialog-title"></h2><button class="dialog-close icon-button" aria-label="Close detail view">${icon("close")}</button></div><div class="dialog-content"></div></dialog>
+  <div class="site-shell" id="top"><header class="site-header"><a href="#top" class="brand" aria-label="${escape(content.profile.name)}, back to top"><span class="avatar">nv.</span></a><div class="header-actions">${external(content.footerCta.href, "Drop an email!", "hello-link")}<button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">${icon("sun", "theme-sun")}${icon("moon", "theme-moon")}</button></div></header>
+    <main id="main" tabindex="-1"><section class="hero" aria-labelledby="intro-title"><div class="hero-copy"><h1 id="intro-title">Hi! I'm <span>${escape(content.profile.greetingName)}.</span> <small>${escape(content.profile.nickname)}</small></h1><div class="bio">${content.profile.paragraphs.map(p => `<p>${biography(p)}</p>`).join("")}</div><div class="social-links" aria-label="Find me online">${content.socialLinks.map(link => external(link.href, `${icon(link.icon === "email" ? "mail" : link.icon)}${escape(link.label)}`, "social-link")).join("")}</div></div>
+      <figure class="portrait"><svg class="portrait-spark" viewBox="0 0 90 75" fill="none" aria-hidden="true"><path d="m10 35 14 6M25 13l9 18M49 5l-2 22M72 15 60 32M85 39l-18 5" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/></svg><div class="portrait-frame"><img src="${escape(content.portraitCard.image)}" alt="${escape(content.portraitCard.alt)}" width="900" height="900" fetchpriority="high" /></div><figcaption>${escape(content.profile.caption)}</figcaption></figure>
+    </section>
+    <section class="content-section publications-section" aria-labelledby="publications">${sectionHead("publications", "research", "Publications", external(content.publications.scholarUrl, `Google Scholar ${icon("arrow")}`, "scholar-link"))}<div class="publication-list">${content.publications.items.map(publicationRow).join("")}</div></section>
+    <section class="content-section" aria-labelledby="projects">${sectionHead("projects", "code", "Projects")}<div class="project-list">${content.projects.items.map(projectRow).join("")}</div></section>
+    <section class="content-section" aria-labelledby="competitions">${sectionHead("competitions", "plane", "Competition Projects")}<div class="competition-list">${content.competitions.items.map(competitionRow).join("")}</div></section>
+    <section class="content-section" aria-labelledby="community">${sectionHead("community", "people", "Clubs & Societies")}<div class="community-list">${content.extracurriculars.items.map(communityRow).join("")}</div></section>
+    <aside class="affiliations" aria-label="Research collaborations"><p>Collaborations</p><div>${content.companyLogos.logos.map(logo => external(logo.href, escape(logo.shortName))).join("")}</div></aside>
+    </main><footer class="site-footer" id="contact"><p class="thanks">THANKS FOR STOPPING BY!</p>${external(content.footerCta.href, "narendhiranv.nitt@gmail.com", "footer-email")}<div class="footer-bottom"><span>${escape(content.profile.name)}</span><a href="#top">Back to top ↑</a></div></footer>
+  </div><dialog class="detail-dialog" aria-labelledby="dialog-title"><div class="dialog-header"><h2 id="dialog-title"></h2><button class="dialog-close icon-button" aria-label="Close detail view">${icon("close")}</button></div><div class="dialog-content"></div></dialog>
 `;
 
 // Use the saved preference across visits; otherwise follow the operating system.
@@ -115,7 +81,7 @@ function applyTheme(theme) {
   themeButton.setAttribute("aria-pressed", String(dark));
   themeButton.setAttribute("aria-label", `Switch to ${dark ? "light" : "dark"} mode`);
   themeButton.title = `Switch to ${dark ? "light" : "dark"} mode`;
-  document.querySelector('meta[name="theme-color"]').content = dark ? "#191a1c" : "#faf9f6";
+  document.querySelector('meta[name="theme-color"]').content = dark ? "#151515" : "#f7f7f7";
 }
 applyTheme(document.documentElement.dataset.theme);
 themeButton.addEventListener("click", () => {
@@ -146,9 +112,9 @@ function openDetail(trigger, title, html, imageOnly = false) {
   document.body.classList.add("dialog-open");
   dialog.querySelector(".dialog-close").focus({ preventScroll: true });
 }
-document.querySelectorAll("[data-research]").forEach(button => button.addEventListener("click", () => {
-  const item = content.experiments.items[Number(button.dataset.research)];
-  openDetail(button, item.title, `<div class="research-full-image"><img src="${escape(item.image)}" alt="${escape(item.imageAlt)}" /></div><p>${escape(item.description)}</p>${external(item.href, `Explore project ${icon("arrow")}`, "text-link")}`, true);
+document.querySelectorAll("[data-publication]").forEach(button => button.addEventListener("click", () => {
+  const item = content.publications.items[Number(button.dataset.publication)];
+  openDetail(button, item.title, `<figure class="publication-full-image"><img src="${escape(item.image)}" alt="${escape(item.imageAlt)}" /><figcaption>${escape(item.imageAlt)}</figcaption></figure><p>${escape(item.description)}</p><div class="publication-meta">${publicationLinks(item, true)}</div>`, true);
 }));
 document.querySelectorAll("[data-competition]").forEach(button => button.addEventListener("click", () => {
   const item = content.competitions.items[Number(button.dataset.competition)];
@@ -183,35 +149,3 @@ dialog.addEventListener("close", () => {
   document.body.classList.remove("dialog-open");
   dialogTrigger?.focus({ preventScroll: true });
 });
-
-// Keep the section index in sync without intercepting normal anchor navigation.
-const navigationLinks = [...document.querySelectorAll(".section-nav a")];
-const sections = [...document.querySelectorAll("[data-section]")];
-let scrollScheduled = false;
-function updateNavigation() {
-  let current = "research";
-  sections.forEach(section => {
-    const heading = section.querySelector("h2");
-    if (heading.getBoundingClientRect().top <= Math.min(300, window.innerHeight * 0.4)) current = section.getAttribute("aria-labelledby");
-  });
-  // Several short sections can share the last scroll position on tall screens.
-  // Honor an explicitly selected, visible section there.
-  if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
-    const selected = sections.find(section => `#${section.getAttribute("aria-labelledby")}` === window.location.hash);
-    const top = selected?.querySelector("h2").getBoundingClientRect().top;
-    current = selected && top >= 0 && top < window.innerHeight ? selected.getAttribute("aria-labelledby") : "contact";
-  }
-  navigationLinks.forEach(link => {
-    const active = link.hash === `#${current}`;
-    link.classList.toggle("is-active", active);
-    if (active) link.setAttribute("aria-current", "location");
-    else link.removeAttribute("aria-current");
-  });
-  scrollScheduled = false;
-}
-window.addEventListener("scroll", () => {
-  if (!scrollScheduled) { scrollScheduled = true; requestAnimationFrame(updateNavigation); }
-}, { passive: true });
-window.addEventListener("hashchange", updateNavigation);
-window.addEventListener("resize", updateNavigation);
-updateNavigation();

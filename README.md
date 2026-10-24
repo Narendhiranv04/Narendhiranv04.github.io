@@ -1,44 +1,39 @@
 # Narendhiran's portfolio
 
-A responsive, buildless portfolio for robotics and embodied AI. The design takes inspiration from [Ruchira Ray's portfolio](https://ruchira.framer.ai/): a narrow page, compact monospace text, a large portrait, and research thumbnails beside the descriptions. This version uses its own robot mark, warmer colors, project layouts, and light and dark themes.
+A buildless academic portfolio, closely following the proportions and simple image-and-text layout of [Ruchira Ray's website](https://ruchira.framer.ai/). It uses a neutral background, black text, blue links, compact citations, and plain project rows. Light and dark modes are supported.
 
 ## Preview locally
-
-From this directory:
 
 ```sh
 python3 -m http.server 4173 --bind 127.0.0.1
 ```
 
-Open http://127.0.0.1:4173. No package installation or build is required. Serve the files over HTTP; the content uses JavaScript modules.
+Open http://127.0.0.1:4173. There is no package installation or build step. Use HTTP because the content is imported as a JavaScript module. GitHub Pages serves the repository root.
 
 ## Edit
 
-- `content.js` contains the biography, links, research, projects, competition details, and community activities.
-- `styles.css` contains responsive layouts and both theme palettes. The theme follows the system until the visitor chooses a preference, which is saved locally.
-- `script.js` renders the content and handles navigation, themes, and accessible detail dialogs.
-- `index.html` contains metadata, font preloads, initial theme selection, and the no-JavaScript fallback. Update its metadata when changing the biography.
-- `assets/images/` contains optimized WebP images derived from the original portfolio assets. Diagram previews preserve their complete aspect ratio and open at a larger size.
-- `assets/fonts/` contains locally served DM Mono and Space Grotesk, with their SIL Open Font Licenses. The site does not require a third-party font service.
+- `content.js`: biography, social links, all four publications, projects, competition details, and clubs.
+- `styles.css`: layouts, typography, and both theme palettes.
+- `script.js`: content rendering, theme preferences, and accessible image/project dialogs.
+- `index.html`: search/social metadata, initial theme selection, local font preloads, and contact/CV fallback when JavaScript is disabled.
+- `assets/publications/`: actual architecture figures from the papers, plus smaller previews. See [figure sources](assets/publications/SOURCES.md).
+- `assets/images/`: optimized portrait, competition, and community images.
+- `assets/fonts/`: locally hosted DM Mono and Hammersmith One, with their SIL Open Font Licenses. No external font service is required.
 
-All original source images and the CV remain in the repository. GitHub Pages can serve the root directory directly.
+Publication metadata was checked against current arXiv records on 24 October 2026. The owner confirmed that the four papers are the complete Scholar list. Each entry includes the current title, complete author list in source order, year, paper link, diagram, and verified code/project links where available. The papers are labeled as arXiv records; submission or acceptance claims are not inferred. Figures open at a larger size with a PDF link. To add or update a paper, edit `publications.items` and record the figure source alongside the assets.
+
+The theme follows the operating system until a visitor saves a preference. It also works when browser storage is blocked.
 
 ## Original template
 
-The original macOS-window template is preserved at commit `7380f7b` on:
+The original macOS-window template remains preserved at commit `7380f7b` on:
 
 ```text
 archive/original-macos-template-2026-10-23
 ```
 
-To view that version, first commit or stash any work, then switch branches:
-
-```sh
-git switch archive/original-macos-template-2026-10-23
-```
-
-Return to the new design with `git switch main`.
+Commit or stash local changes before switching to that branch. Return to the current site with `git switch main`. Original source images and the CV remain in the repository.
 
 ## Verification
 
-The redesign was checked in Chromium at widths from 320px to 1920px, in both themes. Checks cover local assets and fonts, theme persistence and system preference changes, blocked local storage, navigation, mobile layout, all research and competition dialogs, keyboard focus and Escape behavior, and the no-JavaScript contact/CV fallback. Automated axe checks cover WCAG A/AA and accessibility best practices.
+Browser checks cover viewport widths from 320px to 1920px, both themes, complete publication metadata and figure loading, enlarged diagrams, competition galleries, keyboard focus and Escape behavior, theme persistence, system theme changes, unavailable local storage, and the no-JavaScript fallback. Automated axe checks cover WCAG A/AA and accessibility best practices on desktop, and WCAG A/AA on mobile.

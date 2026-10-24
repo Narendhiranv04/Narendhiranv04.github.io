@@ -1,9 +1,9 @@
-// Portfolio content. Images are local, optimized WebP assets.
+// Portfolio content. Publication metadata and figures are verified against arXiv.
 export const siteContent = {
   "profile": {
     "name": "Narendhiran Vijayakumar",
     "greetingName": "Narendhiran",
-    "nickname": "You can call me Naren.",
+    "nickname": "(Naren)",
     "paragraphs": [
       "I'm a research assistant at IIIT Hyderabad, exploring robotic manipulation, embodied AI, and robot perception.",
       "I completed my bachelor's at NIT Trichy. I’m interested in how robots perceive the world, reason about it, and turn that understanding into useful action.",
@@ -53,53 +53,6 @@ export const siteContent = {
   "portraitCard": {
     "image": "./assets/images/portrait.webp",
     "alt": "Narendhiran Vijayakumar smiling outdoors."
-  },
-  "experiments": {
-    "label": "Selected research",
-    "items": [
-      {
-        "title": "RPX",
-        "description": "A unified real-world benchmark for evaluating robot perception under embodied deployment conditions.",
-        "href": "https://huggingface.co/IRVLUTD",
-        "image": "./assets/images/rpx.webp",
-        "imageAlt": "Overview diagram for the RPX benchmark.",
-        "category": "Robot perception",
-        "label": "Benchmark",
-        "subtitle": "Evaluating perception where robots actually operate.",
-        "tags": [
-          "Embodied perception",
-          "Real-world evaluation"
-        ]
-      },
-      {
-        "title": "segLLM-TAMP",
-        "description": "Failure recovery and generalization for long-horizon language-guided manipulation.",
-        "href": "https://github.com/Narendhiranv04/seg-LLM-TAMP",
-        "image": "./assets/images/seg-llm-tamp.webp",
-        "imageAlt": "System concept diagram for segLLM-TAMP.",
-        "category": "Robotic manipulation",
-        "label": "Research",
-        "subtitle": "Helping robots recover, reason, and keep going.",
-        "tags": [
-          "Task & motion planning",
-          "Foundation models"
-        ]
-      },
-      {
-        "title": "AURASeg",
-        "description": "Boundary-aware drivable-area segmentation for resource-constrained navigation.",
-        "href": "https://github.com/Narendhiranv04/AURASeg",
-        "image": "./assets/images/auraseg.webp",
-        "imageAlt": "Architecture diagram for AURASeg.",
-        "category": "Autonomous navigation",
-        "label": "Research",
-        "subtitle": "Sharper boundaries. More reliable navigation.",
-        "tags": [
-          "Drivable-area segmentation",
-          "Efficient perception"
-        ]
-      }
-    ]
   },
   "companyLogos": {
     "heading": "Collaborations with",
@@ -262,24 +215,27 @@ export const siteContent = {
     "label": "Personal Projects",
     "items": [
       {
+        "title": "RPX",
+        "description": "A unified real-world benchmark for evaluating robot perception under embodied deployment conditions.",
+        "href": "https://huggingface.co/IRVLUTD",
+        "category": "Robot perception"
+      },
+      {
         "title": "GeoClean-3D",
         "description": "A perception-to-planning framework for cleaning irregular 3D basin surfaces by reconstructing geometry, parameterizing and unwrapping the surface, and generating geometry-aware cleaning actions.",
         "href": "",
-        "theme": "rpx",
         "category": "Perception → planning"
       },
       {
         "title": "Moto-Memory-VLA",
         "description": "Latent-action retrieval, FAISS memory, and contrastive learning for better generalization in embodied control.",
         "href": "https://github.com/Narendhiranv04/Moto",
-        "theme": "memory",
         "category": "Robot learning"
       },
       {
         "title": "Fuzzy-GRU Exoskeleton",
         "description": "A lightweight encoder-decoder GRU with a Mamdani fuzzy inference system for real-time sit-to-walk torque estimation in robotic exoskeletons.",
         "href": "https://github.com/Narendhiranv04/gru_fis_framework",
-        "theme": "pixel",
         "category": "Assistive robotics"
       }
     ]
@@ -331,5 +287,111 @@ export const siteContent = {
       "title": "2nd in national qualifier",
       "event": "Smart India Hackathon · 2024"
     }
-  ]
+  ],
+  "publications": {
+    "label": "Publications",
+    "scholarUrl": "https://scholar.google.com/citations?user=ge9liYgAAAAJ&hl=en",
+    "items": [
+      {
+        "id": "grab-tamp",
+        "title": "Search, Ground, Plan: Functional Sufficiency for Task and Motion Planning under Incomplete Scene Knowledge",
+        "authors": [
+          "Narendhiran Vijayakumar",
+          "Nav Singhal",
+          "Girish Varma",
+          "Antony Thomas"
+        ],
+        "year": "2026",
+        "type": "arXiv",
+        "arxivId": "2609.23113",
+        "href": "https://arxiv.org/abs/2609.23113",
+        "pdfUrl": "https://arxiv.org/pdf/2609.23113",
+        "links": [
+          {
+            "label": "Code",
+            "href": "https://github.com/Narendhiranv04/GRAB-TAMP"
+          }
+        ],
+        "description": "GRAB-TAMP searches for task-relevant objects, verifies their functional roles, and grounds a complete assignment before planning under incomplete scene knowledge.",
+        "image": "./assets/publications/grab-tamp.webp",
+        "thumbnail": "./assets/publications/grab-tamp-thumb.webp",
+        "imageAlt": "GRAB-TAMP functional grounding and task-and-motion planning pipeline, Figure 2.",
+        "figureSource": "https://arxiv.org/pdf/2609.23113"
+      },
+      {
+        "id": "robust-tamp",
+        "title": "Deciding If, When, and Where to Replan for Robust Manipulation",
+        "authors": [
+          "Narendhiran Vijayakumar",
+          "Puru Ojha",
+          "Nav Singhal",
+          "Girish Varma",
+          "Antony Thomas"
+        ],
+        "year": "2026",
+        "type": "arXiv",
+        "arxivId": "2608.28075",
+        "href": "https://arxiv.org/abs/2608.28075",
+        "pdfUrl": "https://arxiv.org/pdf/2608.28075",
+        "links": [
+          {
+            "label": "Project",
+            "href": "https://narendhiranv04.github.io/ROBUST-TAMP/"
+          },
+          {
+            "label": "Code",
+            "href": "https://github.com/Narendhiranv04/ROBUST-TAMP"
+          }
+        ],
+        "description": "ROBUST-TAMP decides whether a newly discovered object needs a correction, continues independent actions during planning, and inserts corrective actions according to urgency.",
+        "image": "./assets/publications/robust-tamp.webp",
+        "thumbnail": "./assets/publications/robust-tamp-thumb.webp",
+        "imageAlt": "ROBUST-TAMP architecture showing the IF, WHEN, and WHERE replanning decisions, Figure 2.",
+        "figureSource": "https://arxiv.org/pdf/2608.28075"
+      },
+      {
+        "id": "auraseg",
+        "title": "AURASeg: Attention-Guided Upsampling with Residual-Assisted Boundary Refinement for Drivable-Area Segmentation",
+        "authors": [
+          "Narendhiran Vijayakumar"
+        ],
+        "year": "2025",
+        "type": "arXiv",
+        "arxivId": "2510.21536",
+        "href": "https://arxiv.org/abs/2510.21536",
+        "pdfUrl": "https://arxiv.org/pdf/2510.21536",
+        "links": [
+          {
+            "label": "Code",
+            "href": "https://github.com/Narendhiranv04/AURASeg"
+          }
+        ],
+        "description": "A ResNet-18 segmentation framework combining attention-guided upsampling and residual boundary refinement to identify drivable areas with more precise contours.",
+        "image": "./assets/publications/auraseg.webp",
+        "thumbnail": "./assets/publications/auraseg-thumb.webp",
+        "imageAlt": "AURASeg architecture with a ResNet-18 encoder, ASPPLite, APUD stages, and boundary refinement, Figure 2.",
+        "figureSource": "https://arxiv.org/html/2510.21536v6#S3.F2"
+      },
+      {
+        "id": "micro-uav",
+        "title": "Design and Structural Validation of a Micro-UAV with On-Board Dynamic Route Planning",
+        "authors": [
+          "Inbazhagan Ravikumar",
+          "Ram Sundhar",
+          "Narendhiran Vijayakumar"
+        ],
+        "year": "2025",
+        "type": "arXiv",
+        "arxivId": "2510.21648",
+        "href": "https://arxiv.org/abs/2510.21648",
+        "pdfUrl": "https://arxiv.org/pdf/2510.21648",
+        "links": [],
+        "description": "A custom search-and-rescue quadcopter combining structural validation, onboard perception, and dynamic route planning with low-cost hardware and open-source software.",
+        "image": "./assets/publications/micro-uav.webp",
+        "thumbnail": "./assets/publications/micro-uav-thumb.webp",
+        "imageAlt": "Onboard autonomous navigation pipeline connecting perception, communication, planning, and telemetry, Figure 2 on page 4.",
+        "figureSource": "https://arxiv.org/pdf/2510.21648"
+      }
+    ]
+  }
 };
