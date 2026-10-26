@@ -5,18 +5,17 @@ export const siteContent = {
     "greetingName": "Narendhiran",
     "nickname": "(Naren)",
     "paragraphs": [
-      "I'm a research assistant at IIIT Hyderabad, exploring robotic manipulation, embodied AI, and robot perception.",
-      "I completed my bachelor's at NIT Trichy. I’m interested in how robots perceive the world, reason about it, and turn that understanding into useful action.",
-      "Robots are still the coolest things to me. Building them keeps me curious, grounded, and learning."
+      "I'm a Research Assistant at IIIT Hyderabad, exploring robotic manipulation at the intersection of robot learning, task and motion planning, and embodied intelligence. My research revolves around a deceptively simple question: what happens when robots encounter the limits of their own intelligence? I'm particularly interested in reasoning about infeasibility and recovering from failures where even powerful embodied foundation models—VLAs, VLM-guided planners, and world models—struggle to translate intelligence into physical action.",
+      "There's never been a more exciting time to build robots. The gap between what they can reason and what they can actually do is what keeps me curious, grounded, and endlessly captivated by what comes next."
     ],
     "links": {
       "IIIT Hyderabad": "https://www.iiit.ac.in/",
       "NIT Trichy": "https://www.nitt.edu/"
     },
     "emphasis": [
-      "robotic manipulation, embodied AI, and robot perception."
+      "what happens when robots encounter the limits of their own intelligence?"
     ],
-    "caption": "Currently at IIIT Hyderabad"
+    "caption": "Bachelors Grad at NIT-Tiruchirappalli. Looking for PhD opportunities in Robot learning!"
   },
   "socialLinks": [
     {

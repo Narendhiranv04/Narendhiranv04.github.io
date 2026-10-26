@@ -27,7 +27,7 @@ function biography(text) {
     html = html.replace(escape(label), external(href, escape(label)));
   });
   content.profile.emphasis.forEach(label => {
-    html = html.replace(escape(label), `<strong>${escape(label)}</strong>`);
+    html = html.replace(escape(label), `<strong><em>${escape(label)}</em></strong>`);
   });
   return html;
 }
@@ -57,7 +57,7 @@ function communityRow(item) {
 }
 
 document.querySelector("#app").innerHTML = `
-  <div class="site-shell" id="top"><header class="site-header"><a href="#top" class="brand" aria-label="${escape(content.profile.name)}, back to top"><span class="avatar">nv.</span></a><div class="header-actions">${external(content.footerCta.href, "Drop an email!", "hello-link")}<button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">${icon("sun", "theme-sun")}${icon("moon", "theme-moon")}</button></div></header>
+  <div class="site-shell" id="top"><header class="site-header"><a href="#top" class="brand" aria-label="${escape(content.profile.name)}, back to top"><span class="avatar">nv</span></a><div class="header-actions">${external(content.footerCta.href, "Drop an email!", "hello-link")}<button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">${icon("sun", "theme-sun")}${icon("moon", "theme-moon")}</button></div></header>
     <main id="main" tabindex="-1"><section class="hero" aria-labelledby="intro-title"><div class="hero-copy"><h1 id="intro-title">Hi! I'm <span>${escape(content.profile.greetingName)}.</span> <small>${escape(content.profile.nickname)}</small></h1><div class="bio">${content.profile.paragraphs.map(p => `<p>${biography(p)}</p>`).join("")}</div><div class="social-links" aria-label="Find me online">${content.socialLinks.map(link => external(link.href, `${icon(link.icon === "email" ? "mail" : link.icon)}${escape(link.label)}`, "social-link")).join("")}</div></div>
       <figure class="portrait"><svg class="portrait-spark" viewBox="0 0 90 75" fill="none" aria-hidden="true"><path d="m10 35 14 6M25 13l9 18M49 5l-2 22M72 15 60 32M85 39l-18 5" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/></svg><div class="portrait-frame"><img src="${escape(content.portraitCard.image)}" alt="${escape(content.portraitCard.alt)}" width="900" height="900" fetchpriority="high" /></div><figcaption>${escape(content.profile.caption)}</figcaption></figure>
     </section>
